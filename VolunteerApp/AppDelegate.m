@@ -16,6 +16,7 @@
 
 #import "UIAlertView+Blocks.h"
 #import "NSString+WiFi.h"
+#import "GuildViewController.h"
 @interface AppDelegate ()<LoginViewDelegate>
 {
 
@@ -51,6 +52,27 @@
     self.window.backgroundColor = [UIColor blackColor];
     
 
+    BOOL hasLanuch = [[[NSUserDefaults standardUserDefaults] objectForKey:@"hasLanuch"]boolValue];
+    if (hasLanuch) {
+        [self showWithLoginView];
+    }else{
+        [self showGuildView];
+    }
+    
+   // [self autoLogin];
+    
+    return YES;
+}
+- (void)showGuildView
+{
+    GuildViewController *vc = [[GuildViewController alloc]init];
+    [self.window setRootViewController:vc];
+    [self.window makeKeyAndVisible];
+}
+- (void)showWithLoginView{
+
+    
+    
     self.loginVc = [[LoginViewController alloc]initWithNibName:NSStringFromClass([LoginViewController class]) bundle:nil];
     FlipBoardNavigationController *nav = [[FlipBoardNavigationController alloc]initWithRootViewController:self.loginVc];
     self.loginVc.delegate = self;
@@ -58,17 +80,6 @@
     
     [self.window makeKeyAndVisible];
     
-    [self justTest];
-   // [self autoLogin];
-    
-    return YES;
-}
-- (void)justTest{
-
-    
-    
-
-     
     
     
 

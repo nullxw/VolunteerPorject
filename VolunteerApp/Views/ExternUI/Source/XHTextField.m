@@ -220,6 +220,11 @@
     [usernameIconContainer addSubview:usernameIconImage];
     self.leftViewMode = UITextFieldViewModeAlways;
     self.leftView = usernameIconContainer;
+    
+    self.adjustsFontSizeToFitWidth = YES;
+    self.clearButtonMode = UITextFieldViewModeWhileEditing;
+    
+    
 }
 
 - (void)setFieldType:(XHFieldType)fieldType {

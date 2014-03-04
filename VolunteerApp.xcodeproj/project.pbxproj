@@ -110,7 +110,6 @@
 		7B3FBCD218BB74D60018DB8E /* login_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7B3FBCCA18BB74D60018DB8E /* login_bg.jpg */; };
 		7B3FBCD318BB74D60018DB8E /* login_hl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B3FBCCB18BB74D60018DB8E /* login_hl@2x.png */; };
 		7B3FBCD418BB74D60018DB8E /* login_inputbg.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B3FBCCC18BB74D60018DB8E /* login_inputbg.png */; };
-		7B3FBCD518BB74D60018DB8E /* login_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B3FBCCD18BB74D60018DB8E /* login_logo.png */; };
 		7B3FBCD618BB74D60018DB8E /* login_nl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B3FBCCE18BB74D60018DB8E /* login_nl@2x.png */; };
 		7B3FBCD718BB74D60018DB8E /* login_pwd.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B3FBCCF18BB74D60018DB8E /* login_pwd.png */; };
 		7B3FBCD818BB74D60018DB8E /* login_shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B3FBCD018BB74D60018DB8E /* login_shadow.png */; };
@@ -249,6 +248,15 @@
 		BF2E3C1218BF15DA00D78B42 /* prodetail_ver_line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF2E3C0F18BF15DA00D78B42 /* prodetail_ver_line@2x.png */; };
 		BF2E3C1418BF303600D78B42 /* mypro_tabbarbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF2E3C1318BF303600D78B42 /* mypro_tabbarbg@2x.png */; };
 		BF32EF7018B8718E00F09D1D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF32EF6F18B8718E00F09D1D /* MapKit.framework */; };
+		BF9265AE18C5FF190015BC5C /* GuildViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9265AD18C5FF190015BC5C /* GuildViewController.m */; };
+		BF9265B618C5FF4E0015BC5C /* AMBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9265B118C5FF4E0015BC5C /* AMBlurView.m */; };
+		BF9265B718C5FF4E0015BC5C /* MYBlurIntroductionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9265B318C5FF4E0015BC5C /* MYBlurIntroductionView.m */; };
+		BF9265B818C5FF4E0015BC5C /* MYIntroductionPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = BF9265B518C5FF4E0015BC5C /* MYIntroductionPanel.m */; };
+		BF9265BD18C601840015BC5C /* guild1.png in Resources */ = {isa = PBXBuildFile; fileRef = BF9265B918C601840015BC5C /* guild1.png */; };
+		BF9265BE18C601840015BC5C /* guild2.png in Resources */ = {isa = PBXBuildFile; fileRef = BF9265BA18C601840015BC5C /* guild2.png */; };
+		BF9265BF18C601840015BC5C /* guild3.png in Resources */ = {isa = PBXBuildFile; fileRef = BF9265BB18C601840015BC5C /* guild3.png */; };
+		BF9265C018C601840015BC5C /* guild4.png in Resources */ = {isa = PBXBuildFile; fileRef = BF9265BC18C601840015BC5C /* guild4.png */; };
+		BF9265C218C601DF0015BC5C /* Toronto, ON.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BF9265C118C601DF0015BC5C /* Toronto, ON.jpg */; };
 		BFCEA89118C04A9A00CE7ADC /* prodetail_topimage.png in Resources */ = {isa = PBXBuildFile; fileRef = BFCEA89018C04A9A00CE7ADC /* prodetail_topimage.png */; };
 		BFCEA89518C062A700CE7ADC /* DistrictModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BFCEA89418C062A700CE7ADC /* DistrictModel.m */; };
 		BFE8114218C0BA1500EB3E14 /* ClassPlanInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = BFE8114118C0BA1500EB3E14 /* ClassPlanInfo.m */; };
@@ -467,7 +475,6 @@
 		7B3FBCCA18BB74D60018DB8E /* login_bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = login_bg.jpg; sourceTree = "<group>"; };
 		7B3FBCCB18BB74D60018DB8E /* login_hl@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_hl@2x.png"; sourceTree = "<group>"; };
 		7B3FBCCC18BB74D60018DB8E /* login_inputbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_inputbg.png; sourceTree = "<group>"; };
-		7B3FBCCD18BB74D60018DB8E /* login_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_logo.png; sourceTree = "<group>"; };
 		7B3FBCCE18BB74D60018DB8E /* login_nl@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_nl@2x.png"; sourceTree = "<group>"; };
 		7B3FBCCF18BB74D60018DB8E /* login_pwd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_pwd.png; sourceTree = "<group>"; };
 		7B3FBCD018BB74D60018DB8E /* login_shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_shadow.png; sourceTree = "<group>"; };
@@ -666,6 +673,19 @@
 		BF2E3C0F18BF15DA00D78B42 /* prodetail_ver_line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "prodetail_ver_line@2x.png"; sourceTree = "<group>"; };
 		BF2E3C1318BF303600D78B42 /* mypro_tabbarbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mypro_tabbarbg@2x.png"; sourceTree = "<group>"; };
 		BF32EF6F18B8718E00F09D1D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		BF9265AC18C5FF190015BC5C /* GuildViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuildViewController.h; sourceTree = "<group>"; };
+		BF9265AD18C5FF190015BC5C /* GuildViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuildViewController.m; sourceTree = "<group>"; };
+		BF9265B018C5FF4E0015BC5C /* AMBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBlurView.h; sourceTree = "<group>"; };
+		BF9265B118C5FF4E0015BC5C /* AMBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBlurView.m; sourceTree = "<group>"; };
+		BF9265B218C5FF4E0015BC5C /* MYBlurIntroductionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYBlurIntroductionView.h; sourceTree = "<group>"; };
+		BF9265B318C5FF4E0015BC5C /* MYBlurIntroductionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYBlurIntroductionView.m; sourceTree = "<group>"; };
+		BF9265B418C5FF4E0015BC5C /* MYIntroductionPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYIntroductionPanel.h; sourceTree = "<group>"; };
+		BF9265B518C5FF4E0015BC5C /* MYIntroductionPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYIntroductionPanel.m; sourceTree = "<group>"; };
+		BF9265B918C601840015BC5C /* guild1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guild1.png; sourceTree = "<group>"; };
+		BF9265BA18C601840015BC5C /* guild2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guild2.png; sourceTree = "<group>"; };
+		BF9265BB18C601840015BC5C /* guild3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guild3.png; sourceTree = "<group>"; };
+		BF9265BC18C601840015BC5C /* guild4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guild4.png; sourceTree = "<group>"; };
+		BF9265C118C601DF0015BC5C /* Toronto, ON.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Toronto, ON.jpg"; sourceTree = "<group>"; };
 		BFB0A0FA18B72A4F0087CF0A /* UrlDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UrlDefine.h; sourceTree = "<group>"; };
 		BFCEA89018C04A9A00CE7ADC /* prodetail_topimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = prodetail_topimage.png; sourceTree = "<group>"; };
 		BFCEA89318C062A700CE7ADC /* DistrictModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistrictModel.h; sourceTree = "<group>"; };
@@ -934,6 +954,8 @@
 				7B29EB3118B65C0A0038C278 /* HomePageVC.xib */,
 				7B29EB3418B662680038C278 /* BaseViewController.h */,
 				7B29EB3518B662680038C278 /* BaseViewController.m */,
+				BF9265AC18C5FF190015BC5C /* GuildViewController.h */,
+				BF9265AD18C5FF190015BC5C /* GuildViewController.m */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1032,6 +1054,7 @@
 		7B29EA6A18B635730038C278 /* ExternUI */ = {
 			isa = PBXGroup;
 			children = (
+				BF9265AF18C5FF4E0015BC5C /* MYBlurIntroductionView */,
 				7B85106718B7926F00D20F90 /* QCheckbox */,
 				7B85105B18B78EAF00D20F90 /* Source */,
 				7B85105818B78E4000D20F90 /* CustomUITextField.h */,
@@ -1246,6 +1269,11 @@
 		7B96410718BA6A710089674F /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				BF9265B918C601840015BC5C /* guild1.png */,
+				BF9265BA18C601840015BC5C /* guild2.png */,
+				BF9265BB18C601840015BC5C /* guild3.png */,
+				BF9265BC18C601840015BC5C /* guild4.png */,
+				BF9265C118C601DF0015BC5C /* Toronto, ON.jpg */,
 				BFE8117C18C0D59500EB3E14 /* more_switch_hl.png */,
 				BFE8117D18C0D59500EB3E14 /* more_switch_nl.png */,
 				BFCEA89018C04A9A00CE7ADC /* prodetail_topimage.png */,
@@ -1322,7 +1350,6 @@
 				7B3FBCCA18BB74D60018DB8E /* login_bg.jpg */,
 				7B3FBCCB18BB74D60018DB8E /* login_hl@2x.png */,
 				7B3FBCCC18BB74D60018DB8E /* login_inputbg.png */,
-				7B3FBCCD18BB74D60018DB8E /* login_logo.png */,
 				7B3FBCCE18BB74D60018DB8E /* login_nl@2x.png */,
 				7B3FBCCF18BB74D60018DB8E /* login_pwd.png */,
 				7B3FBCD018BB74D60018DB8E /* login_shadow.png */,
@@ -1485,6 +1512,19 @@
 			path = Validators;
 			sourceTree = "<group>";
 		};
+		BF9265AF18C5FF4E0015BC5C /* MYBlurIntroductionView */ = {
+			isa = PBXGroup;
+			children = (
+				BF9265B018C5FF4E0015BC5C /* AMBlurView.h */,
+				BF9265B118C5FF4E0015BC5C /* AMBlurView.m */,
+				BF9265B218C5FF4E0015BC5C /* MYBlurIntroductionView.h */,
+				BF9265B318C5FF4E0015BC5C /* MYBlurIntroductionView.m */,
+				BF9265B418C5FF4E0015BC5C /* MYIntroductionPanel.h */,
+				BF9265B518C5FF4E0015BC5C /* MYIntroductionPanel.m */,
+			);
+			path = MYBlurIntroductionView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1532,6 +1572,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = XiaoWoNiu2014;
 				TargetAttributes = {
+					7B29E9F618B62A230038C278 = {
+						DevelopmentTeam = 57D9A6W49D;
+					};
 					7B29EA1118B62A230038C278 = {
 						TestTargetID = 7B29E9F618B62A230038C278;
 					};
@@ -1567,14 +1610,17 @@
 				7B96411F18BA6B920089674F /* home_mypro.png in Resources */,
 				BFE8116B18C0BE4800EB3E14 /* ico_nosel.png in Resources */,
 				7B9640EE18B9176E0089674F /* CheckClassViewController.xib in Resources */,
+				BF9265BD18C601840015BC5C /* guild1.png in Resources */,
 				BFE8116418C0BE4800EB3E14 /* ico_collect.png in Resources */,
 				7B3FBCEB18BB7DD20018DB8E /* nav_collect.png in Resources */,
 				7B3FBCF118BB7DD20018DB8E /* nav_search.png in Resources */,
 				7BBB7B6C18BE3C8700739A3E /* promg_delbtn_nl.png in Resources */,
+				BF9265C218C601DF0015BC5C /* Toronto, ON.jpg in Resources */,
 				BFE8116518C0BE4800EB3E14 /* ico_complete.png in Resources */,
 				7B29EA8518B635730038C278 /* blueArrow@2x.png in Resources */,
 				BFE8116818C0BE4800EB3E14 /* ico_members.png in Resources */,
 				BFE8117B18C0BE4800EB3E14 /* win_close.png in Resources */,
+				BF9265C018C601840015BC5C /* guild4.png in Resources */,
 				7BF6027018BDA959007DBAC3 /* mypro_cellbg@2x.png in Resources */,
 				7B96411818BA6B920089674F /* home_avator.png in Resources */,
 				7B96411B18BA6B920089674F /* home_more_nl@2x.png in Resources */,
@@ -1632,6 +1678,7 @@
 				BFE8117F18C0D59500EB3E14 /* more_switch_nl.png in Resources */,
 				7BF6026918BD2324007DBAC3 /* MyWaitCell.xib in Resources */,
 				7BBB7B6B18BE3C8700739A3E /* promg_delbtn_hl.png in Resources */,
+				BF9265BE18C601840015BC5C /* guild2.png in Resources */,
 				7B29EA8718B635730038C278 /* grayArrow@2x.png in Resources */,
 				7BBB7B6218BE3C8700739A3E /* promg_addbtn_nl.png in Resources */,
 				7B8615E118C252570003BF15 /* MyAttenCell.xib in Resources */,
@@ -1663,6 +1710,7 @@
 				7B29EB5118B667820038C278 /* MoreViewController.xib in Resources */,
 				BF2E3C1418BF303600D78B42 /* mypro_tabbarbg@2x.png in Resources */,
 				7B1830C618BF7A2E00AB2EC3 /* female@2x.png in Resources */,
+				BF9265BF18C601840015BC5C /* guild3.png in Resources */,
 				7BBB7B7218BE3C8700739A3E /* promg_plan_nl.png in Resources */,
 				7B29EA8618B635730038C278 /* grayArrow.png in Resources */,
 				7B96412B18BA7CB40089674F /* check.png in Resources */,
@@ -1683,7 +1731,6 @@
 				7B3FBCEC18BB7DD20018DB8E /* nav_commit.png in Resources */,
 				7B3FBCDB18BB77CB0018DB8E /* login_winbg.png in Resources */,
 				7B3FBCF018BB7DD20018DB8E /* nav_fliter.png in Resources */,
-				7B3FBCD518BB74D60018DB8E /* login_logo.png in Resources */,
 				7B3FBCD618BB74D60018DB8E /* login_nl@2x.png in Resources */,
 				7B1830C118BF7A0000AB2EC3 /* user.png in Resources */,
 				BF2E3C1018BF15DA00D78B42 /* prodetail_abg@2x.png in Resources */,
@@ -1770,6 +1817,7 @@
 				7BD02AFC18BCBF7E00E067A0 /* REPlaceholderTextView.m in Sources */,
 				7B29EA0B18B62A230038C278 /* AppDelegate.m in Sources */,
 				7B85106318B78EAF00D20F90 /* UIView+XHFindViewController.m in Sources */,
+				BF9265B618C5FF4E0015BC5C /* AMBlurView.m in Sources */,
 				7B29EADF18B636F00038C278 /* SDWebImageCompat.m in Sources */,
 				7B3FBCF818BBABAB0018DB8E /* RegisterViewController.m in Sources */,
 				7B29EB3218B65C0A0038C278 /* HomePageVC.m in Sources */,
@@ -1786,6 +1834,7 @@
 				7BBB7B4118BE152700739A3E /* UIScrollView+SVPullToRefresh.m in Sources */,
 				7B8615DB18C2514E0003BF15 /* MyAttendViewController.m in Sources */,
 				7BD02AF918BCBF7E00E067A0 /* RERadioItem.m in Sources */,
+				BF9265B818C5FF4E0015BC5C /* MYIntroductionPanel.m in Sources */,
 				7B29EADE18B636F00038C278 /* SDImageCache.m in Sources */,
 				7BD02AF018BCBF7E00E067A0 /* RETableViewOptionCell.m in Sources */,
 				7BD02AEC18BCBF7E00E067A0 /* RETableViewDateTimeCell.m in Sources */,
@@ -1808,11 +1857,13 @@
 				7B16C91218C30CBE0076250B /* MyWeiBoCell.m in Sources */,
 				7B29EA0718B62A230038C278 /* main.m in Sources */,
 				7BD02AF818BCBF7E00E067A0 /* RENumberItem.m in Sources */,
+				BF9265B718C5FF4E0015BC5C /* MYBlurIntroductionView.m in Sources */,
 				7BD02AEA18BCBF7E00E067A0 /* RETableViewBoolCell.m in Sources */,
 				7B8615D718C246B60003BF15 /* WeiboInfo.m in Sources */,
 				7BD02B1618BCC2A300E067A0 /* NSError+REValidation.m in Sources */,
 				7B2121A218C22556003955EE /* MyInfoViewController.m in Sources */,
 				7B29EAA418B636690038C278 /* CommonAnimation.m in Sources */,
+				BF9265AE18C5FF190015BC5C /* GuildViewController.m in Sources */,
 				7BD02AFA18BCBF7E00E067A0 /* RETextItem.m in Sources */,
 				7B13F4D318C4D404006D58E0 /* SearchResult.m in Sources */,
 				7BD02B1718BCC2A300E067A0 /* REValidation.m in Sources */,
@@ -1959,7 +2010,7 @@
 				INFOPLIST_FILE = "VolunteerApp/VolunteerApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "508E6C3E-5337-4FDD-8C95-8442F88E1BC9";
+				PROVISIONING_PROFILE = "8FE1E5CA-A50D-4F54-9A39-17A058EBFF90";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1975,7 +2026,7 @@
 				INFOPLIST_FILE = "VolunteerApp/VolunteerApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "508E6C3E-5337-4FDD-8C95-8442F88E1BC9";
+				PROVISIONING_PROFILE = "8FE1E5CA-A50D-4F54-9A39-17A058EBFF90";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

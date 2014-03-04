@@ -64,9 +64,6 @@
     self.navView.backgroundColor = [UIColor colorWithHexString:@"#e1655b"];
     [self.view addSubview:self.navView];
     
-    //        UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.navView.bounds];
-    //        imageView.backgroundColor =[UIColor colorWithPatternImage:[UIImage imageNamed:@"check"]];
-    //        [self.navView addSubview:imageView];
     
     
     UIButton *backBtn  = [UIButton buttonWithType:UIButtonTypeCustom];

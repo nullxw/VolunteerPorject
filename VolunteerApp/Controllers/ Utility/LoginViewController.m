@@ -82,6 +82,14 @@
     _check2.checked = user.shouldAutoLogin;
     
     
+    self.mUserNameTextFiled.rightViewMode = UITextFieldViewModeNever;
+
+    self.mUserNameTextFiled.rightView = nil;
+    
+    self.mPasswordTextFiled.rightView = nil;
+    self.mPasswordTextFiled.rightViewMode = UITextFieldViewModeNever;
+
+    
     
     [self.mUserNameTextFiled setFieldType:kXHUserNameField];
     [self.mPasswordTextFiled setFieldType:kXHPasswordField];
