@@ -264,6 +264,7 @@ typedef void (^objectBlock)(id obj);
 //22 获取任务(个人)
 
 - (ZZLRequestOperation *)requestGetMissionlistWithUid:(NSString *)uid
+                                            selection:(int)sel
                                          missionState:(int)mState
                                              pageSize:(int)psize
                                             pageIndex:(int)page

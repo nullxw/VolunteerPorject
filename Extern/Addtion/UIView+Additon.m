@@ -438,7 +438,7 @@ static char kActionHandlerTapGestureKey;
         [loadingView addSubview:aivWaiting];
         
         
-        UILabel *textLabel=[[UILabel alloc] initWithFrame:CGRectMake(aivWaiting.frame.origin.x+aivWaiting.frame.size.width+5, aivWaiting.frame.origin.y, 90, 20)];
+        UILabel *textLabel=[[UILabel alloc] initWithFrame:CGRectMake(aivWaiting.frame.origin.x+aivWaiting.frame.size.width+5, aivWaiting.frame.origin.y, 200, 20)];
         textLabel.textColor=[UIColor colorWithRed:85/255.0 green:85/255.0 blue:85/255.0 alpha:1.0];
         [textLabel setFont:[UIFont systemFontOfSize:13.0f]];
         textLabel.backgroundColor=[UIColor clearColor];

@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ZZLRequestOperation.h"
 #import "SVPullToRefresh.h"
 @interface MyTableView : UITableView
 
 @property (nonatomic) int pageSize;
 @property (nonatomic) int pageIndex;
 @property (nonatomic,strong) NSMutableArray *list;
+@property (nonatomic,strong) ZZLRequestOperation *op;
+- (void)insertRowAtTopWithCount:(int)count;
+- (void)insertRowAtBottomWithCount:(int)count;
 @end

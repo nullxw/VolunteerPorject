@@ -34,7 +34,7 @@ static UIFont  *font = nil;
 {
     [super awakeFromNib];
     self.backgroundColor = [UIColor clearColor];
-    self.mBottomView.backgroundColor = [UIColor colorWithHexString:@"#95c32c"];
+//    self.mBottomView.backgroundColor = [UIColor colorWithHexString:@"#95c32c"];
     self.mbgView.image = bgimage;
     self.mSepLineView.backgroundColor = sepcolor;
     
@@ -68,7 +68,9 @@ static UIFont  *font = nil;
     }
     
     
-    
+    [self.mCollectBtn setTitle:@"收藏" forState:UIControlStateNormal];
+    [self.mCollectBtn setTitle:@"已收藏" forState:UIControlStateSelected];
+    self.mCollectBtn.selected = NO;
     [self.mCommentBtn setTitle:[NSString stringWithFormat:@"评论(%d)",info.countReply] forState:UIControlStateNormal];
 
     
@@ -80,8 +82,14 @@ static UIFont  *font = nil;
 
 
 - (IBAction)actionCollect:(UIButton *)sender {
+    if (_delegate && [_delegate respondsToSelector:@selector(WeiboCell:actionCollectAtIndexPath:)]) {
+        [_delegate WeiboCell:self actionCollectAtIndexPath:self.cellInPath];
+    }
 }
 
 - (IBAction)actionComment:(UIButton *)sender {
+    if (_delegate && [_delegate respondsToSelector:@selector(WeiboCell:actionCommentAtIndexPath:)]) {
+        [_delegate WeiboCell:self actionCommentAtIndexPath:self.cellInPath];
+    }
 }
 @end

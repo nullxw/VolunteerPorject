@@ -7,7 +7,7 @@
 //
 
 #import "SendWeiboViewController.h"
-
+#import "PersonalViewController.h"
 @interface SendWeiboViewController ()<UITextViewDelegate,UIImagePickerControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *mTopView;
@@ -42,6 +42,13 @@
     UIImage *bgImage = [[UIImage imageNamed:@"home_bg"]
                         stretchableImageWithLeftCapWidth:10 topCapHeight:10];
     self.mBgView.image = bgImage;
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(265, self.navView.bottom - 44, 46, 46);
+    [btn setImage:[UIImage imageNamed:@"nav_complete.png"] forState:UIControlStateNormal];
+    
+    [btn addTarget:self action:@selector(actionSend:) forControlEvents:UIControlEventTouchUpInside];
+    [self.navView addSubview:btn];
     
     
 }
@@ -202,5 +209,24 @@
     }];
 }
 */
+
+- (void)actionSend:(UIButton *)btn
+{
+    UserInfo *user = [UserInfo share];
+    [self.mTextView resignFirstResponder];
+    [self.view showLoadingViewWithString:@"正在发布..."];
+    [[ZZLHttpRequstEngine engine]requestSendNewWeiboWithUid:user.userId content:self.mTextView.text weiboimage:@"" synchSinaWeibo:NO onSuccess:^(id responseObject) {
+        NSString *msg = responseObject;
+        NSLog(@"\n=================\n send weibo !!!!%@",responseObject);
+        [self.view hideLoadingView];
+        [self.view showHudMessage:msg];
+        [self.flipboardNavigationController popViewControllerWithCompletion:^{
+
+        }];
+    } onFail:^(NSError *erro) {
+        [self.view hideLoadingView];
+        [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
+    }];
+}
 
 @end

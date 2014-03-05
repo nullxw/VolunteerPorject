@@ -161,13 +161,11 @@
 - (IBAction)switchAccountAction:(UIButton *)sender {
     
     AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    if (!delegate.loginVc) {
-        delegate.loginVc = [[LoginViewController alloc]initWithNibName:NSStringFromClass([LoginViewController class]) bundle:nil];
-    }
     
-    FlipBoardNavigationController *nav = [[FlipBoardNavigationController alloc]initWithRootViewController:delegate.loginVc];
-    delegate.loginVc.delegate = self;
-    [delegate.window setRootViewController:nav];
+    for (BaseViewController *vc in self.flipboardNavigationController.viewControllers) {
+        [self.flipboardNavigationController popViewController];
+    }
+    [delegate showWithLoginView];
     
     
 }
@@ -175,13 +173,13 @@
 - (IBAction)quitLoginAction:(UIButton *)sender {
     
     AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    if (!delegate.loginVc) {
-        delegate.loginVc = [[LoginViewController alloc]initWithNibName:NSStringFromClass([LoginViewController class]) bundle:nil];
+
+    for (BaseViewController *vc in self.flipboardNavigationController.viewControllers) {
+        [self.flipboardNavigationController popViewController];
     }
+    [delegate showWithLoginView];
+
     
-    FlipBoardNavigationController *nav = [[FlipBoardNavigationController alloc]initWithRootViewController:delegate.loginVc];
-    delegate.loginVc.delegate = self;
-    [delegate.window setRootViewController:nav];
 }
 
 @end

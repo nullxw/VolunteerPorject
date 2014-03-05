@@ -32,6 +32,8 @@
     NSMutableArray  *secondList;
     NSMutableArray  *thridList;
     
+   
+    
     
 
 
@@ -359,18 +361,26 @@
         UserInfo *user = [UserInfo share];
         
         int state = 0;
+        int sel = 0;
+        NSString *str =@"";
         if (curpage == 0) {
             state = 50;
+            sel = 1;
+            str = @"无参与中的项目";
         }else if(curpage == 1)
         {
-            state = 20;
+            sel = 4;
+            state = 35;
+            str = @"无待审批的项目";
         }else{
+            sel = 1;
             state = 100;
+            str = @"暂无完成的项目";
         }
         
         NSLog(@"%d",curTableView.pageSize);
         
-        [[ZZLHttpRequstEngine engine] requestGetMissionlistWithUid:user.userId missionState:state pageSize:curTableView.pageSize pageIndex:1 onSuccess:^(id responseDict) {
+        [[ZZLHttpRequstEngine engine] requestGetMissionlistWithUid:user.userId  selection:sel missionState:state  pageSize:curTableView.pageSize pageIndex:1 onSuccess:^(id responseDict) {
             [curTableView.pullToRefreshView stopAnimating];
             NSLog(@"___YYY__%@",responseDict);
             if ([responseDict isKindOfClass:[NSArray class]]) {
@@ -382,7 +392,7 @@
                     if (itemCount == 0 ) {
                         if ([curList count]==0) {
                             [curTableView reloadData];
-                            [curTableView addCenterMsgView:@"数据空空～"];
+                            [curTableView addCenterMsgView:str];
                         }else{
                             [curTableView.pullToRefreshView stopAnimating];
                         }
@@ -424,16 +434,20 @@
     UserInfo *user = [UserInfo share];
     
     int state = 0;
+    int sel = 0;
     if (curpage == 0) {
-        state = 50;
+        state = 35;
+        sel = 1;
     }else if(curpage == 1)
     {
-        state = 20;
+        sel = 4;
+        state = 50;
     }else{
+        sel = 1;
         state = 100;
     }
     
-    [[ZZLHttpRequstEngine engine] requestGetMissionlistWithUid:user.userId missionState:state pageSize:curTableView.pageSize pageIndex:curTableView.pageIndex+1 onSuccess:^(id responseDict) {
+    [[ZZLHttpRequstEngine engine] requestGetMissionlistWithUid:user.userId selection:sel missionState:state pageSize:curTableView.pageSize pageIndex:curTableView.pageIndex+1 onSuccess:^(id responseDict) {
         
         [curTableView.infiniteScrollingView stopAnimating];
         NSLog(@"___YYY__%@",responseDict);

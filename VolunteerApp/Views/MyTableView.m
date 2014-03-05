@@ -171,6 +171,26 @@
 }
  */
 
+- (void)insertRowAtTopWithCount:(int)count
+{
+    
+    [self beginUpdates];
+    for (int i=0; i<count; i++) {
+        [self insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+    [self endUpdates];
+    
+}
+- (void)insertRowAtBottomWithCount:(int)count
+{
+    
+    [self beginUpdates];
+    for (int i=0; i< count; i++) {
+        [self insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[self.list count]-1-(count - i) inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+    [self endUpdates];
+}
+
 #pragma mark -
 #pragma mark - tableviewDelegate,tableviewDataSource
 

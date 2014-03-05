@@ -405,6 +405,15 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
                             successBlock(obj);
                         }
 
+                    }
+                    else if ([[responseDict allKeys] containsObject:@"msg"])
+                    {
+                        id obj= [responseDict objectForKey:@"msg"];
+                        if (successBlock)
+                        {
+                            successBlock(obj);
+                        }
+                        
                     }else
                     {
                         
@@ -781,13 +790,15 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
 //22 获取任务(个人)
 
 - (ZZLRequestOperation *)requestGetMissionlistWithUid:(NSString *)uid
+                                            selection:(int)sel
                                          missionState:(int)mState
                                              pageSize:(int)psize
                                             pageIndex:(int)page
                                             onSuccess:(dictionaryBlock)successBlock
-                                               onFail:(erroBlock)errorBlock
+                                               onFail:(erroBlock)errorBlock;
 {
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:[NSNumber numberWithInt:sel] forKey:@"selection"];
     [dic setObject:uid forKey:@"currentUserId"];
     [dic setObject:[NSNumber numberWithInt:mState] forKey:@"missionState"];
     [dic setObject:[NSNumber numberWithInt:psize] forKey:@"pageSize"];

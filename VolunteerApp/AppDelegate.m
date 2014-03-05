@@ -72,8 +72,13 @@
 - (void)showWithLoginView{
 
     
+    if(!self.loginVc)
+    {
+            self.loginVc = [[LoginViewController alloc]initWithNibName:NSStringFromClass([LoginViewController class]) bundle:nil];
+
+    }
     
-    self.loginVc = [[LoginViewController alloc]initWithNibName:NSStringFromClass([LoginViewController class]) bundle:nil];
+
     FlipBoardNavigationController *nav = [[FlipBoardNavigationController alloc]initWithRootViewController:self.loginVc];
     self.loginVc.delegate = self;
     [self.window setRootViewController:nav];

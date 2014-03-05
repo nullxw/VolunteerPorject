@@ -31,7 +31,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *projectRankBtn;
 
-@property (weak,nonatomic) NSMutableArray *curList;
+
 
 - (IBAction)actionFirst:(UIButton *)sender;
 
@@ -50,6 +50,7 @@
     }
     return self;
 }
+
 
 - (void)viewDidLoad
 {
@@ -70,6 +71,8 @@
     [btn addTarget:self action:@selector(actionSend:) forControlEvents:UIControlEventTouchUpInside];
     [self.navView addSubview:btn];
     
+    firstList = [[NSMutableArray alloc]init];
+    secondList = [[NSMutableArray alloc]init];
     //scrollview
     myScrollView  = [[UIScrollView alloc]initWithFrame:CGRectMake(0,self.mTopBgView.bottom,self.view.width,self.view.height-self.mTopBgView.bottom)];
 
@@ -93,7 +96,7 @@
     firstTable.dataSource                     = self;
     firstTable.delegate                       = self;
     firstTable.separatorStyle                 = UITableViewCellSeparatorStyleNone;
-    
+    firstTable.list = firstList;
     
     //
     secondTable                                = [[MyTableView alloc]
@@ -106,16 +109,16 @@
     secondTable.dataSource                     = self;
     secondTable.delegate                       = self;
     secondTable.separatorStyle                 = UITableViewCellSeparatorStyleNone;
-    
+    secondTable.list = secondList;
     [self.view insertSubview:myScrollView belowSubview:self.mTopBgView];
     [myScrollView addSubview:firstTable];
     [myScrollView addSubview:secondTable];
     
     myScrollView.contentSize = CGSizeMake(320*2, 0);
 
+    curTable = firstTable;
     
-    firstList = [[NSMutableArray alloc]init];
-    secondList = [[NSMutableArray alloc]init];
+
     
     
 
@@ -138,10 +141,10 @@
     }];
     secondTable.infiniteScrollingView.enabled = NO;
     
-    self.curList = firstList;
+
     
     curPage = 0;
-    curTable = firstTable;
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -168,7 +171,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if ([self.curList count]==0) {
+    if ([curTable.list count]==0) {
         [curTable triggerPullToRefresh];
     }
 }
@@ -195,42 +198,155 @@
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         
         UserInfo *user = [UserInfo share];
-        
-        
-        NSLog(@"%d",curTable.pageSize);
+
+        if (curPage == 0) {
+            [[ZZLHttpRequstEngine engine]requestGetFriendWeiboWithUid:user.userId curid:@"bba9a7e23897b4cc0138a21fdbd9034b" pageSize:curTable.pageSize pageIndex:1 createTime:@"" onSuccess:^(id responseObject) {
+                [firstTable.pullToRefreshView stopAnimating];
+                NSLog(@"___YYY__%@",responseObject);
+                if ([responseObject isKindOfClass:[NSArray class]]) {
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        
+                        int itemCount = [responseObject count];
+                        if (itemCount == 0 ) {
+                            if ([firstTable.list count]==0) {
+                                [firstTable reloadData];
+                                [firstTable addCenterMsgView:@"无最新动态"];
+                            }else{
+                                [firstTable.pullToRefreshView stopAnimating];
+                            }
+                            
+                            return ;
+                            
+                        }else{
+                            [firstTable removeCenterMsgView];
+                            if ([firstTable.list count] > 0) {
+                                [firstTable.list removeAllObjects];
+                                [firstTable reloadData];
+                                firstTable.pageIndex = 1;
+                                
+                            }
+                            
+                            for (int i=0; i<[responseObject count]; i++) {
+                                NSMutableDictionary *dic = responseObject[i];
+                                WeiboInfo *info = [WeiboInfo JsonModalWithDictionary:dic];
+                                [firstTable.list addObject:info];
+                            }
+                            
+                            [firstTable insertRowAtTopWithCount:[responseObject count]];
+                            
+                            if (itemCount%firstTable.pageSize == 0) {
+                                firstTable.infiniteScrollingView.enabled = YES;
+                            }
+                            
+                        }
+                        
+                    }) ;
+                }
+                
+            } onFail:^(NSError *erro) {
+                NSLog(@"___xxx___%@",[erro.userInfo objectForKey:@"description"]);
+                
+                
+                [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
+                [firstTable.pullToRefreshView stopAnimating];
+                
+            }];
+        }else{
+            [[ZZLHttpRequstEngine engine]requestGetWeiboWithUid:user.userId curid:user.userId pageSize:curTable.pageSize pageIndex:1 createTime:@"" onSuccess:^(id responseObject) {
+                [secondTable.pullToRefreshView stopAnimating];
+                NSLog(@"___YYY__%@",responseObject);
+                if ([responseObject isKindOfClass:[NSArray class]]) {
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        
+                        int itemCount = [responseObject count];
+                        if (itemCount == 0 ) {
+                            if ([secondTable.list count]==0) {
+                                [secondTable reloadData];
+                                [secondTable addCenterMsgView:@"暂无动态哦，赶紧去发布一条吧"];
+                            }else{
+                                [secondTable.pullToRefreshView stopAnimating];
+                            }
+                            
+                            return ;
+                            
+                        }else{
+                            [secondTable removeCenterMsgView];
+                            if ([secondTable.list count] > 0) {
+                                [secondTable.list removeAllObjects];
+                                [secondTable reloadData];
+                                secondTable.pageIndex = 1;
+                                
+                            }
+                            
+                            for (int i=0; i<[responseObject count]; i++) {
+                                NSMutableDictionary *dic = responseObject[i];
+                                WeiboInfo *info = [WeiboInfo JsonModalWithDictionary:dic];
+                                [secondTable.list addObject:info];
+                            }
+                            
+                            [secondTable insertRowAtTopWithCount:[responseObject count]];
+                            
+                            if (itemCount%secondTable.pageSize == 0) {
+                                secondTable.infiniteScrollingView.enabled = YES;
+                            }
+                            
+                        }
+                        
+                    }) ;
+                }
+                
+            } onFail:^(NSError *erro) {
+                NSLog(@"___xxx___%@",[erro.userInfo objectForKey:@"description"]);
+                
+                
+                [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
+                [secondTable.pullToRefreshView stopAnimating];
+                
+            }];
+        }
+
      
-        [[ZZLHttpRequstEngine engine]requestGetWeiboWithUid:user.userId curid:user.userId pageSize:curTable.pageSize pageIndex:1 createTime:@"" onSuccess:^(id responseObject) {
-            [curTable.pullToRefreshView stopAnimating];
+
+    });
+    
+}
+- (void)loadMore
+{
+    
+    UserInfo *user = [UserInfo share];
+
+    if (curPage == 1) {
+        [[ZZLHttpRequstEngine engine]requestGetWeiboWithUid:user.userId curid:user.userId pageSize:curTable.pageSize pageIndex:curTable.pageIndex+1 createTime:@"" onSuccess:^(id responseObject){
+            
+            
+            [secondTable.infiniteScrollingView stopAnimating];
             NSLog(@"___YYY__%@",responseObject);
             if ([responseObject isKindOfClass:[NSArray class]]) {
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    
                     int itemCount = [responseObject count];
                     if (itemCount == 0 ) {
-                        if ([self.curList count]==0) {
-                            [curTable reloadData];
-                            [curTable addCenterMsgView:@"数据空空～"];
-                        }else{
-                            [curTable.pullToRefreshView stopAnimating];
-                        }
                         
-                        return ;
-                        
+                        secondTable.infiniteScrollingView.enabled = NO;
                     }else{
-                        [curTable removeCenterMsgView];
-                        if ([self.curList count] > 0) {
-                            [self.curList removeAllObjects];
-                            [curTable reloadData];
-                            curTable.pageIndex = 1;
-                            
+                        
+                        for (int i=0; i<[responseObject count]; i++) {
+                            NSMutableDictionary *dic = responseObject[i];
+                            WeiboInfo *info = [WeiboInfo JsonModalWithDictionary:dic];
+                            [secondTable.list addObject:info];
                         }
                         
-                        [self insertRowAtTopWithList:responseObject];
-                        
-                        if (itemCount%curTable.pageSize == 0) {
-                            curTable.infiniteScrollingView.enabled = YES;
+                        [secondTable insertRowAtBottomWithCount:[responseObject count]];
+                        if (itemCount%secondTable.pageSize == 0) {
+                            secondTable.pageIndex++;
+                            secondTable.infiniteScrollingView.enabled = YES;
+                        }else{
+                            secondTable.infiniteScrollingView.enabled = NO;
                         }
                         
                     }
@@ -243,63 +359,62 @@
             
             
             [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
-            [curTable.pullToRefreshView stopAnimating];
-            
+            [secondTable.infiniteScrollingView stopAnimating];
         }];
-    });
-    
-}
-- (void)loadMore
-{
-    
-    UserInfo *user = [UserInfo share];
-    
-    
-    
-    [[ZZLHttpRequstEngine engine]requestGetWeiboWithUid:user.userId curid:user.userId pageSize:curTable.pageSize pageIndex:curTable.pageIndex+1 createTime:@"" onSuccess:^(id responseObject){
-        
-        [curTable.infiniteScrollingView stopAnimating];
-        NSLog(@"___YYY__%@",responseObject);
-        if ([responseObject isKindOfClass:[NSArray class]]) {
+    }else{
+        [[ZZLHttpRequstEngine engine]requestGetFriendWeiboWithUid:user.userId curid:@"bba9a7e23897b4cc0138a21fdbd9034b" pageSize:curTable.pageSize pageIndex:curTable.pageIndex+1 createTime:@"" onSuccess:^(id responseObject){
             
-            dispatch_async(dispatch_get_main_queue(), ^{
+            [firstTable.infiniteScrollingView stopAnimating];
+            NSLog(@"___YYY__%@",responseObject);
+            if ([responseObject isKindOfClass:[NSArray class]]) {
                 
-                int itemCount = [responseObject count];
-                if (itemCount == 0 ) {
+                dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    curTable.infiniteScrollingView.enabled = NO;
-                }else{
-                    
-                    [self insertRowAtBottomWithList:responseObject];
-                    if (itemCount%curTable.pageSize == 0) {
-                        curTable.pageIndex++;
-                        curTable.infiniteScrollingView.enabled = YES;
+                    int itemCount = [responseObject count];
+                    if (itemCount == 0 ) {
+                        
+                        firstTable.infiniteScrollingView.enabled = NO;
                     }else{
-                        curTable.infiniteScrollingView.enabled = NO;
+                        for (int i=0; i<[responseObject count]; i++) {
+                            NSMutableDictionary *dic = responseObject[i];
+                            WeiboInfo *info = [WeiboInfo JsonModalWithDictionary:dic];
+                            [firstTable.list addObject:info];
+                        }
+                        
+                        [firstTable insertRowAtBottomWithCount:[responseObject count]];
+                        if (itemCount%firstTable.pageSize == 0) {
+                            firstTable.pageIndex++;
+                            firstTable.infiniteScrollingView.enabled = YES;
+                        }else{
+                            firstTable.infiniteScrollingView.enabled = NO;
+                        }
+                        
                     }
                     
-                }
-                
-            }) ;
-        }
-        
-    } onFail:^(NSError *erro) {
-        NSLog(@"___xxx___%@",[erro.userInfo objectForKey:@"description"]);
-        
-        
-        [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
-        [curTable.infiniteScrollingView stopAnimating];
-    }];
+                }) ;
+            }
+            
+        } onFail:^(NSError *erro) {
+            NSLog(@"___xxx___%@",[erro.userInfo objectForKey:@"description"]);
+            
+            
+            [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
+            [firstTable.infiniteScrollingView stopAnimating];
+        }];
+    }
+    
+
     
 }
 
 - (void)insertRowAtTopWithList:(NSArray *)array
 {
+
     [curTable beginUpdates];
     for (int i=0; i<[array count]; i++) {
         NSMutableDictionary *dic = array[i];
         WeiboInfo *info = [WeiboInfo JsonModalWithDictionary:dic];
-        [self.curList addObject:info];
+        [curTable.list addObject:info];
         [curTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
     [curTable endUpdates];
@@ -307,12 +422,13 @@
 }
 - (void)insertRowAtBottomWithList:(NSArray *)array
 {
+
     [curTable beginUpdates];
     for (int i=0; i< [array count]; i++) {
         NSMutableDictionary *dic = array[i];
         WeiboInfo *info = [WeiboInfo JsonModalWithDictionary:dic];
-        [self.curList addObject:info];
-        [curTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.curList.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [curTable.list addObject:info];
+        [curTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[curTable.list count]-1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
     [curTable endUpdates];
 }
@@ -327,20 +443,9 @@
     
     
 
-    if ([self.curList count]>0) {
+    if ([curTable.list count]>0) {
         
-     
-//        MyWeiBoCell *cell = [curTable dequeueReusableCellWithIdentifier:@"Cell"];
-//
-//        if (cell == nil) {
-//            cell = [[MyWeiBoCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
-//        }
-//        cell.cellInPath = indexPath;
-//        cell.delegate = self;
-//        WeiboInfo *info = [self.curList objectAtIndex:indexPath.row];
-//        [cell setupWithWeiboInfo:info];
-//        return cell;
-        
+
         WeiBoCell  *cell = [WeiBoCell cellForTableView:curTable fromNib:[WeiBoCell nib]];
         if (cell == nil) {
             cell = [[WeiBoCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
@@ -349,7 +454,7 @@
         }
         cell.cellInPath = indexPath;
         cell.delegate = self;
-        WeiboInfo *info = [self.curList objectAtIndex:indexPath.row];
+        WeiboInfo *info = [curTable.list objectAtIndex:indexPath.row];
         [cell setupWithWeiboInfo:info];
         return cell;
     }else{
@@ -369,11 +474,11 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.curList count];
+    return [curTable.list count];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    WeiboInfo *info = self.curList[indexPath.row];
+    WeiboInfo *info = curTable.list[indexPath.row];
     if (info) {
         CGSize size = [self caculateStrSize:info.content];
         return size.height+155;
@@ -389,7 +494,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    WeiboInfo *temp = self.curList[indexPath.row];
+//    WeiboInfo *temp = curTable.list[indexPath.row];
 //    ProDetailViewController *vc = [ProDetailViewController ViewContorller];
 //    [vc setMissId:temp.mission_id];
 //    [self.flipboardNavigationController pushViewController:vc completion:^{
@@ -402,7 +507,18 @@
 #pragma mark - weibocell delegate method
 - (void)WeiboCell:(WeiBoCell *)cell actionCollectAtIndexPath:(NSIndexPath *)path
 {
-    
+    UserInfo *user = [UserInfo share];
+    WeiboInfo *info = curTable.list[path.row];
+//    [self.view showLoadingViewWithString:@"正在收藏..."];
+    [[ZZLHttpRequstEngine engine]requestCollectWeiboWithUid:user.userId weiboId:[NSString stringWithFormat:@"%d",info.weiboId] onSuccess:^(id responseObject) {
+        cell.mCollectBtn.selected = YES;
+        NSString *msg = responseObject;
+        [self.view showHudMessage:msg];
+//        [self.view hideLoadingView];
+    } onFail:^(NSError *erro) {
+//        [self.view hideLoadingView];
+        [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
+    } ];
 }
 - (void)WeiboCell:(WeiBoCell *)cell actionCommentAtIndexPath:(NSIndexPath *)path
 {
@@ -434,12 +550,12 @@
 
             self.classRankBtn.selected = YES;
             curPage = 0;
-            self.curList = firstList;
+
             curTable = firstTable;
             
-            if ([firstList count]==0) {
+            if ([curTable.list count]==0) {
                 
-                [firstTable triggerPullToRefresh];
+                [curTable triggerPullToRefresh];
             }
         }
     }];
@@ -460,12 +576,11 @@
             
             self.classRankBtn.selected = NO;
             curPage = 1;
-            self.curList = secondList;
+
             curTable = secondTable;
-            
-            if ([secondList count]==0) {
+            if ([curTable.list count]==0) {
                 
-                [secondTable triggerPullToRefresh];
+                [curTable triggerPullToRefresh];
             }
         }
     }];
