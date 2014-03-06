@@ -9,7 +9,7 @@
 #import "WeiBoCell.h"
 #import "UIImageView+WebCache.h"
 #import "UIColor+Addition.h"
-
+#import "UrlDefine.h"
 @implementation WeiBoCell
 
 static UIImage *bgimage = nil;
@@ -59,7 +59,7 @@ static UIFont  *font = nil;
     self.mContentLb.text = info.content;
 
 
-    [self.mAvatorView setImageWithURL:[NSURL URLWithString:info.portrain] placeholderImage:[UIImage imageNamed:@"home_avator.png"]];
+    [self.mAvatorView setImageWithURL:[NSURL URLWithString:[BASE_URL stringByAppendingString:info.portrain]] placeholderImage:[UIImage imageNamed:@"home_avator.png"]];
     
     if (info.userName.length==0) {
         self.mNameLb.text = @"匿名用户";

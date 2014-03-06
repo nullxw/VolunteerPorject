@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#define Font(x) ([UIFont fontWithName:@"Avenir-Medium" size:x])
 @interface PDBaseCell : UITableViewCell
 + (UINib *)nib;
 

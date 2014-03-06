@@ -181,7 +181,7 @@
     self.mNameLb.text = user.userName;
     [self.mAvatorImage setImageWithURL:[NSURL URLWithString:user.head] placeholderImage:[UIImage imageNamed:@"home_avator.png"]];
     self.mLvValuelb.text = [NSString stringWithFormat:@"%d",user.vvalue];
-    self.mTimeLb.text = [[NSString stringWithFormat:@"%d",user.serviceTime] stringByAppendingString:@"小时"];
+    self.mTimeLb.text = [[NSString stringWithFormat:@"%d",user.serviceTime/60] stringByAppendingString:@"小时"];
     self.mScroeLb.text = [[NSString stringWithFormat:@"%d",user.integral ]stringByAppendingString:@"分"];
     
 

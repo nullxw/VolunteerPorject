@@ -12,6 +12,7 @@
 #import "ZZLHttpRequstEngine.h"
 #import "MyWeiBoCell.h"
 #import "SendWeiboViewController.h"
+#import "TrendDetialViewController.h"
 @interface PersonalViewController ()<UITableViewDataSource,UITableViewDelegate,WeiboCellDelegate>
 {
     
@@ -200,7 +201,7 @@
         UserInfo *user = [UserInfo share];
 
         if (curPage == 0) {
-            [[ZZLHttpRequstEngine engine]requestGetFriendWeiboWithUid:user.userId curid:@"bba9a7e23897b4cc0138a21fdbd9034b" pageSize:curTable.pageSize pageIndex:1 createTime:@"" onSuccess:^(id responseObject) {
+            [[ZZLHttpRequstEngine engine]requestGetFriendWeiboWithUid:user.userId curid:@"bba9a7e23897b4cc0138a21fdbd9034b" pageSize:firstTable.pageSize pageIndex:1 createTime:@"" onSuccess:^(id responseObject) {
                 [firstTable.pullToRefreshView stopAnimating];
                 NSLog(@"___YYY__%@",responseObject);
                 if ([responseObject isKindOfClass:[NSArray class]]) {
@@ -254,7 +255,7 @@
                 
             }];
         }else{
-            [[ZZLHttpRequstEngine engine]requestGetWeiboWithUid:user.userId curid:user.userId pageSize:curTable.pageSize pageIndex:1 createTime:@"" onSuccess:^(id responseObject) {
+            [[ZZLHttpRequstEngine engine]requestGetWeiboWithUid:user.userId curid:user.userId pageSize:secondTable.pageSize pageIndex:1 createTime:@"" onSuccess:^(id responseObject) {
                 [secondTable.pullToRefreshView stopAnimating];
                 NSLog(@"___YYY__%@",responseObject);
                 if ([responseObject isKindOfClass:[NSArray class]]) {
@@ -320,7 +321,7 @@
     UserInfo *user = [UserInfo share];
 
     if (curPage == 1) {
-        [[ZZLHttpRequstEngine engine]requestGetWeiboWithUid:user.userId curid:user.userId pageSize:curTable.pageSize pageIndex:curTable.pageIndex+1 createTime:@"" onSuccess:^(id responseObject){
+        [[ZZLHttpRequstEngine engine]requestGetWeiboWithUid:user.userId curid:user.userId pageSize:secondTable.pageSize pageIndex:secondTable.pageIndex+1 createTime:@"" onSuccess:^(id responseObject){
             
             
             [secondTable.infiniteScrollingView stopAnimating];
@@ -362,7 +363,7 @@
             [secondTable.infiniteScrollingView stopAnimating];
         }];
     }else{
-        [[ZZLHttpRequstEngine engine]requestGetFriendWeiboWithUid:user.userId curid:@"bba9a7e23897b4cc0138a21fdbd9034b" pageSize:curTable.pageSize pageIndex:curTable.pageIndex+1 createTime:@"" onSuccess:^(id responseObject){
+        [[ZZLHttpRequstEngine engine]requestGetFriendWeiboWithUid:user.userId curid:@"bba9a7e23897b4cc0138a21fdbd9034b" pageSize:firstTable.pageSize pageIndex:firstTable.pageIndex+1 createTime:@"" onSuccess:^(id responseObject){
             
             [firstTable.infiniteScrollingView stopAnimating];
             NSLog(@"___YYY__%@",responseObject);
@@ -407,31 +408,7 @@
     
 }
 
-- (void)insertRowAtTopWithList:(NSArray *)array
-{
 
-    [curTable beginUpdates];
-    for (int i=0; i<[array count]; i++) {
-        NSMutableDictionary *dic = array[i];
-        WeiboInfo *info = [WeiboInfo JsonModalWithDictionary:dic];
-        [curTable.list addObject:info];
-        [curTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
-    [curTable endUpdates];
-    
-}
-- (void)insertRowAtBottomWithList:(NSArray *)array
-{
-
-    [curTable beginUpdates];
-    for (int i=0; i< [array count]; i++) {
-        NSMutableDictionary *dic = array[i];
-        WeiboInfo *info = [WeiboInfo JsonModalWithDictionary:dic];
-        [curTable.list addObject:info];
-        [curTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[curTable.list count]-1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
-    [curTable endUpdates];
-}
  
 
 #pragma mark -
@@ -474,11 +451,17 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [curTable.list count];
+    if (tableView == firstTable) {
+        return [firstTable.list count];
+    }else{
+        return [secondTable.list count];
+    }
+
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    WeiboInfo *info = curTable.list[indexPath.row];
+    MyTableView *tempTableView = (MyTableView *)tableView;
+    WeiboInfo *info = tempTableView.list[indexPath.row];
     if (info) {
         CGSize size = [self caculateStrSize:info.content];
         return size.height+155;
@@ -500,6 +483,10 @@
 //    [self.flipboardNavigationController pushViewController:vc completion:^{
 //        
 //    }];
+    WeiboInfo *info = curTable.list[indexPath.row];
+    TrendDetialViewController *vc =[TrendDetialViewController ViewContorller];
+    vc.info = info;
+    [self.flipboardNavigationController pushViewController:vc];
     
     
 }
@@ -522,7 +509,11 @@
 }
 - (void)WeiboCell:(WeiBoCell *)cell actionCommentAtIndexPath:(NSIndexPath *)path
 {
-    
+
+    WeiboInfo *info = curTable.list[path.row];
+    TrendDetialViewController *vc =[TrendDetialViewController ViewContorller];
+    vc.info = info;
+    [self.flipboardNavigationController pushViewController:vc];
 }
 - (IBAction)actionFirst:(UIButton *)sender {
     if (!sender.selected) {
@@ -553,9 +544,9 @@
 
             curTable = firstTable;
             
-            if ([curTable.list count]==0) {
+            if ([firstTable.list count]==0) {
                 
-                [curTable triggerPullToRefresh];
+                [firstTable triggerPullToRefresh];
             }
         }
     }];
@@ -578,9 +569,9 @@
             curPage = 1;
 
             curTable = secondTable;
-            if ([curTable.list count]==0) {
+            if ([secondTable.list count]==0) {
                 
-                [curTable triggerPullToRefresh];
+                [secondTable triggerPullToRefresh];
             }
         }
     }];

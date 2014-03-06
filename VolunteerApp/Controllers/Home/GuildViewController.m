@@ -56,7 +56,7 @@
     EAIntroView *intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:list];
     
     [intro setDelegate:self];
-    [intro showInView:self.view animateDuration:0.2];
+    [intro showInView:self.view animateDuration:0.3];
 }
 #pragma mark - MYIntroduction Delegate
 

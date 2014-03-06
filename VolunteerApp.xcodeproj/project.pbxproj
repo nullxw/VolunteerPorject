@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B10526D18C8CE0600445EF8 /* TrendDetialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B10526B18C8CE0600445EF8 /* TrendDetialViewController.m */; };
+		7B10526E18C8CE0600445EF8 /* TrendDetialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B10526C18C8CE0600445EF8 /* TrendDetialViewController.xib */; };
+		7B10527318C8D2FB00445EF8 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B10527218C8D2FB00445EF8 /* CommentCell.m */; };
 		7B13F4CF18C4CAD0006D58E0 /* SearchResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B13F4CD18C4CAD0006D58E0 /* SearchResultViewController.m */; };
 		7B13F4D018C4CAD0006D58E0 /* SearchResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B13F4CE18C4CAD0006D58E0 /* SearchResultViewController.xib */; };
 		7B13F4D318C4D404006D58E0 /* SearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B13F4D218C4D404006D58E0 /* SearchResult.m */; };
@@ -107,6 +110,7 @@
 		7B29EB4B18B667080038C278 /* ProjectSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B29EB4918B667080038C278 /* ProjectSearchViewController.xib */; };
 		7B29EB5018B667820038C278 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B29EB4E18B667820038C278 /* MoreViewController.m */; };
 		7B29EB5118B667820038C278 /* MoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B29EB4F18B667820038C278 /* MoreViewController.xib */; };
+		7B3ADA7318C8D5B60061CC26 /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B3ADA7218C8D5B60061CC26 /* CommentCell.xib */; };
 		7B3FBCD218BB74D60018DB8E /* login_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7B3FBCCA18BB74D60018DB8E /* login_bg.jpg */; };
 		7B3FBCD318BB74D60018DB8E /* login_hl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B3FBCCB18BB74D60018DB8E /* login_hl@2x.png */; };
 		7B3FBCD418BB74D60018DB8E /* login_inputbg.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B3FBCCC18BB74D60018DB8E /* login_inputbg.png */; };
@@ -128,6 +132,8 @@
 		7B3FBCF118BB7DD20018DB8E /* nav_search.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B3FBCE618BB7DD20018DB8E /* nav_search.png */; };
 		7B3FBCF418BBA1E40018DB8E /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3FBCF318BBA1E40018DB8E /* UIAlertView+Blocks.m */; };
 		7B3FBCF818BBABAB0018DB8E /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3FBCF618BBABAB0018DB8E /* RegisterViewController.m */; };
+		7B74ED6918C8D85C002C8ABE /* DetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B74ED6818C8D85C002C8ABE /* DetailCell.xib */; };
+		7B74ED6C18C8D86F002C8ABE /* DetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B74ED6B18C8D86F002C8ABE /* DetailCell.m */; };
 		7B7EE85E18C759EA00B51524 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B7EE85D18C759EA00B51524 /* Default.png */; };
 		7B7EE86418C75A1A00B51524 /* guildImage1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7B7EE85F18C75A1A00B51524 /* guildImage1.jpg */; };
 		7B7EE86518C75A1A00B51524 /* guildImage2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7B7EE86018C75A1A00B51524 /* guildImage2.jpg */; };
@@ -303,6 +309,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7B10526A18C8CE0600445EF8 /* TrendDetialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrendDetialViewController.h; sourceTree = "<group>"; };
+		7B10526B18C8CE0600445EF8 /* TrendDetialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrendDetialViewController.m; sourceTree = "<group>"; };
+		7B10526C18C8CE0600445EF8 /* TrendDetialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrendDetialViewController.xib; sourceTree = "<group>"; };
+		7B10527118C8D2FB00445EF8 /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
+		7B10527218C8D2FB00445EF8 /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
 		7B13F4CC18C4CAD0006D58E0 /* SearchResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultViewController.h; sourceTree = "<group>"; };
 		7B13F4CD18C4CAD0006D58E0 /* SearchResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultViewController.m; sourceTree = "<group>"; };
 		7B13F4CE18C4CAD0006D58E0 /* SearchResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultViewController.xib; sourceTree = "<group>"; };
@@ -472,6 +483,7 @@
 		7B29EB4D18B667820038C278 /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreViewController.h; sourceTree = "<group>"; };
 		7B29EB4E18B667820038C278 /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreViewController.m; sourceTree = "<group>"; };
 		7B29EB4F18B667820038C278 /* MoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoreViewController.xib; sourceTree = "<group>"; };
+		7B3ADA7218C8D5B60061CC26 /* CommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
 		7B3FBCCA18BB74D60018DB8E /* login_bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = login_bg.jpg; sourceTree = "<group>"; };
 		7B3FBCCB18BB74D60018DB8E /* login_hl@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_hl@2x.png"; sourceTree = "<group>"; };
 		7B3FBCCC18BB74D60018DB8E /* login_inputbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_inputbg.png; sourceTree = "<group>"; };
@@ -495,6 +507,9 @@
 		7B3FBCF318BBA1E40018DB8E /* UIAlertView+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Blocks.m"; sourceTree = "<group>"; };
 		7B3FBCF518BBABAB0018DB8E /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		7B3FBCF618BBABAB0018DB8E /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		7B74ED6818C8D85C002C8ABE /* DetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailCell.xib; sourceTree = "<group>"; };
+		7B74ED6A18C8D86F002C8ABE /* DetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailCell.h; sourceTree = "<group>"; };
+		7B74ED6B18C8D86F002C8ABE /* DetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailCell.m; sourceTree = "<group>"; };
 		7B7EE85D18C759EA00B51524 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		7B7EE85F18C75A1A00B51524 /* guildImage1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = guildImage1.jpg; sourceTree = "<group>"; };
 		7B7EE86018C75A1A00B51524 /* guildImage2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = guildImage2.jpg; sourceTree = "<group>"; };
@@ -985,6 +1000,9 @@
 				7BABC7B118C4F72F009C8301 /* SendWeiboViewController.h */,
 				7BABC7B218C4F72F009C8301 /* SendWeiboViewController.m */,
 				7BABC7B318C4F72F009C8301 /* SendWeiboViewController.xib */,
+				7B10526A18C8CE0600445EF8 /* TrendDetialViewController.h */,
+				7B10526B18C8CE0600445EF8 /* TrendDetialViewController.m */,
+				7B10526C18C8CE0600445EF8 /* TrendDetialViewController.xib */,
 			);
 			path = Personal;
 			sourceTree = "<group>";
@@ -1262,6 +1280,12 @@
 				7B8615E018C252570003BF15 /* MyAttenCell.xib */,
 				7B16C91018C30CBE0076250B /* MyWeiBoCell.h */,
 				7B16C91118C30CBE0076250B /* MyWeiBoCell.m */,
+				7B10527118C8D2FB00445EF8 /* CommentCell.h */,
+				7B10527218C8D2FB00445EF8 /* CommentCell.m */,
+				7B3ADA7218C8D5B60061CC26 /* CommentCell.xib */,
+				7B74ED6818C8D85C002C8ABE /* DetailCell.xib */,
+				7B74ED6A18C8D86F002C8ABE /* DetailCell.h */,
+				7B74ED6B18C8D86F002C8ABE /* DetailCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1610,6 +1634,7 @@
 				7B9640EE18B9176E0089674F /* CheckClassViewController.xib in Resources */,
 				BFE8116418C0BE4800EB3E14 /* ico_collect.png in Resources */,
 				7B3FBCEB18BB7DD20018DB8E /* nav_collect.png in Resources */,
+				7B74ED6918C8D85C002C8ABE /* DetailCell.xib in Resources */,
 				7B3FBCF118BB7DD20018DB8E /* nav_search.png in Resources */,
 				7BBB7B6C18BE3C8700739A3E /* promg_delbtn_nl.png in Resources */,
 				BFE8116518C0BE4800EB3E14 /* ico_complete.png in Resources */,
@@ -1652,6 +1677,7 @@
 				7B29EB3B18B6629C0038C278 /* MyProjectViewController.xib in Resources */,
 				7BF6027418BDAB7A007DBAC3 /* mypro_complete.png in Resources */,
 				7BBB7B6818BE3C8700739A3E /* promg_cfbtn_nl.png in Resources */,
+				7B3ADA7318C8D5B60061CC26 /* CommentCell.xib in Resources */,
 				7BBB7B6118BE3C8700739A3E /* promg_addbtn_hl.png in Resources */,
 				BFE8116A18C0BE4800EB3E14 /* ico_nonconfirm.png in Resources */,
 				7BBB7B6618BE3C8700739A3E /* promg_cancel_nl.png in Resources */,
@@ -1702,6 +1728,7 @@
 				BFE8117218C0BE4800EB3E14 /* plan_apply.png in Resources */,
 				7BBB7B6918BE3C8700739A3E /* promg_classmg_hl.png in Resources */,
 				7B3FBCD218BB74D60018DB8E /* login_bg.jpg in Resources */,
+				7B10526E18C8CE0600445EF8 /* TrendDetialViewController.xib in Resources */,
 				BFE8117918C0BE4800EB3E14 /* plan_signin.png in Resources */,
 				7BABC7B518C4F72F009C8301 /* SendWeiboViewController.xib in Resources */,
 				7B85107018B7926F00D20F90 /* checkbox1_unchecked.png in Resources */,
@@ -1819,6 +1846,7 @@
 				7B85106318B78EAF00D20F90 /* UIView+XHFindViewController.m in Sources */,
 				7B29EADF18B636F00038C278 /* SDWebImageCompat.m in Sources */,
 				7B3FBCF818BBABAB0018DB8E /* RegisterViewController.m in Sources */,
+				7B10527318C8D2FB00445EF8 /* CommentCell.m in Sources */,
 				7B29EB3218B65C0A0038C278 /* HomePageVC.m in Sources */,
 				7B29EABF18B636A10038C278 /* UIDevice+Resolutions.m in Sources */,
 				7B29EB4A18B667080038C278 /* ProjectSearchViewController.m in Sources */,
@@ -1830,6 +1858,7 @@
 				7BD02B1518BCC2A300E067A0 /* REFormattedNumberField.m in Sources */,
 				7BD02AF418BCBF7E00E067A0 /* REDateTimeItem.m in Sources */,
 				7BD02B1918BCC2A300E067A0 /* REEmailValidator.m in Sources */,
+				7B10526D18C8CE0600445EF8 /* TrendDetialViewController.m in Sources */,
 				7BBB7B4118BE152700739A3E /* UIScrollView+SVPullToRefresh.m in Sources */,
 				7B8615DB18C2514E0003BF15 /* MyAttendViewController.m in Sources */,
 				7BD02AF918BCBF7E00E067A0 /* RERadioItem.m in Sources */,
@@ -1845,6 +1874,7 @@
 				7B29EAA818B636690038C278 /* OpenUDID.m in Sources */,
 				7B29EA4718B631DA0038C278 /* MKNetworkOperation.m in Sources */,
 				7B29EA7F18B635730038C278 /* LoadMoreTableFooterView.m in Sources */,
+				7B74ED6C18C8D86F002C8ABE /* DetailCell.m in Sources */,
 				7B13F4CF18C4CAD0006D58E0 /* SearchResultViewController.m in Sources */,
 				7BD02AF518BCBF7E00E067A0 /* REFloatItem.m in Sources */,
 				7B29EB3F18B662AF0038C278 /* PersonalViewController.m in Sources */,

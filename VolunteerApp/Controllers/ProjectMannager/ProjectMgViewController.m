@@ -16,13 +16,13 @@
 @interface ProjectMgViewController ()<UITableViewDataSource,UITableViewDelegate,MyProManagerCellDelegate>
 {
     MyTableView  *projectTable;
-    MyTableView  *curTable;
+
     
     int          curPage;
     
     NSMutableArray  *firstList;
     NSMutableArray  *secondList;
-    NSMutableArray  *curList;
+
 
 }
 @property (weak, nonatomic) IBOutlet UIImageView *mTopBgView;
@@ -69,11 +69,16 @@
     curPage = 0;
     firstList = [[NSMutableArray alloc]init];
     secondList = [[NSMutableArray alloc]init];
-    curList = firstList;
+
     
-    curTable = self.rankTable;
+    self.rankTable.list = firstList;
+
 
     [self setupRefreshControl];
+    
+    if ([firstList count] == 0) {
+        [self.rankTable triggerPullToRefresh];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -98,9 +103,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if ([curList count] == 0) {
-        [curTable triggerPullToRefresh];
-    }
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -116,11 +119,8 @@
 {
     
     if (self.moveLine.centerX != self.classRankBtn.centerX) {
-        curPage = 0;
-        curList = firstList;
-        self.rankTable.hidden = NO;
-        curTable = self.rankTable;
-        [curTable removeCenterMsgView];
+        
+        [self.rankTable removeCenterMsgView];
         [UIView animateWithDuration:0.3 animations:^{
             self.moveLine.centerX = self.classRankBtn.centerX;
             self.rankTable.left = 0;
@@ -128,9 +128,11 @@
         } completion:^(BOOL finished) {
             self.projectRankBtn.selected = NO;
             self.classRankBtn.selected = YES;
+            curPage = 0;
+            self.rankTable.hidden = NO;
             
-            if ([curList count]==0) {
-                [curTable triggerPullToRefresh];
+            if ([self.rankTable.list count]==0) {
+                [self.rankTable triggerPullToRefresh];
             }
         }];
     }
@@ -142,10 +144,10 @@
     
     
     if (self.moveLine.centerX != self.projectRankBtn.centerX) {
-        curPage = 1;
-        curList = secondList;
-        curTable = projectTable;
-        [curTable removeCenterMsgView];
+        
+
+        
+        [projectTable removeCenterMsgView];
         [UIView animateWithDuration:0.3 animations:^{
             self.moveLine.centerX = self.projectRankBtn.centerX;
             self.rankTable.left = -self.rankTable.width;
@@ -155,8 +157,9 @@
             self.classRankBtn.selected = NO;
             self.rankTable.hidden = YES;
             
-            if ([curList count]==0) {
-                [curTable triggerPullToRefresh];
+            curPage = 1;
+            if ([projectTable.list count]==0) {
+                [projectTable triggerPullToRefresh];
             }
         }];
     }
@@ -179,6 +182,7 @@
         projectTable.pageSize = 10;
         projectTable.separatorStyle = UITableViewCellSeparatorStyleNone;
         projectTable.left = self.rankTable.right;
+        projectTable.list = secondList;
         [self.view addSubview:projectTable];
         
         __weak ProjectMgViewController *weakSelf = self;
@@ -199,8 +203,16 @@
 #pragma mark - tableviewDelegate,tableviewDataSource
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([curList count]>0) {
-        ProManagerCell *cell = [ProManagerCell cellForTableView:curTable fromNib:[ProManagerCell nib]];
+    
+    MyTableView *tempTableView;
+    if (tableView == self.rankTable) {
+        tempTableView = self.rankTable;
+    }else{
+        tempTableView = projectTable;
+    }
+    
+    if ([tempTableView.list count]>0) {
+        ProManagerCell *cell = [ProManagerCell cellForTableView:tempTableView fromNib:[ProManagerCell nib]];
         cell.cellInPath = indexPath;
         cell.delegate = self;
         if (curPage == 0) {
@@ -209,7 +221,7 @@
             cell.cellType = kMyprojectCellType_Manage;
         }
         
-        ProjectInfo *info = [curList objectAtIndex:indexPath.row];
+        ProjectInfo *info = [tempTableView.list objectAtIndex:indexPath.row];
         [cell setupMyWaitCell:info];
         return cell;
     }
@@ -219,7 +231,11 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [curList count];
+    if (tableView == self.rankTable) {
+        return [self.rankTable.list count];
+    }else{
+        return [projectTable.list count];
+    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -258,18 +274,22 @@
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         
         UserInfo *user = [UserInfo share];
-        
+         MyTableView *tempTableView;
         int flag = 0;
         if (curPage == 0) {
             flag  = 20;
+            tempTableView = self.rankTable;
         }else{
             flag = 50;
+            tempTableView = projectTable;
         }
         
-        NSLog(@"%d",curTable.pageSize);
+
+       
         
-         [[ZZLHttpRequstEngine engine] reqeustManagerGetMissionListWithUid:user.userId missionState:[NSString stringWithFormat:@"%d",flag] managerCategory:curPage+1 pageSize:curTable.pageSize pageIndex:curTable.pageIndex onSuccess:^(id responseDict) {
-            [curTable.pullToRefreshView stopAnimating];
+         [[ZZLHttpRequstEngine engine] reqeustManagerGetMissionListWithUid:user.userId missionState:[NSString stringWithFormat:@"%d",flag] managerCategory:curPage+1 pageSize:tempTableView.pageSize pageIndex:tempTableView.pageIndex onSuccess:^(id responseDict) {
+
+            [tempTableView.pullToRefreshView stopAnimating];
             NSLog(@"___YYY__%@",responseDict);
             if ([responseDict isKindOfClass:[NSArray class]]) {
                 
@@ -278,28 +298,33 @@
                     
                     int itemCount = [responseDict count];
                     if (itemCount == 0 ) {
-                        if ([curList count]==0) {
-                            [curTable reloadData];
-                            [curTable addCenterMsgView:@"数据空空～"];
+                        if ([tempTableView.list count]==0) {
+                            [tempTableView reloadData];
+                            [tempTableView addCenterMsgView:@"数据空空～"];
                         }else{
-                            [curTable.pullToRefreshView stopAnimating];
+                            [tempTableView.pullToRefreshView stopAnimating];
                         }
                         
                         return ;
                         
                     }else{
-                        [curTable removeCenterMsgView];
-                        if ([curList count] > 0) {
-                            [curList removeAllObjects];
-                            [curTable reloadData];
-                            curTable.pageIndex = 1;
+                        [tempTableView removeCenterMsgView];
+                        if ([tempTableView.list count] > 0) {
+                            [tempTableView.list removeAllObjects];
+                            [tempTableView reloadData];
+                            tempTableView.pageIndex = 1;
                             
                         }
+                        for (int i=0; i< itemCount; i++) {
+                            NSMutableDictionary *dic = responseDict[i];
+                            ProjectInfo *info = [ProjectInfo JsonModalWithDictionary:dic];
+                            [tempTableView.list addObject:info];
                         
-                        [self insertRowAtTopWithList:responseDict];
+                        }
+                        [tempTableView insertRowAtTopWithCount:itemCount];
                         
-                        if (itemCount%curTable.pageSize == 0) {
-                            curTable.infiniteScrollingView.enabled = YES;
+                        if (itemCount%tempTableView.pageSize == 0) {
+                            tempTableView.infiniteScrollingView.enabled = YES;
                         }
                         
                     }
@@ -312,7 +337,7 @@
             
             
             [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
-            [curTable.pullToRefreshView stopAnimating];
+            [tempTableView.pullToRefreshView stopAnimating];
             
         }];
     });
@@ -323,16 +348,20 @@
     UserInfo *user = [UserInfo share];
     
 
+    MyTableView *tempTableView;
     int flag = 0;
-    if (curPage == 1) {
+    if (curPage == 0) {
         flag  = 20;
+        tempTableView = self.rankTable;
     }else{
         flag = 50;
+        tempTableView = projectTable;
     }
     
-     [[ZZLHttpRequstEngine engine] reqeustManagerGetMissionListWithUid:user.userId missionState:[NSString stringWithFormat:@"%d",flag] managerCategory:curPage+1 pageSize:curTable.pageSize pageIndex:curTable.pageIndex+1 onSuccess:^(id responseDict) {
-        
-        [curTable.infiniteScrollingView stopAnimating];
+     [[ZZLHttpRequstEngine engine] reqeustManagerGetMissionListWithUid:user.userId missionState:[NSString stringWithFormat:@"%d",flag] managerCategory:curPage+1 pageSize:tempTableView.pageSize pageIndex:tempTableView.pageIndex+1 onSuccess:^(id responseDict) {
+
+         
+        [tempTableView.infiniteScrollingView stopAnimating];
         NSLog(@"___YYY__%@",responseDict);
         if ([responseDict isKindOfClass:[NSArray class]]) {
             
@@ -341,15 +370,21 @@
                 int itemCount = [responseDict count];
                 if (itemCount == 0 ) {
                     
-                    curTable.infiniteScrollingView.enabled = NO;
+                    tempTableView.infiniteScrollingView.enabled = NO;
                 }else{
                     
-                    [self insertRowAtBottomWithList:responseDict];
-                    if (itemCount%curTable.pageSize == 0) {
-                        curTable.pageIndex++;
-                        curTable.infiniteScrollingView.enabled = YES;
+                    for (int i=0; i< itemCount; i++) {
+                        NSMutableDictionary *dic = responseDict[i];
+                        ProjectInfo *info = [ProjectInfo JsonModalWithDictionary:dic];
+                        [tempTableView.list addObject:info];
+                        
+                    }
+                    [tempTableView insertRowAtBottomWithCount:itemCount];
+                    if (itemCount%tempTableView.pageSize == 0) {
+                        tempTableView.pageIndex++;
+                        tempTableView.infiniteScrollingView.enabled = YES;
                     }else{
-                        curTable.infiniteScrollingView.enabled = NO;
+                        tempTableView.infiniteScrollingView.enabled = NO;
                     }
                     
                 }
@@ -362,32 +397,11 @@
         
         
         [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
-        [curTable.infiniteScrollingView stopAnimating];
+        [tempTableView.infiniteScrollingView stopAnimating];
     }];
 }
-- (void)insertRowAtTopWithList:(NSArray *)array
-{
-    [curTable beginUpdates];
-    for (int i=0; i<[array count]; i++) {
-        NSMutableDictionary *dic = array[i];
-        ProjectInfo *info = [ProjectInfo JsonModalWithDictionary:dic];
-        [curList addObject:info];
-        [curTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
-    [curTable endUpdates];
-    
-}
-- (void)insertRowAtBottomWithList:(NSArray *)array
-{
-    [curTable beginUpdates];
-    for (int i=0; i< [array count]; i++) {
-        NSMutableDictionary *dic = array[i];
-        ProjectInfo *info = [ProjectInfo JsonModalWithDictionary:dic];
-        [curList addObject:info];
-        [curTable insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:curList.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
-    [curTable endUpdates];
-}
+
+
 #pragma mark - action
 - (void)actionRecruitBtn:(ProManagerCell *)cell AtIndexPath:(NSIndexPath *)ipath withType:(MyprojectCellType)type
 {
