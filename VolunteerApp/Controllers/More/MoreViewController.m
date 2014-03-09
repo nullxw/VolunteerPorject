@@ -12,6 +12,7 @@
 #import "HomePageVC.h"
 #import "UIAlertView+Blocks.h"
 #import "MyInfoViewController.h"
+#import "ContactUsViewController.h"
 @interface MoreViewController ()<LoginViewDelegate>
 {
     NSArray *itemList;
@@ -123,6 +124,10 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == 0) {
         MyInfoViewController *vc =[MyInfoViewController ViewContorller];
+        [self.flipboardNavigationController pushViewController:vc];
+    }
+    if (indexPath.row == 5) {
+        ContactUsViewController *vc = [ContactUsViewController ViewContorller];
         [self.flipboardNavigationController pushViewController:vc];
     }
 }

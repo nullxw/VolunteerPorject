@@ -10,6 +10,7 @@
 #import "UIImageView+WebCache.h"
 #import "UIColor+Addition.h"
 #import "UrlDefine.h"
+#import <QuartzCore/QuartzCore.h>
 @implementation WeiBoCell
 
 static UIImage *bgimage = nil;
@@ -59,7 +60,7 @@ static UIFont  *font = nil;
     self.mContentLb.text = info.content;
 
 
-    [self.mAvatorView setImageWithURL:[NSURL URLWithString:[BASE_URL stringByAppendingString:info.portrain]] placeholderImage:[UIImage imageNamed:@"home_avator.png"]];
+    [self.mAvatorView setImageWithURL:[NSURL URLWithString:[IMAGE_URL stringByAppendingString:info.portrain]] placeholderImage:[UIImage imageNamed:@"defaultHeadImage.png"]];
     
     if (info.userName.length==0) {
         self.mNameLb.text = @"匿名用户";
@@ -68,19 +69,52 @@ static UIFont  *font = nil;
     }
     
     
-    [self.mCollectBtn setTitle:@"收藏" forState:UIControlStateNormal];
-    [self.mCollectBtn setTitle:@"已收藏" forState:UIControlStateSelected];
-    self.mCollectBtn.selected = NO;
-    [self.mCommentBtn setTitle:[NSString stringWithFormat:@"评论(%d)",info.countReply] forState:UIControlStateNormal];
+    if (self.cellType == kWeiboCellTpyeNew) {
+        [self.mCollectBtn setTitle:@"收藏" forState:UIControlStateNormal];
+        [self.mCollectBtn setTitle:@"已收藏" forState:UIControlStateSelected];
+        self.mCollectBtn.selected = NO;
+    }else if (self.cellType == kWeiboCellTpyeMy)
+    {
+        [self.mCollectBtn setTitle:@"删除" forState:UIControlStateNormal];
+
+    }
+
 
     
+    [self.mCommentBtn setTitle:[NSString stringWithFormat:@"评论(%d)",info.countReply] forState:UIControlStateNormal];
+
+    if (info.picLittle.length>0) {
+    
+        UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(self.mContentLb.left, self.mContentLb.bottom+5, 120, 80)];
+        [imageview setImageWithURL:[NSURL URLWithString:[IMAGE_URL stringByAppendingString:info.picLittle]] placeholderImage:[UIImage imageNamed:@"DefaultCover.png"]];
+        imageview.userInteractionEnabled = YES;
+        imageview.layer.borderColor = [UIColor whiteColor].CGColor;
+        imageview.layer.borderWidth = 2.0f;
+        [self.contentView addSubview:imageview];
+        
+
+        
+
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTapImageView:)];
+        
+        [imageview addGestureRecognizer:tap];
+    }
     
     
 }
 
 
 
-
+- (void)handleTapImageView:(UIGestureRecognizer *)gestrue
+{
+    
+    UIImageView *view = (UIImageView *)gestrue.view;
+    if (gestrue.state == UIGestureRecognizerStateEnded) {
+        if (_delegate && [_delegate respondsToSelector:@selector(WeiboCell:actionImageView:)]) {
+            [_delegate WeiboCell:self actionImageView:view];
+        }
+    }
+}
 - (IBAction)actionCollect:(UIButton *)sender {
     if (_delegate && [_delegate respondsToSelector:@selector(WeiboCell:actionCollectAtIndexPath:)]) {
         [_delegate WeiboCell:self actionCollectAtIndexPath:self.cellInPath];

@@ -63,6 +63,8 @@
 
 - (void)introDidFinish {
 
+
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:@"hasLanuch"];
     AppDelegate *adelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [adelegate showWithLoginView];
 }

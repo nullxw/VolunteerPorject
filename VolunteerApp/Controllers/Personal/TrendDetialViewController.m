@@ -10,11 +10,12 @@
 #import "MyTableView.h"
 #import "CommentCell.h"
 #import "DetailCell.h"
-
+#import "AppDelegate.h"
 @interface TrendDetialViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 {
     MyTableView *mytableView;
-    CGFloat     height;
+
+    
 }
 @property (weak, nonatomic) IBOutlet UIView *mBottomView;
 @property (weak, nonatomic) IBOutlet UITextField *mTextField;
@@ -44,7 +45,7 @@
                       CGRectMake(0, self.navView.bottom, 320, self.view.height-self.navView.bottom-self.mBottomView.height)
                       style:
                       UITableViewStylePlain];
-    mytableView.backgroundColor =[UIColor clearColor];
+    mytableView.backgroundColor =[UIColor whiteColor];
     mytableView.dataSource                     = self;
     mytableView.delegate                       = self;
     mytableView.separatorStyle                 = UITableViewCellSeparatorStyleSingleLine;
@@ -71,6 +72,8 @@
     [mytableView triggerPullToRefresh];
     
     [self registerForKeyboardNotifications];
+    
+
 }
 
 - (void)viewDidUnload {
@@ -96,11 +99,33 @@
 
 #pragma mark -
 #pragma mark - tableviewDelegate,tableviewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == 1) {
+        return @"用户评论:";
+    }else{
+        return @"";
+    }
+    
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return 5;
+    }else{
+        return 20;
+    }
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+        NSInteger section = indexPath.section;
     
         
-        if (indexPath.row == 0) {
+        if (section == 0) {
 
             DetailCell *cell = [DetailCell cellForTableView:mytableView fromNib:[DetailCell nib]];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -109,7 +134,9 @@
         }else{
             CommentCell *cell = [CommentCell cellForTableView:mytableView fromNib:[CommentCell nib]];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            [cell setupWithWeiboInfo:mytableView.list[indexPath.row-1]];
+
+            [cell setupWithWeiboInfo:mytableView.list[indexPath.row]];
+            cell.backgroundColor = [UIColor whiteColor];
             return cell;
         }
 
@@ -121,19 +148,23 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (section == 0) {
+        return 1;
+    }else{
+        return [mytableView.list count];
+    }
     
-    return [mytableView.list count]+1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
+    if (indexPath.section == 0) {
         CGFloat height = 0;
         if (self.info.picOriginal.length>0) {
             height = 80;
         }
         return [self caculateFontSizeStr:self.info.content]+100+height;
     }else{
-        WeiboInfo *temp = mytableView.list[indexPath.row-1];
+        WeiboInfo *temp = mytableView.list[indexPath.row];
         return [self caculateFontSizeStr:temp.content]+65;
     }
 }
@@ -161,7 +192,7 @@
         UserInfo *user = [UserInfo share];
         
         
-        NSLog(@"************%d",mytableView.pageSize);
+
         
 
         
@@ -264,7 +295,7 @@
         NSMutableDictionary *dic = array[i];
         WeiboInfo *info = [WeiboInfo JsonModalWithDictionary:dic];
         [mytableView.list addObject:info];
-        [mytableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:i+1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [mytableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:i inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
     [mytableView endUpdates];
     
@@ -276,7 +307,7 @@
         NSMutableDictionary *dic = array[i];
         WeiboInfo *info = [WeiboInfo JsonModalWithDictionary:dic];
         [mytableView.list addObject:info];
-        [mytableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:mytableView.list.count inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [mytableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:mytableView.list.count-1 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
     [mytableView endUpdates];
 }
@@ -335,7 +366,7 @@
 - (void)keyboardWasShown:(NSNotification*)aNotification {
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-    height = kbSize.height;
+
     
     [UIView animateWithDuration:0.25 animations:^{
         self.mBottomView.top = self.view.height - self.mBottomView.height-kbSize.height ;

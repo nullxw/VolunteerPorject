@@ -19,6 +19,8 @@
 //#define BASE_URL                    @"59.41.9.198:8096/VolunteerService"
 #define BASE_URL                     @"59.41.39.98:443/VolunteerService"
 
+
+#define IMAGE_URL                    @"59.41.39.98:443"
 //1-5
 
 #define LOGIN_URL                    @"visitor/mobileLogin.action"

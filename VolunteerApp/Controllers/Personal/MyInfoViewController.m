@@ -12,7 +12,7 @@
 @interface MyInfoViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     NSArray *list;
-    NSArray *infoList;
+    NSMutableArray *infoList;
     UITableView *myTableView;
 }
 @end
@@ -48,7 +48,7 @@
     
     
     NSString *serverTime = [NSString stringWithFormat:@"%d 小时",user.serviceTime/3600];
-    infoList = [NSArray arrayWithObjects:user.userName,gender,user.email,user.mobile,user.areaName,@"",serverTime,nil];
+    infoList = [NSMutableArray arrayWithObjects:user.userName,gender,user.email,user.mobile,user.areaName,@"",serverTime,nil];
     
     
     
@@ -125,9 +125,15 @@
     UserInfo *user = [UserInfo share];
     self.request = [[ZZLHttpRequstEngine engine]requestPersonalRankWithUid:user.userId otherUid:user.userId onSuccess:^(id responseObject) {
         NSLog(@"个人排名 %@",responseObject);
+        int rank = [responseObject integerValue];
+        [infoList replaceObjectAtIndex:5 withObject:[NSString stringWithFormat:@"%d",rank]];
+        [myTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:5 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
     } onFail:^(NSError *erro) {
         NSLog(@"%@",[erro.userInfo objectForKey:@"description"]);
+        
         [self.view showHudMessage:@"获取个人排名失败"];
+        [infoList replaceObjectAtIndex:5 withObject:@"未知"];
+        [myTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:5 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
     }];
 }
 @end

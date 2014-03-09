@@ -58,10 +58,28 @@
     }else{
         [self showGuildView];
     }
-    
-   // [self autoLogin];
+    [self setupWeiBo];
+    [self autoLogin];
     
     return YES;
+}
+- (void)setupWeiBo
+{
+    
+    self.weibo = [[SinaWeibo alloc] initWithAppKey:@"2959917823" appSecret:@"771761e2e9e6b863fd9b56e16ce009e2" appRedirectURI:@"" ssoCallbackScheme:@"VolunteerApop"  andDelegate:self];
+    
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *sinaweiboInfo = [defaults objectForKey:@"SinaWeiboAuthData"];
+    if ([sinaweiboInfo objectForKey:@"AccessTokenKey"] && [sinaweiboInfo objectForKey:@"ExpirationDateKey"] && [sinaweiboInfo objectForKey:@"UserIDKey"])
+    {
+        NSLog(@"sina wei bo data is saved!");
+        self.weibo.accessToken = [sinaweiboInfo objectForKey:@"AccessTokenKey"];
+        self.weibo.expirationDate = [sinaweiboInfo objectForKey:@"ExpirationDateKey"];
+        self.weibo.userID = [sinaweiboInfo objectForKey:@"UserIDKey"];
+    }
+
+    
 }
 - (void)showGuildView
 {
@@ -127,7 +145,16 @@
 
 
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    
+    NSLog(@"调用的URL 是:%@",url);
+    if ([sourceApplication isEqualToString:@"com.sina.weibo"]) {
+        return  [self.weibo handleOpenURL:url];
+    }
+    return YES;
 
+}
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

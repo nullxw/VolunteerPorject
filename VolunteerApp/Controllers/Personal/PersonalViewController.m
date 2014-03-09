@@ -13,6 +13,9 @@
 #import "MyWeiBoCell.h"
 #import "SendWeiboViewController.h"
 #import "TrendDetialViewController.h"
+#import "UIAlertView+Blocks.h"
+#import "UIImageView+WebCache.h"
+#import "UrlDefine.h"
 @interface PersonalViewController ()<UITableViewDataSource,UITableViewDelegate,WeiboCellDelegate>
 {
     
@@ -21,11 +24,13 @@
     
     MyTableView    *firstTable;
     MyTableView    *secondTable;
-    MyTableView    *curTable;
+
     
     UIScrollView   *myScrollView;
     
     int             curPage;
+    CGRect         originRect;
+    CGSize        ratio;
 }
 @property (weak, nonatomic) IBOutlet UIImageView *mTopBgView;
 @property (weak, nonatomic) IBOutlet UIButton *classRankBtn;
@@ -117,7 +122,7 @@
     
     myScrollView.contentSize = CGSizeMake(320*2, 0);
 
-    curTable = firstTable;
+
     
 
     
@@ -172,8 +177,8 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if ([curTable.list count]==0) {
-        [curTable triggerPullToRefresh];
+    if ([firstTable.list count]==0) {
+        [firstTable triggerPullToRefresh];
     }
 }
 
@@ -196,7 +201,7 @@
     
     double delayInSeconds = 1.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    dispatch_after(popTime, dispatch_get_global_queue(0, 0), ^(void){
         
         UserInfo *user = [UserInfo share];
 
@@ -257,7 +262,7 @@
         }else{
             [[ZZLHttpRequstEngine engine]requestGetWeiboWithUid:user.userId curid:user.userId pageSize:secondTable.pageSize pageIndex:1 createTime:@"" onSuccess:^(id responseObject) {
                 [secondTable.pullToRefreshView stopAnimating];
-                NSLog(@"___YYY__%@",responseObject);
+                NSLog(@"\n《我的动态》\n%@",responseObject);
                 if ([responseObject isKindOfClass:[NSArray class]]) {
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -420,6 +425,7 @@
     
     
 
+    MyTableView *curTable = (MyTableView *)tableView;
     if ([curTable.list count]>0) {
         
 
@@ -429,21 +435,19 @@
            
             
         }
+        if (curTable == firstTable) {
+            cell.cellType = kWeiboCellTpyeNew;
+        }else if(curTable == secondTable)
+        {
+            cell.cellType = kWeiboCellTpyeMy;
+        }
         cell.cellInPath = indexPath;
         cell.delegate = self;
         WeiboInfo *info = [curTable.list objectAtIndex:indexPath.row];
         [cell setupWithWeiboInfo:info];
         return cell;
-    }else{
-        
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"defaultCell" forIndexPath:indexPath];
-        if (cell == nil) {
-                 cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"defaultCell"];
-        }
-
-        return cell;
     }
-    
+    return nil;
     
   
     
@@ -451,11 +455,8 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (tableView == firstTable) {
-        return [firstTable.list count];
-    }else{
-        return [secondTable.list count];
-    }
+    MyTableView *curTable = (MyTableView *)tableView;
+    return [curTable.list count];
 
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -464,6 +465,9 @@
     WeiboInfo *info = tempTableView.list[indexPath.row];
     if (info) {
         CGSize size = [self caculateStrSize:info.content];
+        if (info.picLittle.length>0) {
+            return size.height+155+90;
+        }
         return size.height+155;
     }else{
         return 44;
@@ -483,6 +487,7 @@
 //    [self.flipboardNavigationController pushViewController:vc completion:^{
 //        
 //    }];
+    MyTableView *curTable = (MyTableView *)tableView;
     WeiboInfo *info = curTable.list[indexPath.row];
     TrendDetialViewController *vc =[TrendDetialViewController ViewContorller];
     vc.info = info;
@@ -494,26 +499,131 @@
 #pragma mark - weibocell delegate method
 - (void)WeiboCell:(WeiBoCell *)cell actionCollectAtIndexPath:(NSIndexPath *)path
 {
+    MyTableView *curTable ;
+    if (curPage == 0) {
+        curTable = firstTable;
+    }else{
+        curTable = secondTable;
+    }
     UserInfo *user = [UserInfo share];
     WeiboInfo *info = curTable.list[path.row];
-//    [self.view showLoadingViewWithString:@"正在收藏..."];
-    [[ZZLHttpRequstEngine engine]requestCollectWeiboWithUid:user.userId weiboId:[NSString stringWithFormat:@"%d",info.weiboId] onSuccess:^(id responseObject) {
-        cell.mCollectBtn.selected = YES;
-        NSString *msg = responseObject;
-        [self.view showHudMessage:msg];
-//        [self.view hideLoadingView];
-    } onFail:^(NSError *erro) {
-//        [self.view hideLoadingView];
-        [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
-    } ];
+
+    if (cell.cellType == kWeiboCellTpyeMy) {
+        [[ZZLHttpRequstEngine engine]requestDelWeiboWithUid:user.userId weiboId:[NSString stringWithFormat:@"%d",info.weiboId] onSuccess:^(id responseObject)
+        {
+            NSString *msg = responseObject;
+            [self.view showHudMessage:msg];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [secondList removeObjectAtIndex:path.row];
+                [secondTable reloadData];
+            });
+            
+        } onFail:^(NSError *erro) {
+            [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
+        }];
+    }else if (cell.cellType == kWeiboCellTpyeNew)
+    {
+        
+        [UIAlertView  showAlertViewWithTitle:@"您确认要删除该条微博吗" message:@"" cancelButtonTitle:@"取消" otherButtonTitles:@[@"确定"] onDismiss:^(int btnIndex) {
+            
+            [[ZZLHttpRequstEngine engine]requestCollectWeiboWithUid:user.userId weiboId:[NSString stringWithFormat:@"%d",info.weiboId] onSuccess:^(id responseObject) {
+                cell.mCollectBtn.selected = YES;
+                NSString *msg = responseObject;
+                [self.view showHudMessage:msg];
+                
+            } onFail:^(NSError *erro) {
+                
+                [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
+            } ];
+        } onCancel:^{
+            return ;
+        }];
+
+    }
+
 }
 - (void)WeiboCell:(WeiBoCell *)cell actionCommentAtIndexPath:(NSIndexPath *)path
 {
-
+    MyTableView *curTable ;
+    if (curPage == 0) {
+        curTable = firstTable;
+    }else{
+        curTable = secondTable;
+    }
     WeiboInfo *info = curTable.list[path.row];
     TrendDetialViewController *vc =[TrendDetialViewController ViewContorller];
     vc.info = info;
     [self.flipboardNavigationController pushViewController:vc];
+}
+
+- (void)WeiboCell:(WeiBoCell *)cell actionImageView:(UIImageView *)imageView
+{
+    MyTableView *curTable ;
+    if (curPage == 0) {
+        curTable = firstTable;
+    }else{
+        curTable = secondTable;
+    }
+    
+    CGFloat height = imageView.top+cell.top+curTable.top+self.navView.height+self.mTopBgView.height;
+    originRect = CGRectMake(imageView.left, height, imageView.width, imageView.height);
+    WeiboInfo *info = curTable.list[cell.cellInPath.row];
+    
+    
+    [self checkPoster:imageView withImageUrl:[NSURL URLWithString:[IMAGE_URL stringByAppendingString:info.picMiddle]]];
+    
+    
+}
+
+- (void)checkPoster:(UIImageView *)imageView1 withImageUrl:(NSURL *)url
+{
+
+
+    
+    
+    
+    
+    
+    UIImage *bigImage = imageView1.image;
+    UIView *backView = [[UIView alloc]initWithFrame:self.view.bounds];
+    backView.backgroundColor = [UIColor blackColor];
+    CGSize size = bigImage.size;
+    ratio = CGSizeMake(originRect.size.width/size.width, originRect.size.height/size.height);
+    CGFloat height = (self.view.width*size.height)/size.width;
+    
+    UIImageView *imageview = [[UIImageView alloc]initWithFrame:originRect];
+    [imageview setImageWithURL:url placeholderImage:bigImage];
+    //imageview.transform = CGAffineTransformMakeScale(ratio.width, ratio.height);
+    
+    
+    [backView addSubview:imageview];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(removeBackView:)];
+    [backView addGestureRecognizer:tap];
+
+    [self.view addSubview:backView];
+    [UIView animateWithDuration:0.5f animations:^{
+        imageview.frame= CGRectMake(0, backView.center.y-(height/2), self.view.width, height);
+        
+    } completion:^(BOOL finished) {
+        
+    }];
+    
+}
+- (void)removeBackView:(UITapGestureRecognizer *)gestrue
+{
+    UIView *view = gestrue.view;
+    view.backgroundColor = [UIColor clearColor];
+    UIImageView *imageview = [[view subviews]lastObject];
+    [UIView animateWithDuration:0.5f animations:^{
+        
+        imageview.frame = originRect;
+    } completion:^(BOOL finished) {
+        [view removeFromSuperview];
+
+        
+    }];
+    view = nil;
+    
 }
 - (IBAction)actionFirst:(UIButton *)sender {
     if (!sender.selected) {
@@ -542,9 +652,9 @@
             self.classRankBtn.selected = YES;
             curPage = 0;
 
-            curTable = firstTable;
+
             
-            if ([firstTable.list count]==0) {
+            if ([firstTable.list count]==0  && !firstTable.hasRequest) {
                 
                 [firstTable triggerPullToRefresh];
             }
@@ -553,6 +663,9 @@
     
     
 }
+//59.41.39.98:443/VolunteerService/upload/psn_spac_file/touxiang/201303040901049.jpg
+//http://59.41.39.98:443/VolunteerService/
+///upload/psn_spac_file/touxiang/201303040901049.jpg
 - (void)moveToSecond
 {
  
@@ -568,8 +681,8 @@
             self.classRankBtn.selected = NO;
             curPage = 1;
 
-            curTable = secondTable;
-            if ([secondTable.list count]==0) {
+
+            if ([secondTable.list count]==0 && !secondTable.hasRequest) {
                 
                 [secondTable triggerPullToRefresh];
             }

@@ -213,6 +213,7 @@
             return;
     }
     self.rectInsetPoint = CGPointMake(50, 5);
+    
     UIImageView *usernameIconImage = [[UIImageView alloc] initWithFrame:CGRectMake(9, 9, 24, 24)];
     usernameIconImage.image = leftImage;
     UIView *usernameIconContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
@@ -418,12 +419,14 @@
 
 - (CGRect)textRectForBounds:(CGRect)bounds
 {
-    return CGRectInset(bounds, self.rectInsetPoint.x, self.rectInsetPoint.y);
+//    return CGRectInset(bounds, self.rectInsetPoint.x, self.rectInsetPoint.y);
+    return  CGRectOffset(bounds, self.rectInsetPoint.x, self.rectInsetPoint.y);
 }
 
 - (CGRect)editingRectForBounds:(CGRect)bounds
 {
-    return CGRectInset(bounds, self.rectInsetPoint.x, self.rectInsetPoint.y);
+    return  CGRectOffset(bounds, self.rectInsetPoint.x, self.rectInsetPoint.y);
+//    return CGRectInset(bounds, self.rectInsetPoint.x, self.rectInsetPoint.y);
 }
 
 - (void)layoutSublayersOfLayer:(CALayer *)layer

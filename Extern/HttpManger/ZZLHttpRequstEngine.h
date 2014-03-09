@@ -92,7 +92,7 @@ typedef void (^objectBlock)(id obj);
  @errorBlock:失败的回调函数，参数为失败的说明
  @return:返回当前请求操作的状态
  */
-- (MKNetworkOperationState)postRequestWithServicePath:(NSString *)path
+- (ZZLRequestOperation *)postRequestWithServicePath:(NSString *)path
                                                params:(NSMutableDictionary *)params
                                             onSuccess:(dictionaryBlock)successBlock
                                                onFail:(erroBlock)errorBlock;

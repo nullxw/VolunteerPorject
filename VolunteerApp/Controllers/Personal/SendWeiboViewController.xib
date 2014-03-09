@@ -7,7 +7,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SendWeiboViewController">
             <connections>
+                <outlet property="mAddImageBtn" destination="Qw4-KG-RFc" id="WCF-B6-UKt"/>
                 <outlet property="mBgView" destination="bBm-Qz-ND6" id="Pbp-uh-URp"/>
+                <outlet property="mSharePic" destination="5Ii-oh-p9a" id="SN4-7w-S2T"/>
                 <outlet property="mTextView" destination="vgW-VO-n5p" id="26g-Hd-CEi"/>
                 <outlet property="mTopView" destination="mcc-nx-90A" id="gNs-sh-gEh"/>
                 <outlet property="mplaceHoldLb" destination="b5I-vN-r0s" id="QmB-GS-wfL"/>
@@ -103,6 +105,10 @@
                         <action selector="shareBtn:" destination="-1" eventType="touchUpInside" id="gcC-ix-uUM"/>
                     </connections>
                 </button>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="5Ii-oh-p9a">
+                    <rect key="frame" x="86" y="171" width="65" height="60"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>

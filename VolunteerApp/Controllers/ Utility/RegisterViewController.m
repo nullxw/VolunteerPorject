@@ -134,6 +134,9 @@
     
     userPwdItem = [[RETextItem alloc]initWithTitle:@"密码" value:@"" placeholder:@"请输入密码"];
     userPwdItem.secureTextEntry = YES;
+    [userPwdItem setOnBeginEditing:^(RETextItem *item) {
+        [weakSelf moveUpWithOffset:44*2];
+    }];
     
     [userPwdItem selectRowAnimated:YES scrollPosition:UITableViewScrollPositionBottom];
     //5
@@ -144,9 +147,7 @@
     [userPwdConfirmItem setOnBeginEditing:^(RETextItem *item) {
         [weakSelf moveUpWithOffset:44*3];
     }];
-    [userPwdConfirmItem setOnEndEditing:^(RETextItem *item) {
-        [weakSelf moveDown];
-    }];
+
 
     
     
@@ -186,9 +187,7 @@
     [emailItem setOnBeginEditing:^(RETextItem *item) {
         [weakSelf moveUpWithOffset:44*5];
     }];
-    [emailItem setOnEndEditing:^(RETextItem *item) {
-        [weakSelf moveDown];
-    }];
+
 
     
     //8电话
@@ -198,9 +197,7 @@
     [phoneItem setOnBeginEditing:^(RETextItem *item) {
         [weakSelf moveUpWithOffset:44*6];
     }];
-    [phoneItem setOnEndEditing:^(RETextItem *item) {
-        [weakSelf moveDown];
-    }];
+
 
 
     
@@ -226,7 +223,7 @@
     
     RETableViewItem *buttonItem = [RETableViewItem itemWithTitle:@"提交" accessoryType:UITableViewCellAccessoryNone selectionHandler:^(RETableViewItem *item) {
         [tableView deselectRowAtIndexPath:item.indexPath animated:YES];
-//        NSLog(@"Button pressed");
+
         [self requestForRegister];
         
     }];
@@ -264,6 +261,8 @@
 
     
     [self setTitleWithString:@"用户注册"];
+    
+    [self registerForKeyboardNotifications];
     
 }
 
@@ -307,16 +306,39 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (void)registerForKeyboardNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardWillShowNotification
+     object:nil];
+     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+    
+}
 
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    [tableView setContentOffset:CGPointMake(0, 0) animated:YES];
+
+}
+- (void)keyboardWasShown:(NSNotification*)aNotification {
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    
+    
+}
 
 #pragma mark - 
 - (void)moveUpWithOffset:(CGFloat)offset
 {
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        tableView.top = -offset;
-    }];
-    
+    [tableView setContentOffset:CGPointMake(0, offset) animated:YES];
+//    [UIView animateWithDuration:0.3 animations:^{
+//        tableView.cont = -offset;
+//    }];
+//    
     
 
 }
@@ -349,10 +371,6 @@
             [cityList addObject:[DistrictModel JsonModalWithDictionary:dic]];
         }
         
-
-
-        
-
     } onFail:^(NSError *erro) {
         [self.view showHudMessage:@"城市列表获取失败"];
         NSLog(@"citylist error:%@",[erro.userInfo objectForKey:@"description"]);
@@ -398,27 +416,22 @@
     }
     
 
-//    [[ZZLHttpRequstEngine engine]requestUserRegsiterWithIDCardType:[cardOptions indexOfObject:cardTypeItem.value] rc4IDCardCode:idcardNoItem.value userName:userNameItem.value rc4Pwd:userPwdItem.value gender:[genderOptions indexOfObject:genderItem.value] rc4email:emailItem.value rc4mobile:phoneItem.value areaid:area onSuccess:^(id responseObject) {
-//        
-//        
-//        NSLog(@"register success:%@",responseObject);
-//        [self.view showHudMessage:@"注册成功！"];
-//    } onFail:^(NSError *erro) {
-//        [self.view showHudMessage:@"注册failrue！"];
-//        NSLog(@"register error:%@",[erro.userInfo objectForKey:@"description"]);
-//    }];
-    [[ZZLHttpRequstEngine engine]requestUserRegsiterWithIDCardType:1 rc4IDCardCode:@"3607821988111870" userName:@"aaabbb" rc4Pwd:@"123456" gender:1 rc4email:@"qvbicfhdx@126.com" rc4mobile:@"15652512884" areaid:area onSuccess:^(id responseObject) {
+    [[ZZLHttpRequstEngine engine]requestUserRegsiterWithIDCardType:[cardOptions indexOfObject:cardTypeItem.value] rc4IDCardCode:idcardNoItem.value userName:userNameItem.value rc4Pwd:userPwdItem.value gender:[genderOptions indexOfObject:genderItem.value] rc4email:emailItem.value rc4mobile:phoneItem.value areaid:area onSuccess:^(id responseObject) {
         
         
         NSLog(@"register success:%@",responseObject);
         [self.view showHudMessage:@"注册成功！"];
-        [self.flipboardNavigationController popViewController];
+        [self performSelector:@selector(pop) withObject:nil afterDelay:1];
     } onFail:^(NSError *erro) {
         [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
         NSLog(@"register error:%@",[erro.userInfo objectForKey:@"description"]);
     }];
-}
 
+}
+- (void)pop
+{
+    [self.flipboardNavigationController popViewController];
+}
 - (BOOL)validateForm
 {
     if (![userPwdItem.value isEqualToString:userPwdConfirmItem.value]) {

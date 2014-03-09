@@ -14,7 +14,8 @@
 @property (nonatomic) int pageSize;
 @property (nonatomic) int pageIndex;
 @property (nonatomic,strong) NSMutableArray *list;
-@property (nonatomic,strong) ZZLRequestOperation *op;
+@property (nonatomic) BOOL hasRequest;
+
 - (void)insertRowAtTopWithCount:(int)count;
 - (void)insertRowAtBottomWithCount:(int)count;
 @end

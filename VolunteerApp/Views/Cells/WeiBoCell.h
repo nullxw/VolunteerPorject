@@ -9,17 +9,25 @@
 #import "PDBaseCell.h"
 #import "WeiboInfo.h"
 
+
+typedef enum WeiboCellType
+{
+    kWeiboCellTpyeNew,
+    kWeiboCellTpyeMy
+}WeiboCellType;
 @class WeiBoCell;
 @protocol WeiboCellDelegate <NSObject>
 
 - (void)WeiboCell:(WeiBoCell *)cell actionCollectAtIndexPath:(NSIndexPath *)path;
 - (void)WeiboCell:(WeiBoCell *)cell actionCommentAtIndexPath:(NSIndexPath *)path;
+- (void)WeiboCell:(WeiBoCell *)cell actionImageView:(UIImageView *)imageView;
 @end
 @interface WeiBoCell : PDBaseCell
 {
     
 }
 
+@property (nonatomic) WeiboCellType  cellType;
 @property (strong, nonatomic)    NSIndexPath        *cellInPath;
 @property (weak, nonatomic) IBOutlet UILabel *mNameLb;
 @property (weak, nonatomic) IBOutlet UILabel *mTimeLb;

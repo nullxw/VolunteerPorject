@@ -16,10 +16,6 @@
     MyTableView *myTableView;
     NSMutableArray *list;
     
-
-
-
-    
     int selectedRow;
 }
 @end

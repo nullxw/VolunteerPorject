@@ -25,12 +25,14 @@
     
     UIButton     *curBtn;
     UInt16       curpage;
-    NSMutableArray *curList;
-    MyTableView  *curTableView;
+
+
     
     NSMutableArray  *firstList;
     NSMutableArray  *secondList;
     NSMutableArray  *thridList;
+    
+    NSMutableArray  *requestList;
     
    
     
@@ -76,6 +78,11 @@
     UIImage *bgimage = [[UIImage imageNamed:@"mypro_tabbarbg"]resizableImageWithCapInsets:UIEdgeInsetsMake(40, 10, 40, 10)];
     self.topBgView.image = bgimage;
     
+    
+    firstList = [[NSMutableArray alloc]init];
+    secondList = [[NSMutableArray alloc]init];
+    thridList = [[NSMutableArray alloc]init];
+    
     scrollView  = [[UIScrollView alloc]initWithFrame:CGRectMake(0,self.topBgView.bottom,self.view.width,self.view.height-self.topBgView.bottom)];
     scrollView.contentSize = CGSizeMake(3*scrollView.width, scrollView.height);
     scrollView.backgroundColor = [UIColor clearColor];
@@ -99,16 +106,14 @@
     firstTable.separatorStyle                 = UITableViewCellSeparatorStyleNone;
 
 
-    
+    firstTable.list = firstList;
     [self.view insertSubview:scrollView belowSubview:self.topBgView];
     [scrollView addSubview:firstTable];
     
     curBtn = self.joinBtn;
     curBtn.selected = YES;
     
-    firstList = [[NSMutableArray alloc]init];
-    secondList = [[NSMutableArray alloc]init];
-    thridList = [[NSMutableArray alloc]init];
+
     
 
 
@@ -116,12 +121,12 @@
     __weak MyProjectViewController *weakSelf = self;
     [firstTable addPullToRefreshWithActionHandler:^{
         
-        [weakSelf refreshData];
+        [weakSelf refreshFristData];
     }];
     
     
     [firstTable addInfiniteScrollingWithActionHandler:^{
-        [weakSelf loadMore];
+        [weakSelf loadFristMore];
     }];
     firstTable.infiniteScrollingView.enabled = NO;
 
@@ -131,16 +136,17 @@
     secondTable.dataSource = self;
     secondTable.delegate = self;
     secondTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+    secondTable.list = secondList;
     secondTable.left = firstTable.width;
     scrollView.contentSize = CGSizeMake(2*scrollView.width, scrollView.height);
     [scrollView addSubview:secondTable];
 
 
     [secondTable addPullToRefreshWithActionHandler:^{
-        [weakSelf refreshData];
+        [weakSelf refreshSecondData];
     }];
     [secondTable addInfiniteScrollingWithActionHandler:^{
-        [weakSelf loadMore];
+        [weakSelf loadSecondMore];
     }];
     secondTable.infiniteScrollingView.enabled = NO;
     
@@ -150,21 +156,21 @@
     thridTable.delegate = self;
     thridTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     thridTable.left = scrollView.width*2;
-    
+    thridTable.list = thridList;
     [scrollView addSubview:thridTable];
 
     [thridTable addPullToRefreshWithActionHandler:^{
-        [weakSelf refreshData];
+        [weakSelf refreshThridData];
     }];
     
     [thridTable addInfiniteScrollingWithActionHandler:^{
-        [weakSelf loadMore];
+        [weakSelf loadThridMore];
     }];
     thridTable.infiniteScrollingView.enabled = NO;
     
     curpage = 0;
-    curList = firstList;
-    curTableView = firstTable;
+
+    
     
     
 }
@@ -173,7 +179,31 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+- (void)refreshFristData
+{
+    [self refreshDataWithTableView:firstTable];
+}
+- (void)refreshSecondData
+{
+    [self refreshDataWithTableView:secondTable];
+    
+}
+- (void)refreshThridData
+{
+    [self refreshDataWithTableView:thridTable];
+}
+- (void)loadFristMore
+{
+    [self loadMoreWithTableView:firstTable];
+}
+- (void)loadSecondMore
+{
+    [self loadMoreWithTableView:secondTable];
+}
+- (void)loadThridMore
+{
+    [self loadMoreWithTableView:thridTable];
+}
 #pragma mark - view Lifecycle
 
 
@@ -191,8 +221,8 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if ([firstList count] == 0) {
-        [curTableView triggerPullToRefresh];
+    if ([firstTable.list count] == 0) {
+        [firstTable triggerPullToRefresh];
     }
     
 }
@@ -209,11 +239,12 @@
 #pragma mark - tableviewDelegate,tableviewDataSource
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ( [curList count]>0) {
+    MyTableView *curTableView = (MyTableView *)tableView;
+    if ( [curTableView.list count]>0) {
         MyWaitCell *cell = [MyWaitCell cellForTableView:curTableView fromNib:[MyWaitCell nib]];
         cell.cellInPath = indexPath;
         cell.delegate = self;
-        MissionInfo *info = [curList objectAtIndex:indexPath.row];
+        MissionInfo *info = [curTableView.list objectAtIndex:indexPath.row];
         [cell setupMyWaitCell:info WithType:curpage];
         return cell;
     }else{
@@ -224,7 +255,8 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [curList count];
+     MyTableView *curTableView = (MyTableView *)tableView;
+    return [curTableView.list count];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -233,8 +265,10 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    MyTableView *curTableView = (MyTableView *)tableView;
+
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    MissionInfo *temp = curList[indexPath.row];
+    MissionInfo *temp = curTableView.list[indexPath.row];
     ProDetailViewController *vc = [ProDetailViewController ViewContorller];
     [vc setMissId:temp.mission_id];
     [self.flipboardNavigationController pushViewController:vc completion:^{
@@ -283,12 +317,11 @@
             curBtn = self.joinBtn;
             curBtn.selected = YES;
             curpage = 0;
-            curList = firstList;
-            curTableView = firstTable;
+
             [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-            if ([curList count]==0) {
+            if ([firstTable.list count]==0 && !firstTable.hasRequest) {
                 
-                [curTableView triggerPullToRefresh];
+                [firstTable triggerPullToRefresh];
             }
         }
     }];
@@ -310,11 +343,11 @@
             curBtn = self.waitBtn;
             curBtn.selected = YES;
             curpage = 1;
-            curList = secondList;
-            curTableView = secondTable;
+ 
+
             [scrollView setContentOffset:CGPointMake(self.view.width, 0) animated:YES];
-            if ([curList count] == 0) {
-                [curTableView triggerPullToRefresh];
+            if ([secondTable.list count] == 0 && !secondTable.hasRequest ) {
+                [secondTable triggerPullToRefresh];
             }
             
         }
@@ -334,12 +367,12 @@
             curBtn.selected = NO;
             curBtn = self.completeBtn;
             curBtn.selected = YES;
-            curList = thridList;
+
             curpage = 2;
-            curTableView = thridTable;
+
             [scrollView setContentOffset:CGPointMake(self.view.width*2, 0) animated:YES];
-            if ([curList count]==0) {
-                [curTableView triggerPullToRefresh];
+            if ([thridTable.list count]==0 && !thridTable.hasRequest) {
+                [thridTable triggerPullToRefresh];
             }
         }
     }];
@@ -351,23 +384,23 @@
 #pragma mark -  networkData
 
 
-- (void)refreshData
+- (void)refreshDataWithTableView:(MyTableView *)curTableView
 {
 
     double delayInSeconds = 1.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    dispatch_after(popTime, dispatch_get_global_queue(0, 0), ^(void){
         
         UserInfo *user = [UserInfo share];
         
         int state = 0;
         int sel = 0;
         NSString *str =@"";
-        if (curpage == 0) {
+        if (curTableView == firstTable) {
             state = 50;
             sel = 1;
             str = @"无参与中的项目";
-        }else if(curpage == 1)
+        }else if(curTableView == secondTable)
         {
             sel = 4;
             state = 35;
@@ -378,9 +411,10 @@
             str = @"暂无完成的项目";
         }
         
-        NSLog(@"%d",curTableView.pageSize);
+
         
         [[ZZLHttpRequstEngine engine] requestGetMissionlistWithUid:user.userId  selection:sel missionState:state  pageSize:curTableView.pageSize pageIndex:1 onSuccess:^(id responseDict) {
+            curTableView.hasRequest = YES;
             [curTableView.pullToRefreshView stopAnimating];
             NSLog(@"___YYY__%@",responseDict);
             if ([responseDict isKindOfClass:[NSArray class]]) {
@@ -390,7 +424,7 @@
                     
                     int itemCount = [responseDict count];
                     if (itemCount == 0 ) {
-                        if ([curList count]==0) {
+                        if ([curTableView.list count]==0) {
                             [curTableView reloadData];
                             [curTableView addCenterMsgView:str];
                         }else{
@@ -400,14 +434,20 @@
                         
                     }else{
                         [curTableView removeCenterMsgView];
-                        if ([curList count] > 0) {
-                            [curList removeAllObjects];
+                        if ([curTableView.list count] > 0) {
+                            [curTableView.list removeAllObjects];
                             
                             curTableView.pageIndex = 1;
                             
                         }
+                        for (int i=0; i<itemCount; i++) {
+                            NSMutableDictionary *dic = responseDict[i];
+                            MissionInfo *info = [MissionInfo JsonModalWithDictionary:dic];
+                            [curTableView.list addObject:info];
+
+                        }
                         [curTableView reloadData];
-                        [self insertRowAtTopWithList:responseDict];
+
                         
                         if (itemCount%curTableView.pageSize == 0) {
                             curTableView.infiniteScrollingView.enabled = YES;
@@ -421,6 +461,7 @@
         } onFail:^(NSError *erro) {
             NSLog(@"___xxx___%@",[erro.userInfo objectForKey:@"description"]);
             
+
             
             [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
             [curTableView.pullToRefreshView stopAnimating];
@@ -429,16 +470,16 @@
     });
 
 }
-- (void)loadMore
+- (void)loadMoreWithTableView:(MyTableView *)curTableView
 {
     UserInfo *user = [UserInfo share];
     
     int state = 0;
     int sel = 0;
-    if (curpage == 0) {
+    if (curTableView == firstTable) {
         state = 35;
         sel = 1;
-    }else if(curpage == 1)
+    }else if(curTableView == secondTable)
     {
         sel = 4;
         state = 50;
@@ -447,6 +488,7 @@
         state = 100;
     }
     
+
     [[ZZLHttpRequstEngine engine] requestGetMissionlistWithUid:user.userId selection:sel missionState:state pageSize:curTableView.pageSize pageIndex:curTableView.pageIndex+1 onSuccess:^(id responseDict) {
         
         [curTableView.infiniteScrollingView stopAnimating];
@@ -460,8 +502,13 @@
                     
                     curTableView.infiniteScrollingView.enabled = NO;
                 }else{
-                    
-                    [self insertRowAtBottomWithList:responseDict];
+                    for (int i=0; i<itemCount; i++) {
+                        NSMutableDictionary *dic = responseDict[i];
+                        MissionInfo *info = [MissionInfo JsonModalWithDictionary:dic];
+                        [curTableView.list addObject:info];
+                        
+                    }
+                    [curTableView reloadData];
                     if (itemCount%curTableView.pageSize == 0) {
                         curTableView.pageIndex++;
                         curTableView.infiniteScrollingView.enabled = YES;
@@ -482,29 +529,7 @@
         [curTableView.infiniteScrollingView stopAnimating];
     }];
 }
-- (void)insertRowAtTopWithList:(NSArray *)array
-{
-    [curTableView beginUpdates];
-    for (int i=0; i<[array count]; i++) {
-        NSMutableDictionary *dic = array[i];
-        MissionInfo *info = [MissionInfo JsonModalWithDictionary:dic];
-        [curList addObject:info];
-        [curTableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
-    }
-    [curTableView endUpdates];
 
-}
-- (void)insertRowAtBottomWithList:(NSArray *)array
-{
-    [curTableView beginUpdates];
-    for (int i=0; i< [array count]; i++) {
-        NSMutableDictionary *dic = array[i];
-        MissionInfo *info = [MissionInfo JsonModalWithDictionary:dic];
-        [curList addObject:info];
-        [curTableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:curList.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationBottom];
-    }
-    [curTableView endUpdates];
-}
 
 #pragma mark - scrollview delegate
 /*
@@ -534,9 +559,18 @@
 #pragma mark - cell delegate
 - (void)actionAttendBtn:(MyWaitCell *)cell AtIndexPath:(NSIndexPath *)ipath
 {
+    MyTableView *curTableView;
+    if (curpage == 0) {
+        curTableView = firstTable;
+    }else if (curpage == 1)
+    {
+        curTableView = secondTable;
+    }else{
+        curTableView = thridTable;
+    }
     int row = ipath.row;
     MyAttendViewController *vc = [MyAttendViewController ViewContorller];
-    MissionInfo *info = curList[row];
+    MissionInfo *info = curTableView.list[row];
     vc.missionId = info.mission_id;
     [self.flipboardNavigationController pushViewController:vc];
 }

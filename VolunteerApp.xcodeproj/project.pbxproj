@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B0E5E0918CC43CD008BFC6A /* ProTrendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E5E0718CC43CD008BFC6A /* ProTrendViewController.m */; };
+		7B0E5E0A18CC43CD008BFC6A /* ProTrendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B0E5E0818CC43CD008BFC6A /* ProTrendViewController.xib */; };
+		7B0E5E0C18CC9EF7008BFC6A /* DefaultCover.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B0E5E0B18CC9EF7008BFC6A /* DefaultCover.png */; };
+		7B0E5E0E18CC9F2F008BFC6A /* defaultHeadImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B0E5E0D18CC9F2F008BFC6A /* defaultHeadImage.png */; };
 		7B10526D18C8CE0600445EF8 /* TrendDetialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B10526B18C8CE0600445EF8 /* TrendDetialViewController.m */; };
 		7B10526E18C8CE0600445EF8 /* TrendDetialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B10526C18C8CE0600445EF8 /* TrendDetialViewController.xib */; };
 		7B10527318C8D2FB00445EF8 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B10527218C8D2FB00445EF8 /* CommentCell.m */; };
@@ -28,6 +32,14 @@
 		7B2121A618C228AA003955EE /* MyInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2121A518C228AA003955EE /* MyInfoCell.m */; };
 		7B2121A818C228DC003955EE /* MyInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B2121A718C228DC003955EE /* MyInfoCell.xib */; };
 		7B2121AB18C2403C003955EE /* WeiBoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2121AA18C2403C003955EE /* WeiBoCell.m */; };
+		7B21B10F18CA13F2009EA7C3 /* SinaWeibo.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7B21B10718CA13F2009EA7C3 /* SinaWeibo.bundle */; };
+		7B21B11018CA13F2009EA7C3 /* SinaWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B21B10918CA13F2009EA7C3 /* SinaWeibo.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B21B11118CA13F2009EA7C3 /* SinaWeiboAuthorizeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B21B10B18CA13F2009EA7C3 /* SinaWeiboAuthorizeView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B21B11218CA13F2009EA7C3 /* SinaWeiboRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B21B10E18CA13F2009EA7C3 /* SinaWeiboRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B21B11D18CA1F9A009EA7C3 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B21B11C18CA1F9A009EA7C3 /* libz.1.2.5.dylib */; };
+		7B21B12018CA2173009EA7C3 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B21B11F18CA2173009EA7C3 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7B233DA418CB3D9600D6B6C8 /* ContactUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B233DA218CB3D9600D6B6C8 /* ContactUsViewController.m */; };
+		7B233DA518CB3D9600D6B6C8 /* ContactUsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B233DA318CB3D9600D6B6C8 /* ContactUsViewController.xib */; };
 		7B28276818C254DC00088EB8 /* SignInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B28276718C254DC00088EB8 /* SignInfo.m */; };
 		7B29E9FB18B62A230038C278 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B29E9FA18B62A230038C278 /* Foundation.framework */; };
 		7B29E9FD18B62A230038C278 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B29E9FC18B62A230038C278 /* CoreGraphics.framework */; };
@@ -309,6 +321,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7B0E5E0618CC43CD008BFC6A /* ProTrendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProTrendViewController.h; sourceTree = "<group>"; };
+		7B0E5E0718CC43CD008BFC6A /* ProTrendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProTrendViewController.m; sourceTree = "<group>"; };
+		7B0E5E0818CC43CD008BFC6A /* ProTrendViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProTrendViewController.xib; sourceTree = "<group>"; };
+		7B0E5E0B18CC9EF7008BFC6A /* DefaultCover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DefaultCover.png; sourceTree = "<group>"; };
+		7B0E5E0D18CC9F2F008BFC6A /* defaultHeadImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultHeadImage.png; sourceTree = "<group>"; };
 		7B10526A18C8CE0600445EF8 /* TrendDetialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrendDetialViewController.h; sourceTree = "<group>"; };
 		7B10526B18C8CE0600445EF8 /* TrendDetialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrendDetialViewController.m; sourceTree = "<group>"; };
 		7B10526C18C8CE0600445EF8 /* TrendDetialViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrendDetialViewController.xib; sourceTree = "<group>"; };
@@ -340,6 +357,21 @@
 		7B2121A718C228DC003955EE /* MyInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyInfoCell.xib; sourceTree = "<group>"; };
 		7B2121A918C2403C003955EE /* WeiBoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiBoCell.h; sourceTree = "<group>"; };
 		7B2121AA18C2403C003955EE /* WeiBoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeiBoCell.m; sourceTree = "<group>"; };
+		7B21B10718CA13F2009EA7C3 /* SinaWeibo.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SinaWeibo.bundle; sourceTree = "<group>"; };
+		7B21B10818CA13F2009EA7C3 /* SinaWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinaWeibo.h; sourceTree = "<group>"; };
+		7B21B10918CA13F2009EA7C3 /* SinaWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinaWeibo.m; sourceTree = "<group>"; };
+		7B21B10A18CA13F2009EA7C3 /* SinaWeiboAuthorizeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinaWeiboAuthorizeView.h; sourceTree = "<group>"; };
+		7B21B10B18CA13F2009EA7C3 /* SinaWeiboAuthorizeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinaWeiboAuthorizeView.m; sourceTree = "<group>"; };
+		7B21B10C18CA13F2009EA7C3 /* SinaWeiboConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinaWeiboConstants.h; sourceTree = "<group>"; };
+		7B21B10D18CA13F2009EA7C3 /* SinaWeiboRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinaWeiboRequest.h; sourceTree = "<group>"; };
+		7B21B10E18CA13F2009EA7C3 /* SinaWeiboRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinaWeiboRequest.m; sourceTree = "<group>"; };
+		7B21B11A18CA1F48009EA7C3 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		7B21B11C18CA1F9A009EA7C3 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
+		7B21B11E18CA2173009EA7C3 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		7B21B11F18CA2173009EA7C3 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		7B233DA118CB3D9600D6B6C8 /* ContactUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactUsViewController.h; sourceTree = "<group>"; };
+		7B233DA218CB3D9600D6B6C8 /* ContactUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactUsViewController.m; sourceTree = "<group>"; };
+		7B233DA318CB3D9600D6B6C8 /* ContactUsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContactUsViewController.xib; sourceTree = "<group>"; };
 		7B28276618C254DC00088EB8 /* SignInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInfo.h; sourceTree = "<group>"; };
 		7B28276718C254DC00088EB8 /* SignInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInfo.m; sourceTree = "<group>"; };
 		7B29E9F718B62A230038C278 /* VolunteerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VolunteerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -744,6 +776,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B21B11D18CA1F9A009EA7C3 /* libz.1.2.5.dylib in Frameworks */,
 				BF2E3C0C18BEE96D00D78B42 /* ImageIO.framework in Frameworks */,
 				BF32EF7018B8718E00F09D1D /* MapKit.framework in Frameworks */,
 				7B29EA6218B6325F0038C278 /* CFNetwork.framework in Frameworks */,
@@ -769,6 +802,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7B21B10618CA13F2009EA7C3 /* WeiBoSDK */ = {
+			isa = PBXGroup;
+			children = (
+				7B21B11E18CA2173009EA7C3 /* JSONKit.h */,
+				7B21B11F18CA2173009EA7C3 /* JSONKit.m */,
+				7B21B10718CA13F2009EA7C3 /* SinaWeibo.bundle */,
+				7B21B10818CA13F2009EA7C3 /* SinaWeibo.h */,
+				7B21B10918CA13F2009EA7C3 /* SinaWeibo.m */,
+				7B21B10A18CA13F2009EA7C3 /* SinaWeiboAuthorizeView.h */,
+				7B21B10B18CA13F2009EA7C3 /* SinaWeiboAuthorizeView.m */,
+				7B21B10C18CA13F2009EA7C3 /* SinaWeiboConstants.h */,
+				7B21B10D18CA13F2009EA7C3 /* SinaWeiboRequest.h */,
+				7B21B10E18CA13F2009EA7C3 /* SinaWeiboRequest.m */,
+			);
+			path = WeiBoSDK;
+			sourceTree = "<group>";
+		};
 		7B29E9EE18B62A230038C278 = {
 			isa = PBXGroup;
 			children = (
@@ -792,6 +842,8 @@
 		7B29E9F918B62A230038C278 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B21B11C18CA1F9A009EA7C3 /* libz.1.2.5.dylib */,
+				7B21B11A18CA1F48009EA7C3 /* libz.dylib */,
 				BF2E3C0B18BEE96D00D78B42 /* ImageIO.framework */,
 				BF32EF6F18B8718E00F09D1D /* MapKit.framework */,
 				7B29EA6118B6325F0038C278 /* CFNetwork.framework */,
@@ -854,6 +906,7 @@
 		7B29EA2918B630F00038C278 /* Extern */ = {
 			isa = PBXGroup;
 			children = (
+				7B21B10618CA13F2009EA7C3 /* WeiBoSDK */,
 				7B29EAC418B636F00038C278 /* SDWebImage */,
 				7B29EA9318B636690038C278 /* common */,
 				7B29EA4D18B632060038C278 /* Addtion */,
@@ -1019,6 +1072,9 @@
 				7B9640EA18B9176E0089674F /* CheckClassViewController.h */,
 				7B9640EB18B9176E0089674F /* CheckClassViewController.m */,
 				7B9640EC18B9176E0089674F /* CheckClassViewController.xib */,
+				7B0E5E0618CC43CD008BFC6A /* ProTrendViewController.h */,
+				7B0E5E0718CC43CD008BFC6A /* ProTrendViewController.m */,
+				7B0E5E0818CC43CD008BFC6A /* ProTrendViewController.xib */,
 			);
 			path = ProjectMannager;
 			sourceTree = "<group>";
@@ -1213,6 +1269,9 @@
 				7B29EB4D18B667820038C278 /* MoreViewController.h */,
 				7B29EB4E18B667820038C278 /* MoreViewController.m */,
 				7B29EB4F18B667820038C278 /* MoreViewController.xib */,
+				7B233DA118CB3D9600D6B6C8 /* ContactUsViewController.h */,
+				7B233DA218CB3D9600D6B6C8 /* ContactUsViewController.m */,
+				7B233DA318CB3D9600D6B6C8 /* ContactUsViewController.xib */,
 			);
 			path = More;
 			sourceTree = "<group>";
@@ -1293,6 +1352,8 @@
 		7B96410718BA6A710089674F /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				7B0E5E0D18CC9F2F008BFC6A /* defaultHeadImage.png */,
+				7B0E5E0B18CC9EF7008BFC6A /* DefaultCover.png */,
 				7B7EE85F18C75A1A00B51524 /* guildImage1.jpg */,
 				7B7EE86018C75A1A00B51524 /* guildImage2.jpg */,
 				7B7EE86118C75A1A00B51524 /* guildImage3.jpg */,
@@ -1638,8 +1699,10 @@
 				7B3FBCF118BB7DD20018DB8E /* nav_search.png in Resources */,
 				7BBB7B6C18BE3C8700739A3E /* promg_delbtn_nl.png in Resources */,
 				BFE8116518C0BE4800EB3E14 /* ico_complete.png in Resources */,
+				7B21B10F18CA13F2009EA7C3 /* SinaWeibo.bundle in Resources */,
 				7B29EA8518B635730038C278 /* blueArrow@2x.png in Resources */,
 				BFE8116818C0BE4800EB3E14 /* ico_members.png in Resources */,
+				7B0E5E0A18CC43CD008BFC6A /* ProTrendViewController.xib in Resources */,
 				BFE8117B18C0BE4800EB3E14 /* win_close.png in Resources */,
 				7B7EE86418C75A1A00B51524 /* guildImage1.jpg in Resources */,
 				7BF6027018BDA959007DBAC3 /* mypro_cellbg@2x.png in Resources */,
@@ -1668,6 +1731,7 @@
 				BFE8116D18C0BE4800EB3E14 /* ico_phone.png in Resources */,
 				7BBB7B6318BE3C8700739A3E /* promg_apply_hl.png in Resources */,
 				BFE8116218C0BE4800EB3E14 /* class_mag.png in Resources */,
+				7B0E5E0E18CC9F2F008BFC6A /* defaultHeadImage.png in Resources */,
 				7BBB7B6D18BE3C8700739A3E /* promg_edit_hl.png in Resources */,
 				7BBB7B6E18BE3C8700739A3E /* promg_edit_nl.png in Resources */,
 				BFE8117A18C0BE4800EB3E14 /* plan_sigout.png in Resources */,
@@ -1747,7 +1811,9 @@
 				BFE8116C18C0BE4800EB3E14 /* ico_nosel2.png in Resources */,
 				BFE8117818C0BE4800EB3E14 /* plan_recruit.png in Resources */,
 				7BBB7B6418BE3C8700739A3E /* promg_apply_nl.png in Resources */,
+				7B233DA518CB3D9600D6B6C8 /* ContactUsViewController.xib in Resources */,
 				7B96412518BA6B920089674F /* home_search_hl@2x.png in Resources */,
+				7B0E5E0C18CC9EF7008BFC6A /* DefaultCover.png in Resources */,
 				BFE8117518C0BE4800EB3E14 /* plan_comment.png in Resources */,
 				7B3FBCD318BB74D60018DB8E /* login_hl@2x.png in Resources */,
 				7B13F4D018C4CAD0006D58E0 /* SearchResultViewController.xib in Resources */,
@@ -1826,6 +1892,7 @@
 				7B29EAC118B636A10038C278 /* UIImage+RoundRectImage.m in Sources */,
 				7B85107218B7926F00D20F90 /* QCheckBox.m in Sources */,
 				7B29EB5018B667820038C278 /* MoreViewController.m in Sources */,
+				7B21B11118CA13F2009EA7C3 /* SinaWeiboAuthorizeView.m in Sources */,
 				7B29EB3A18B6629C0038C278 /* MyProjectViewController.m in Sources */,
 				7B28276818C254DC00088EB8 /* SignInfo.m in Sources */,
 				7B29EA4818B631DA0038C278 /* Reachability.m in Sources */,
@@ -1838,12 +1905,15 @@
 				7B29EA4118B631DA0038C278 /* NSData+Base64.m in Sources */,
 				7BD02AEB18BCBF7E00E067A0 /* RETableViewCreditCardCell.m in Sources */,
 				BFCEA89518C062A700CE7ADC /* DistrictModel.m in Sources */,
+				7B21B11018CA13F2009EA7C3 /* SinaWeibo.m in Sources */,
 				7B29EAA718B636690038C278 /* MBProgressHUD.m in Sources */,
 				7B29EB2B18B652300038C278 /* UIScrollView+PullLoad.m in Sources */,
 				7BD02AF118BCBF7E00E067A0 /* RETableViewTextCell.m in Sources */,
 				7BD02AFC18BCBF7E00E067A0 /* REPlaceholderTextView.m in Sources */,
+				7B0E5E0918CC43CD008BFC6A /* ProTrendViewController.m in Sources */,
 				7B29EA0B18B62A230038C278 /* AppDelegate.m in Sources */,
 				7B85106318B78EAF00D20F90 /* UIView+XHFindViewController.m in Sources */,
+				7B21B12018CA2173009EA7C3 /* JSONKit.m in Sources */,
 				7B29EADF18B636F00038C278 /* SDWebImageCompat.m in Sources */,
 				7B3FBCF818BBABAB0018DB8E /* RegisterViewController.m in Sources */,
 				7B10527318C8D2FB00445EF8 /* CommentCell.m in Sources */,
@@ -1853,12 +1923,14 @@
 				7BD02AF318BCBF7E00E067A0 /* RECreditCardItem.m in Sources */,
 				7B29EA4C18B631F30038C278 /* ZZLCacheManager.m in Sources */,
 				7B29EAE318B636F00038C278 /* SDWebImageManager.m in Sources */,
+				7B21B11218CA13F2009EA7C3 /* SinaWeiboRequest.m in Sources */,
 				7B85106518B78EAF00D20F90 /* XHTextField.m in Sources */,
 				7BD02AF618BCBF7E00E067A0 /* RELongTextItem.m in Sources */,
 				7BD02B1518BCC2A300E067A0 /* REFormattedNumberField.m in Sources */,
 				7BD02AF418BCBF7E00E067A0 /* REDateTimeItem.m in Sources */,
 				7BD02B1918BCC2A300E067A0 /* REEmailValidator.m in Sources */,
 				7B10526D18C8CE0600445EF8 /* TrendDetialViewController.m in Sources */,
+				7B233DA418CB3D9600D6B6C8 /* ContactUsViewController.m in Sources */,
 				7BBB7B4118BE152700739A3E /* UIScrollView+SVPullToRefresh.m in Sources */,
 				7B8615DB18C2514E0003BF15 /* MyAttendViewController.m in Sources */,
 				7BD02AF918BCBF7E00E067A0 /* RERadioItem.m in Sources */,
@@ -2036,7 +2108,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VolunteerApp/VolunteerApp-Prefix.pch";
 				INFOPLIST_FILE = "VolunteerApp/VolunteerApp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "508E6C3E-5337-4FDD-8C95-8442F88E1BC9";
 				WRAPPER_EXTENSION = app;
@@ -2052,7 +2124,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VolunteerApp/VolunteerApp-Prefix.pch";
 				INFOPLIST_FILE = "VolunteerApp/VolunteerApp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "508E6C3E-5337-4FDD-8C95-8442F88E1BC9";
 				WRAPPER_EXTENSION = app;

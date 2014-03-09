@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" variant="6xAndEarlier" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4488.1" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" variant="6xAndEarlier" propertyAccessControl="none">
     <dependencies>
-        <deployment defaultVersion="1552" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <deployment defaultVersion="1296" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3715.3"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController">
@@ -11,6 +11,7 @@
                 <outlet property="lgoinBtn" destination="yNo-JW-DwY" id="EqX-qS-fIZ"/>
                 <outlet property="mPasswordTextFiled" destination="eO9-Nn-VqQ" id="TVt-jE-VVR"/>
                 <outlet property="mUserNameTextFiled" destination="BoL-pZ-l1Y" id="9NI-i8-LMq"/>
+                <outlet property="registerBtn" destination="kdb-4e-vAI" id="aLX-wQ-4pU"/>
                 <outlet property="topView" destination="Gun-JW-pvm" id="VDQ-XL-cSt"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -25,25 +26,6 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" red="0.91372555489999996" green="0.29019609089999998" blue="0.54509806630000002" alpha="1" colorSpace="deviceRGB"/>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="kdb-4e-vAI">
-                    <rect key="frame" x="0.0" y="420" width="320" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <state key="normal">
-                        <attributedString key="attributedTitle">
-                            <fragment content="我要注册">
-                                <attributes>
-                                    <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                    <font key="NSFont" size="17" name="STHeitiSC-Light"/>
-                                    <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                </attributes>
-                            </fragment>
-                        </attributedString>
-                    </state>
-                    <connections>
-                        <action selector="actionRegsiter:" destination="-1" eventType="touchUpInside" id="Ehg-gM-sBA"/>
-                    </connections>
-                </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_logo.png" id="fLB-di-q4f">
                     <rect key="frame" x="22" y="61" width="276" height="55"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -79,7 +61,7 @@
                             </connections>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yNo-JW-DwY">
-                            <rect key="frame" x="25" y="147" width="230" height="30"/>
+                            <rect key="frame" x="155" y="147" width="100" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="登录">
@@ -88,6 +70,25 @@
                             </state>
                             <connections>
                                 <action selector="loginAction:" destination="-1" eventType="touchUpInside" id="tBy-6r-lu7"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="kdb-4e-vAI">
+                            <rect key="frame" x="25" y="147" width="100" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <state key="normal">
+                                <attributedString key="attributedTitle">
+                                    <fragment content="我要注册">
+                                        <attributes>
+                                            <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                            <font key="NSFont" size="17" name="STHeitiSC-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                            </state>
+                            <connections>
+                                <action selector="actionRegsiter:" destination="-1" eventType="touchUpInside" id="Ehg-gM-sBA"/>
                             </connections>
                         </button>
                     </subviews>

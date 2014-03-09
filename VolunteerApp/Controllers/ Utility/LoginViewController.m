@@ -23,6 +23,7 @@
 @property (strong, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIImageView *lgoinBgView;
 @property (weak, nonatomic) IBOutlet UIButton *lgoinBtn;
+@property (weak, nonatomic) IBOutlet UIButton *registerBtn;
 @property (weak, nonatomic) IBOutlet CustomUITextField *mUserNameTextFiled;
 @property (weak, nonatomic) IBOutlet CustomUITextField *mPasswordTextFiled;
 @property (weak, nonatomic) IBOutlet QCheckBox *mRemeberPwdBtn;
@@ -70,6 +71,8 @@
 
     UserInfo *user = [UserInfo share];
     _check1.checked = user.shouldSavePwd;
+    _check1.checked = YES;
+    _check1.hidden = YES;
     
     QCheckBox *_check2 = [[QCheckBox alloc] initWithDelegate:self];
     _check2.frame = CGRectMake(188, _check1.top, 80, 40);
@@ -80,6 +83,8 @@
     _check2.tag = check2Tage;
     [self.view addSubview:_check2];
     _check2.checked = user.shouldAutoLogin;
+    _check2.checked = YES;
+    _check2.hidden = YES;
     
     
     self.mUserNameTextFiled.rightViewMode = UITextFieldViewModeNever;
@@ -115,6 +120,11 @@
     //
     UIImage *bgimage3 = [[UIImage imageNamed:@"login_winbg.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
     self.lgoinBgView.image = bgimage3;
+    
+    UIImage *bgimage4 = [[UIImage imageNamed:@"home_proom_nl.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(15, 8, 15, 8)];
+    UIImage *bgimage5 = [[UIImage imageNamed:@"home_proom_hl.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(15, 8, 15, 8)];
+    [self.registerBtn setBackgroundImage:bgimage4 forState:UIControlStateNormal];
+    [self.registerBtn setBackgroundImage:bgimage5 forState:UIControlStateHighlighted];
     
     
     

@@ -8,14 +8,21 @@
 
 #import "SendWeiboViewController.h"
 #import "PersonalViewController.h"
-@interface SendWeiboViewController ()<UITextViewDelegate,UIImagePickerControllerDelegate>
+#import "AppDelegate.h"
+@interface SendWeiboViewController ()<UITextViewDelegate,UIImagePickerControllerDelegate,SinaWeiboDelegate,SinaWeiboRequestDelegate,UIActionSheetDelegate>
+{
+    SinaWeibo   *weiBo;
+
+}
 
 @property (weak, nonatomic) IBOutlet UIView *mTopView;
 @property (weak, nonatomic) IBOutlet UIImageView *mBgView;
 @property (weak, nonatomic) IBOutlet UITextView *mTextView;
 @property (weak, nonatomic) IBOutlet UIButton *msiginBtn;
 @property (weak, nonatomic) IBOutlet UIButton *msignOutBtn;
+@property (weak, nonatomic) IBOutlet UIButton *mAddImageBtn;
 @property (weak, nonatomic) IBOutlet UILabel *mplaceHoldLb;
+@property (weak, nonatomic) IBOutlet UIImageView *mSharePic;
 - (IBAction)actionSigin:(UIButton *)sender;
 - (IBAction)actionSigout:(UIButton *)sender;
 - (IBAction)addImageBtn:(UIButton *)sender;
@@ -49,6 +56,10 @@
     
     [btn addTarget:self action:@selector(actionSend:) forControlEvents:UIControlEventTouchUpInside];
     [self.navView addSubview:btn];
+    
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    weiBo = delegate.weibo;
+    weiBo.delegate = self;
     
     
 }
@@ -91,125 +102,198 @@
 
 - (IBAction)actionSigout:(UIButton *)sender {
 }
-/*
+
 - (IBAction)addImageBtn:(UIButton *)sender {
     
-    //检查相机模式是否可用
-    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        NSLog(@"sorry, no camera or camera is unavailable.");
-        return;
-    }
-    //获得相机模式下支持的媒体类型
-    NSArray* availableMediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
-    BOOL canTakePicture = NO;
-    for (NSString* mediaType in availableMediaTypes) {
-        if ([mediaType isEqualToString:(NSString*)kUTTypeImage]) {
-            //支持拍照
-            canTakePicture = YES;
-            break;
-        }
-    }
-    //检查是否支持拍照
-    if (!canTakePicture) {
-        NSLog(@"sorry, taking picture is not supported.");
-        return;
-    }
-    //创建图像选取控制器
-    UIImagePickerController* imagePickerController = [[UIImagePickerController alloc] init];
-    //设置图像选取控制器的来源模式为相机模式
-    imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-    //设置图像选取控制器的类型为静态图像
-    imagePickerController.mediaTypes = [[[NSArray alloc] initWithObjects:(NSString*)kUTTypeImage, nil] autorelease];
-    //允许用户进行编辑
-    imagePickerController.allowsEditing = YES;
-    //设置委托对象
-    imagePickerController.delegate = self;
-    //以模视图控制器的形式显示
-    [self presentModalViewController:imagePickerController animated:YES];
-    [imagePickerController release];
+    [self showActionSheet];
 }
 
-- (IBAction)shareBtn:(UIButton *)sender {
-}
+
 
 
 #pragma mark - image picker
 
+#pragma mark - imagePickerDelegate
+-(void)showActionSheet
+{
+    //[self hideAllActions];
+    
+    UIActionSheet * actionSheet = [[UIActionSheet alloc]initWithTitle:@"选择照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照",@"从相册上传", nil];
+    actionSheet.delegate = self;
+    [actionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
+    [actionSheet showInView:self.view];
 
-- (IBAction)captureVideoButtonClick:(id)sender{
-    //检查相机模式是否可用
-    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-        NSLog(@"sorry, no camera or camera is unavailable!!!");
-        return;
-    }
-    //获得相机模式下支持的媒体类型
-    NSArray* availableMediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
-    BOOL canTakeVideo = NO;
-    for (NSString* mediaType in availableMediaTypes) {
-        if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
-            //支持摄像
-            canTakeVideo = YES;
+}
+//判断用户点击的是摄像头还是相册
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    UIImagePickerController * imagePicker = [[UIImagePickerController alloc]init]; //初始化图片选择器
+    imagePicker.delegate = (id)self;
+    switch (buttonIndex) {
+            //选择摄像头拍照
+        case 0:
+            NSLog(@"摄像头");
+            //判断设备是否有拍照功能
+            if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
+                imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+                
+            }
+            else {
+                imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            }
+            [self presentViewController:imagePicker animated:YES completion:nil];
             break;
-        }
+            
+            //选择相册
+        case 1:
+            NSLog(@"相册");
+            imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            [self presentViewController:imagePicker animated:YES completion:nil];
+            break;
+        default:
+            break;
     }
-    //检查是否支持摄像
-    if (!canTakeVideo) {
-        NSLog(@"sorry, capturing video is not supported.!!!");
-        return;
-    }
-    //创建图像选取控制器
-    UIImagePickerController* imagePickerController = [[UIImagePickerController alloc] init];
-    //设置图像选取控制器的来源模式为相机模式
-    imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-    //设置图像选取控制器的类型为动态图像
-    imagePickerController.mediaTypes = [[[NSArray alloc] initWithObjects:(NSString*)kUTTypeMovie, nil] autorelease];
-    //设置摄像图像品质
-    imagePickerController.videoQuality = UIImagePickerControllerQualityTypeHigh;
-    //设置最长摄像时间
-    imagePickerController.videoMaximumDuration = 30;
-    //允许用户进行编辑
-    imagePickerController.allowsEditing = YES;
-    //设置委托对象
-    imagePickerController.delegate = self;
-    //以模式视图控制器的形式显示
-    [self.flipboardNavigationController presentModalViewController:imagePickerController animated:YES];
 
-    
 }
-
-- (void)image:(UIImage*)image didFinishSavingWithError:(NSError*)error contextInfo:(void*)contextInfo{
-    if (!error) {
-        NSLog(@"picture saved with no error.");
-    }
-    else
-    {
-        NSLog(@"error occured while saving the picture%@", error);
-    }
-}
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    //打印出字典中的内容
-    NSLog(@"get the media info: %@", info);
-    //获取媒体类型
-    NSString* mediaType = [info objectForKey:UIImagePickerControllerMediaType];
-    //判断是静态图像还是视频
-    if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
-        //获取用户编辑之后的图像
-        UIImage* editedImage = [info objectForKey:UIImagePickerControllerEditedImage];
-        //将该图像保存到媒体库中
-        UIImageWriteToSavedPhotosAlbum(editedImage, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
-    }
-    [picker dismissModalViewControllerAnimated:YES];
-    
-}
-
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+//拍照或选择照片成功后
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
     [picker dismissViewControllerAnimated:YES completion:^{
         
+        
+        //如果是摄像头
+        if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
+            
+            UIImage * picture = [info objectForKey:UIImagePickerControllerOriginalImage];
+            
+            [self performSelector:@selector(saveImage:) withObject:picture ];
+            
+        }
+        //如果是相册选取
+        else if (picker.sourceType == UIImagePickerControllerSourceTypePhotoLibrary)
+        {
+            UIImage * picture = [info objectForKey:UIImagePickerControllerOriginalImage];
+            
+            [self performSelector:@selector(saveImage:) withObject:picture ];
+        }
     }];
+    
+    
 }
-*/
+- (void)saveImage:(UIImage *)image
+{
+    
+    [self.view showHudMessage:@"图片处理中..."];
+    UIImage *scaleImage = [self scaleImage:image toScale:0.5];
+    NSData *data;
+    //以下这两步都是比较耗时的操作，最好开一个HUD提示用户，这样体验会好些，不至于阻塞界面
+    
+    //将图片转换为JPG格式的二进制数据
+    data = UIImageJPEGRepresentation(scaleImage, 0.5);
+    
+    //将二进制数据生成UIImage
+    image = [UIImage imageWithData:data];
+    
+    self.mSharePic.image = image;
+    self.mSharePic.hidden = NO;
+    self.mSharePic.alpha = 0;
+    self.mSharePic.transform = CGAffineTransformMakeScale(0.2, 0.2);
+    [UIView animateWithDuration:0.5 animations:^{
+        self.mSharePic.alpha = 1.0;
+        self.mSharePic.transform = CGAffineTransformIdentity;
+    }];
 
+
+    
+}
+-(UIImage *)scaleImage:(UIImage *)image toScale:(float)scaleSize
+{
+    UIGraphicsBeginImageContext(CGSizeMake(image.size.width*scaleSize,image.size.height*scaleSize));
+    [image drawInRect:CGRectMake(0, 0, image.size.width * scaleSize, image.size.height *scaleSize)];
+    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return scaledImage;
+}
+- (IBAction)shareBtn:(UIButton *)sender {
+    [self sendWeiBo];
+}
+//发表微博
+-(void)sendWeiBo
+{
+    
+    
+    [self.mTextView resignFirstResponder];
+    
+    NSString * text = self.mTextView.text;
+    
+    
+    if ([weiBo isAuthValid]){
+        //如果字数在1-140字以内,便可发送微博
+        if (text.length<140 && text.length >0) {
+            //发起请求
+            [weiBo requestWithURL:@"statuses/upload.json"
+                           params:[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                   text, @"status",
+                                   self.mSharePic.image, @"pic", nil]
+                       httpMethod:@"POST"
+                         delegate:self];
+            
+            [self.view showLoadingViewWithString:@"正在发布"];
+            
+            NSLog(@"确认发送");
+            
+        }
+        if (text.length > 140) {
+            UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您输入的字数超出限制了哟！" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil];
+            [alert show];
+            
+        }
+    }
+    
+    //如果微博账号过期或未登陆,让用户首先登陆
+    else {
+        [weiBo logOut];
+        [weiBo logIn];
+        NSLog(@"重新登录");
+    }
+}
+
+//登陆成功调用的代理方法
+- (void)sinaweiboDidLogIn:(SinaWeibo *)sinaweibo
+{
+    NSLog(@"登录成功");
+    
+    NSDictionary *authData = [NSDictionary dictionaryWithObjectsAndKeys:
+                              sinaweibo.accessToken, @"AccessTokenKey",
+                              sinaweibo.expirationDate, @"ExpirationDateKey",
+                              sinaweibo.userID, @"UserIDKey",
+                              sinaweibo.refreshToken, @"refresh_token",nil];
+    [[NSUserDefaults standardUserDefaults] setObject:authData forKey:@"SinaWeiboAuthData"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [self sendWeiBo];
+}
+
+-(void)sinaweibo:(SinaWeibo *)sinaweibo accessTokenInvalidOrExpired:(NSError *)error
+{
+    NSLog(@"新浪微博错误 %@",error);
+    
+    [sinaweibo logOut];
+    [sinaweibo logIn];
+}
+-(void)sinaweiboDidLogOut:(SinaWeibo *)sinaweibo
+{
+    NSLog(@"微博用户已退出");
+}
+
+//登陆失败的调用代理方法
+-(void)sinaweibo:(SinaWeibo *)sinaweibo logInDidFailWithError:(NSError *)error
+{
+    NSLog(@"登陆失败%@",error);
+    
+    [self.view hideLoadingView];
+    
+}
 - (void)actionSend:(UIButton *)btn
 {
     UserInfo *user = [UserInfo share];

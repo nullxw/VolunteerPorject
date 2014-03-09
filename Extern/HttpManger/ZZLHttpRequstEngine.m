@@ -343,17 +343,17 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     return [NSString stringWithFormat:@"%@?%@",url,str];
 }
 #pragma mark - post request
-- (MKNetworkOperationState)postRequestWithServicePath:(NSString *)path
+- (ZZLRequestOperation *)postRequestWithServicePath:(NSString *)path
                                                params:(NSMutableDictionary *)params
                                             onSuccess:(dictionaryBlock)successBlock
                                                onFail:(erroBlock)aerrorBlock
 {
-    __block MKNetworkOperationState state = MKNetworkOperationStateReady;
-    ZZLRequestOperation *op = [_requestPoolDict objectForKey:path];
+
     
-    if (op == nil) {
+    
+   
         
-        op = (ZZLRequestOperation *)[self operationWithPath:path params:params httpMethod:@"POST"];
+        ZZLRequestOperation *op = (ZZLRequestOperation *)[self operationWithPath:path params:params httpMethod:@"POST"];
         
         
         [op setUsername:SystemKey_Parameter_Value password:SystemValue_Parameter_Value basicAuth:NO];
@@ -363,7 +363,7 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
         
         [params setObject:SystemKey_Parameter_Value forKey:@"systemKey"];
         [params setObject:SystemValue_Parameter_Value forKey:@"systemValue"];
-        [_requestPoolDict setObject:op forKey:path];
+
         
         
         [op onCompletion:^(MKNetworkOperation *completedOperation)
@@ -443,8 +443,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
             
             
             
-            [_requestPoolDict removeObjectForKey:path];
-            state = MKNetworkOperationStateFinished;
+
+
             
             
             
@@ -453,17 +453,14 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
             {
             [ZZLHttpRequstEngine handleServerResponseError:error FailureBlock:aerrorBlock];
             
-            [_requestPoolDict removeObjectForKey:path];
-            state = MKNetworkOperationStateFailed;
+
+
                 
             NSLog(@"URL--->:%@",op.url);
         }];
         [self enqueueOperation:op];
-    }else
-    {
-        state = MKNetworkOperationStateExecuting;
-    }
-    return state;
+    
+    return op;
 }
 #pragma mark - custom request
 //login
@@ -478,8 +475,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:userName forKey:@"loginName"];
     [dic setObject:[psd stringByEncodeingRC4] forKey:@"userPwd"];
     
-    [self postRequestWithServicePath:LOGIN_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:LOGIN_URL];
+    return [self postRequestWithServicePath:LOGIN_URL params:dic onSuccess:successBlock onFail:errorBlock];
+
     
 }
 //2 用户注册
@@ -511,8 +508,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:[email stringByEncodeingRC4] forKey:@"userVo.email"];
     [dic setObject:[mobile stringByEncodeingRC4] forKey:@"userVo.mobile"];
     [dic setObject:aid forKey:@"userVo.areaId"];
-    [self postRequestWithServicePath:REGISTER_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:REGISTER_URL];
+    return [self postRequestWithServicePath:REGISTER_URL params:dic onSuccess:successBlock onFail:errorBlock];
+
     
 
 }
@@ -527,8 +524,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:uid forKey:@"currentUserId"];
     [dic setObject:cid forKey:@"userId"];
     
-    [self postRequestWithServicePath:USERINFO_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:USERINFO_URL];
+    return [self postRequestWithServicePath:USERINFO_URL params:dic onSuccess:successBlock onFail:errorBlock];
+
 }
 //4 个人排名
 - (ZZLRequestOperation *)requestPersonalRankWithUid:(NSString *)uid
@@ -540,8 +537,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:uid forKey:@"currentUserId"];
     [dic setObject:oid forKey:@"userId"];
     
-    [self postRequestWithServicePath:PERSON_RANK_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:PERSON_RANK_URL];
+    return [self postRequestWithServicePath:PERSON_RANK_URL params:dic onSuccess:successBlock onFail:errorBlock];
+
 }
 //5 获取服务记录
 - (ZZLRequestOperation *)requestServiceLogWithUid:(NSString *)uid
@@ -569,8 +566,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:[NSNumber numberWithInt:page] forKey:@"pageIndex"];
     [dic setObject:[NSNumber numberWithInt:mid] forKey:@"missionId"];
     
-    [self postRequestWithServicePath:SERVICE_LOG_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:SERVICE_LOG_URL];
+    return [self postRequestWithServicePath:SERVICE_LOG_URL params:dic onSuccess:successBlock onFail:errorBlock];
+
 }
 //9 获取用户微博
 - (ZZLRequestOperation *)requestGetWeiboWithUid:(NSString *)uid
@@ -595,8 +592,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:[NSNumber numberWithInt:psize] forKey:@"pageSize"];
     [dic setObject:[NSNumber numberWithInt:page] forKey:@"pageIndex"];
     
-    [self postRequestWithServicePath:URL9_GET_USER_WEIBO_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:URL9_GET_USER_WEIBO_URL];
+    return [self postRequestWithServicePath:URL9_GET_USER_WEIBO_URL params:dic onSuccess:successBlock onFail:errorBlock];
+
 }
 
 //10 获取好友的微博
@@ -615,8 +612,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:[NSNumber numberWithInt:psize] forKey:@"pageSize"];
     [dic setObject:[NSNumber numberWithInt:page] forKey:@"pageIndex"];
     
-    [self postRequestWithServicePath:URL10_WEIBO_FRIEND_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:URL10_WEIBO_FRIEND_URL];
+    return [self postRequestWithServicePath:URL10_WEIBO_FRIEND_URL params:dic onSuccess:successBlock onFail:errorBlock];
+
 }
 
 //11 获取微博评论
@@ -635,8 +632,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:[NSNumber numberWithInt:psize] forKey:@"pageSize"];
     [dic setObject:[NSNumber numberWithInt:page] forKey:@"pageIndex"];
     
-    [self postRequestWithServicePath:URL11_WEIBO_GETCOMMENT_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:URL11_WEIBO_GETCOMMENT_URL];
+    return [self postRequestWithServicePath:URL11_WEIBO_GETCOMMENT_URL params:dic onSuccess:successBlock onFail:errorBlock];
+
 }
 
 //12 收藏微博
@@ -650,8 +647,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:wid forKey:@"weiboId"];
 
     
-    [self postRequestWithServicePath:URL12_WEIBO_COLLECTWEIBO_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:URL12_WEIBO_COLLECTWEIBO_URL];
+    return [self postRequestWithServicePath:URL12_WEIBO_COLLECTWEIBO_URL params:dic onSuccess:successBlock onFail:errorBlock];
+
 }
 
 //13 删除微博
@@ -665,8 +662,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:wid forKey:@"weiboId"];
     
     
-    [self postRequestWithServicePath:URL13_WEIBO_DELWEIBO_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:URL13_WEIBO_DELWEIBO_URL];
+    return [self postRequestWithServicePath:URL13_WEIBO_DELWEIBO_URL params:dic onSuccess:successBlock onFail:errorBlock];
+
 }
 
 //14 微博图片上传
@@ -680,8 +677,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:imageData forKey:@"image"];
     
     
-    [self postRequestWithServicePath:URL14_WEIBO_UPLOADPIC_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:URL14_WEIBO_UPLOADPIC_URL];
+    return [self postRequestWithServicePath:URL14_WEIBO_UPLOADPIC_URL params:dic onSuccess:successBlock onFail:errorBlock];
+ 
 }
 //15 提交微博
 - (ZZLRequestOperation *)requestSendNewWeiboWithUid:(NSString *)uid
@@ -697,8 +694,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:imagePath forKey:@"weiboImg"];
     [dic setObject:[NSNumber numberWithBool:synch] forKey:@"synch_sina"];
     
-    [self postRequestWithServicePath:URL15_WEIBO_SENDWEIBO_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:URL15_WEIBO_SENDWEIBO_URL];
+    return [self postRequestWithServicePath:URL15_WEIBO_SENDWEIBO_URL params:dic onSuccess:successBlock onFail:errorBlock];
+
 }
 //16 提交评论
 - (ZZLRequestOperation *)requestWeiboCommentWithUid:(NSString *)uid
@@ -712,8 +709,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:wid forKey:@"weiboId"];
     [dic setObject:content forKey:@"content"];
     
-    [self postRequestWithServicePath:URL16_WEIBO_SENDCOMMENT_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:URL16_WEIBO_SENDCOMMENT_URL];
+    return [self postRequestWithServicePath:URL16_WEIBO_SENDCOMMENT_URL params:dic onSuccess:successBlock onFail:errorBlock];
+
 }
 
 //17 获取新浪是否已授权
@@ -725,8 +722,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:uid forKey:@"currentUserId"];
 
     
-    [self postRequestWithServicePath:URL17_WEIBO_SYNSINA_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:URL17_WEIBO_SYNSINA_URL];
+    return [self postRequestWithServicePath:URL17_WEIBO_SYNSINA_URL params:dic onSuccess:successBlock onFail:errorBlock];
+
 }
 
 //18 同步单条记录到新浪
@@ -740,8 +737,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:wid forKey:@"weiboId"];
 
     
-    [self postRequestWithServicePath:URL18_WEIBO_SYNONETOSINA_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:URL18_WEIBO_SYNONETOSINA_URL];
+    return [self postRequestWithServicePath:URL18_WEIBO_SYNONETOSINA_URL params:dic onSuccess:successBlock onFail:errorBlock];
+
 }
 
 //19 获取个人空间头像（微博头像）
@@ -755,8 +752,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:cid forKey:@"userId"];
     
     
-    [self postRequestWithServicePath:URL19_WEIBO_GETPORTRAIN_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:URL19_WEIBO_GETPORTRAIN_URL];
+    return [self postRequestWithServicePath:URL19_WEIBO_GETPORTRAIN_URL params:dic onSuccess:successBlock onFail:errorBlock];
+
 }
 #pragma mark - 项目相关
 //20 获取待审批、用户没有被录取的项目列表（个人）
@@ -771,8 +768,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:[NSNumber numberWithInt:psize] forKey:@"pageSize"];
     [dic setObject:[NSNumber numberWithInt:page] forKey:@"pageIndex"];
     
-    [self postRequestWithServicePath:USERINFO_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:USERINFO_URL];
+    return [self postRequestWithServicePath:USERINFO_URL params:dic onSuccess:successBlock onFail:errorBlock];
+
 }
 
 //21 获取待审批、用户没有被录取项目数目（个人）
@@ -784,8 +781,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:uid forKey:@"currentUserId"];
 
     
-    [self postRequestWithServicePath:URL21_GETWAITCOUNT_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:URL21_GETWAITCOUNT_URL];
+    return [self postRequestWithServicePath:URL21_GETWAITCOUNT_URL params:dic onSuccess:successBlock onFail:errorBlock];
+
 }
 //22 获取任务(个人)
 
@@ -804,8 +801,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:[NSNumber numberWithInt:psize] forKey:@"pageSize"];
     [dic setObject:[NSNumber numberWithInt:page] forKey:@"pageIndex"];
     
-    [self postRequestWithServicePath:URL22_GETMISSIONLIST_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:URL22_GETMISSIONLIST_URL];
+    return [self postRequestWithServicePath:URL22_GETMISSIONLIST_URL params:dic onSuccess:successBlock onFail:errorBlock];
+
 }
 
 
@@ -819,8 +816,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:uid forKey:@"currentUserId"];
     [dic setObject:state forKey:@"missionState"];
 
-    [self postRequestWithServicePath:URL23_GETMISSIONCOUNT_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:URL23_GETMISSIONCOUNT_URL];
+    return [self postRequestWithServicePath:URL23_GETMISSIONCOUNT_URL params:dic onSuccess:successBlock onFail:errorBlock];
+    
 }
 
 
@@ -834,8 +831,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:uid forKey:@"currentUserId"];
     [dic setObject:[NSNumber numberWithInt:mid] forKey:@"missionId"];
     
-    [self postRequestWithServicePath:URL24_GETMISSION_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:URL24_GETMISSION_URL];
+    return [self postRequestWithServicePath:URL24_GETMISSION_URL params:dic onSuccess:successBlock onFail:errorBlock];
+    
 }
 
 //25 报名或取消报名项目
@@ -850,8 +847,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:uid forKey:@"currentUserId"];
     [dic setObject:[NSNumber numberWithInt:mid] forKey:@"missionId"];
     [dic setObject:[NSNumber numberWithInt:flag] forKey:@"flag"];
-    [self postRequestWithServicePath:URL25_APPLYMISSION_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:URL25_APPLYMISSION_URL];
+    return [self postRequestWithServicePath:URL25_APPLYMISSION_URL params:dic onSuccess:successBlock onFail:errorBlock];
+    
 }
 
 //26 获取某个项目的班次
@@ -872,8 +869,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:[NSNumber numberWithInt:mstate] forKey:@"status"];
     [dic setObject:[NSNumber numberWithInt:psize] forKey:@"pageSize"];
     [dic setObject:[NSNumber numberWithInt:page] forKey:@"pageIndex"];
-    [self postRequestWithServicePath:URL26_GETFLIGHTLIST_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:URL26_GETFLIGHTLIST_URL];
+    return  [self postRequestWithServicePath:URL26_GETFLIGHTLIST_URL params:dic onSuccess:successBlock onFail:errorBlock];
+    
 }
 //get movie list
 /*
@@ -937,8 +934,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:areaId forKey:@"districtId"];
     [dic setObject:[NSNumber numberWithInt:page] forKey:@"pageIndex"];
     [dic setObject:[NSNumber numberWithInt:psize] forKey:@"pageSize"];
-    [self postRequestWithServicePath:URL31_GETMISSION_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:URL31_GETMISSION_URL];
+    return [self postRequestWithServicePath:URL31_GETMISSION_URL params:dic onSuccess:successBlock onFail:errorBlock];
+
 }
 //33 
 - (ZZLRequestOperation *)reqeustManagerGetMissionListWithUid:(NSString *)uid
@@ -963,8 +960,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
 
     [dic setObject:[NSNumber numberWithInt:page] forKey:@"pageIndex"];
     [dic setObject:[NSNumber numberWithInt:psize] forKey:@"pageSize"];
-    [self postRequestWithServicePath:URL33_GETPROLIST_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:URL33_GETPROLIST_URL];
+    return [self postRequestWithServicePath:URL33_GETPROLIST_URL params:dic onSuccess:successBlock onFail:errorBlock];
+
 }
 
 //61 获取班次计划
@@ -984,8 +981,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:[NSNumber numberWithInt:mid] forKey:@"missionId"];
     [dic setObject:[NSNumber numberWithInt:page] forKey:@"pageIndex"];
     [dic setObject:[NSNumber numberWithInt:psize] forKey:@"pageSize"];
-    [self postRequestWithServicePath:URL_61_GETPLANLIST_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:URL_61_GETPLANLIST_URL];
+    return [self postRequestWithServicePath:URL_61_GETPLANLIST_URL params:dic onSuccess:successBlock onFail:errorBlock];
+
     
 }
 #pragma mark -   搜索
@@ -1003,8 +1000,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
 
     [dic setObject:[NSNumber numberWithInt:page] forKey:@"pageIndex"];
     [dic setObject:[NSNumber numberWithInt:psize] forKey:@"pageSize"];
-    [self postRequestWithServicePath:URL64_GETDISTRICTLIST_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:URL64_GETDISTRICTLIST_URL];
+    return [self postRequestWithServicePath:URL64_GETDISTRICTLIST_URL params:dic onSuccess:successBlock onFail:errorBlock];
+
 }
 
 // 65 根据证件号搜索志愿者
@@ -1019,8 +1016,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:uid forKey:@"currentUserId"];
     [dic setObject:[code stringByEncodeingRC4] forKey:@"idcardCode"];
     [dic setObject:mid forKey:@"missionTeamId"];
-    [self postRequestWithServicePath:URL65_GETDISTRICTLIST_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:URL65_GETDISTRICTLIST_URL];
+    return [self postRequestWithServicePath:URL65_GETDISTRICTLIST_URL params:dic onSuccess:successBlock onFail:errorBlock];
+
 }
 // 63 获取下级区域地理树
 
@@ -1052,8 +1049,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:[NSNumber numberWithInt:psize] forKey:@"pageSize"];
     [dic setObject:[NSNumber numberWithInt:page] forKey:@"pageIndex"];
     
-    [self postRequestWithServicePath:URL63_GETDISTRICTLIST_URL params:dic onSuccess:successBlock onFail:errorBlock];
-    return [_requestPoolDict objectForKey:URL63_GETDISTRICTLIST_URL];
+    return [self postRequestWithServicePath:URL63_GETDISTRICTLIST_URL params:dic onSuccess:successBlock onFail:errorBlock];
+
 }
 
 #pragma mark - cancel request 

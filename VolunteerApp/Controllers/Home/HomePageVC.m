@@ -16,7 +16,7 @@
 #import "LoginViewController.h"
 #import "UIImageView+WebCache.h"
 #import <QuartzCore/QuartzCore.h>
-
+#import "ProTrendViewController.h"
 #import "ZZLHttpRequstEngine.h"
 @interface HomePageVC ()
 
@@ -68,7 +68,7 @@
 {
     [super viewDidLoad];
     [self setUpView];
-    [self setTitleWithString:@"志愿时"];
+    [self setTitleWithString:@"广东志愿者"];
     [self setBackBtnHidden];
     [self requestUserInfo];
 
@@ -140,7 +140,9 @@
 
 - (IBAction)goProManager:(UIButton *)sender {
 
-    ProjectMgViewController *vc  = [ProjectMgViewController ViewContorller];
+//    ProjectMgViewController *vc  = [ProjectMgViewController ViewContorller];
+//    [self.flipboardNavigationController pushViewController:vc];
+    ProTrendViewController *vc = [ProTrendViewController ViewContorller];
     [self.flipboardNavigationController pushViewController:vc];
 }
 

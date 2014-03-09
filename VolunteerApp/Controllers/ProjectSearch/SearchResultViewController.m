@@ -144,14 +144,12 @@
         
         
         
-        NSLog(@"************%d",mytableView.pageSize);
-        
         
 
         
         [self.view showLoadingViewWithString:@"正在搜索"];
         
-        [[ZZLHttpRequstEngine engine]requestSearchProjectListWithUid:self.userId isAllowJoin:YES title:self.key startDate:self.startDate endDate:self.endDate missionType:self.typeindex arearId:@"8e9715d3444dd11701444dd446fa0008" distributeDate:self.distrubutetype pageSize:mytableView.pageSize pageIndex:1 onSuccess:^(id responseDict) {
+        [[ZZLHttpRequstEngine engine]requestSearchProjectListWithUid:self.userId isAllowJoin:YES title:self.key startDate:self.startDate endDate:self.endDate missionType:self.typeindex arearId:@"b0dc9771d14211e18718000aebf5352e" distributeDate:self.distrubutetype pageSize:mytableView.pageSize pageIndex:1 onSuccess:^(id responseDict) {
             [mytableView.pullToRefreshView stopAnimating];
             [self.view hideLoadingView];
             NSLog(@"___YYY__%@",responseDict);

@@ -131,7 +131,7 @@
             curPage = 0;
             self.rankTable.hidden = NO;
             
-            if ([self.rankTable.list count]==0) {
+            if ([self.rankTable.list count]==0 &&!self.rankTable.hasRequest) {
                 [self.rankTable triggerPullToRefresh];
             }
         }];
@@ -147,7 +147,7 @@
         
 
         
-        [projectTable removeCenterMsgView];
+
         [UIView animateWithDuration:0.3 animations:^{
             self.moveLine.centerX = self.projectRankBtn.centerX;
             self.rankTable.left = -self.rankTable.width;
@@ -158,7 +158,7 @@
             self.rankTable.hidden = YES;
             
             curPage = 1;
-            if ([projectTable.list count]==0) {
+            if ([projectTable.list count]==0  && !projectTable.hasRequest) {
                 [projectTable triggerPullToRefresh];
             }
         }];
@@ -271,7 +271,7 @@
 
     double delayInSeconds = 1.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    dispatch_after(popTime, dispatch_get_global_queue(0, 0), ^(void){
         
         UserInfo *user = [UserInfo share];
          MyTableView *tempTableView;
