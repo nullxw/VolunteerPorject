@@ -9,9 +9,12 @@
 #import "SendWeiboViewController.h"
 #import "PersonalViewController.h"
 #import "AppDelegate.h"
+#import "NSString+WiFi.h"
 @interface SendWeiboViewController ()<UITextViewDelegate,UIImagePickerControllerDelegate,SinaWeiboDelegate,SinaWeiboRequestDelegate,UIActionSheetDelegate>
 {
     SinaWeibo   *weiBo;
+    
+    NSData      *imageData;
 
 }
 
@@ -117,7 +120,7 @@
 -(void)showActionSheet
 {
     //[self hideAllActions];
-    
+    [self.mTextView resignFirstResponder];
     UIActionSheet * actionSheet = [[UIActionSheet alloc]initWithTitle:@"选择照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍照",@"从相册上传", nil];
     actionSheet.delegate = self;
     [actionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
@@ -185,14 +188,14 @@
     
     [self.view showHudMessage:@"图片处理中..."];
     UIImage *scaleImage = [self scaleImage:image toScale:0.5];
-    NSData *data;
+    
     //以下这两步都是比较耗时的操作，最好开一个HUD提示用户，这样体验会好些，不至于阻塞界面
     
     //将图片转换为JPG格式的二进制数据
-    data = UIImageJPEGRepresentation(scaleImage, 0.5);
+    imageData = UIImageJPEGRepresentation(scaleImage, 0.5);
     
     //将二进制数据生成UIImage
-    image = [UIImage imageWithData:data];
+    image = [UIImage imageWithData:imageData];
     
     self.mSharePic.image = image;
     self.mSharePic.hidden = NO;
@@ -298,7 +301,17 @@
 {
     UserInfo *user = [UserInfo share];
     [self.mTextView resignFirstResponder];
+    
+    if (self.mSharePic.image) {
+        [[ZZLHttpRequstEngine engine]requestWeiboUploadImageWithUid:user.userId image:imageData onSuccess:^(id responseObject) {
+            NSLog(@"《》＊＊＊《》上传照片%@",responseObject);
+        } onFail:^(NSError *erro) {
+            [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
+        }];
+    }
     [self.view showLoadingViewWithString:@"正在发布..."];
+    
+
     [[ZZLHttpRequstEngine engine]requestSendNewWeiboWithUid:user.userId content:self.mTextView.text weiboimage:@"" synchSinaWeibo:NO onSuccess:^(id responseObject) {
         NSString *msg = responseObject;
         NSLog(@"\n=================\n send weibo !!!!%@",responseObject);

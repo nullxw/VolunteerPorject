@@ -569,6 +569,49 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     return [self postRequestWithServicePath:SERVICE_LOG_URL params:dic onSuccess:successBlock onFail:errorBlock];
 
 }
+//7 修改用户基本信息
+
+- (ZZLRequestOperation *)requestUpdateUserInfoWithUid:(NSString *)uid
+                                             userName:(NSString *)uname
+                                               gender:(int)genderIndex
+                                             Rc4email:(NSString *)email
+                                            Rc4mobile:(NSString *)moblie
+                                              areadId:(NSString *)areaid
+                                            onSuccess:(dictionaryBlock)successBlock
+                                               onFail:(erroBlock)errorBlock
+{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:uid forKey:@"currentUserId"];
+    [dic setObject:[NSNumber numberWithInt:genderIndex] forKey:@"userVo.gender"];
+    [dic setObject:uname forKey:@"userVo.userName"];
+    [dic setObject:[email stringByDeCodeingRC4] forKey:@"userVo.userPwdNew"];
+    [dic setObject:[moblie stringByDeCodeingRC4] forKey:@"userVo.userPwdNew"];
+    [dic setObject:areaid forKey:@"userVo.areaId"];
+//    userVo. userName
+//    userVo. gender
+//    userVo. email
+//    userVo. mobile
+//    userVo. areaId
+    return [self postRequestWithServicePath:UPDATE_USER_INFO_URL params:dic onSuccess:successBlock onFail:errorBlock];
+}
+
+
+//8 修改密码
+- (ZZLRequestOperation *)requestUpdatePwdWithUid:(NSString *)uid
+                                       Rc4oldPwd:(NSString *)opwd
+                                       Rc4newPwd:(NSString*)npwd
+                                       onSuccess:(dictionaryBlock)successBlock
+                                          onFail:(erroBlock)errorBlock
+{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:uid forKey:@"currentUserId"];
+
+    [dic setObject:[opwd stringByEncodeingRC4]  forKey:@"userVo.userPwd"];
+    [dic setObject:[npwd stringByEncodeingRC4] forKey:@"userVo.userPwdNew"];
+
+    
+    return [self postRequestWithServicePath:UPDATE_USER_PWD_URL params:dic onSuccess:successBlock onFail:errorBlock];
+}
 //9 获取用户微博
 - (ZZLRequestOperation *)requestGetWeiboWithUid:(NSString *)uid
                                           curid:(NSString *)cid
@@ -871,6 +914,39 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:[NSNumber numberWithInt:page] forKey:@"pageIndex"];
     return  [self postRequestWithServicePath:URL26_GETFLIGHTLIST_URL params:dic onSuccess:successBlock onFail:errorBlock];
     
+}
+
+//28 任务签到
+- (ZZLRequestOperation *)requestProjectMissionSiginWithUid:(NSString *)uid
+                                                     curId:(NSString *)cid
+                                                 missionID:(int)mid
+                                                 onSuccess:(dictionaryBlock)successBlock
+                                                    onFail:(erroBlock)errorBlock
+{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:uid forKey:@"currentUserId"];
+    [dic setObject:cid forKey:@"userId"];
+    [dic setObject:[NSNumber numberWithInt:mid] forKey:@"missionId"];
+    
+    return  [self postRequestWithServicePath:URL28_MISSIONSIGIN_URL params:dic onSuccess:successBlock onFail:errorBlock];
+}
+
+
+
+
+//29 任务签出
+- (ZZLRequestOperation *)requestProjectMissionSiginOutWithUid:(NSString *)uid
+                                                        curId:(NSString *)cid
+                                                    missionID:(int)mid
+                                                    onSuccess:(dictionaryBlock)successBlock
+                                                       onFail:(erroBlock)errorBlock
+{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:uid forKey:@"currentUserId"];
+    [dic setObject:cid forKey:@"userId"];
+    [dic setObject:[NSNumber numberWithInt:mid] forKey:@"missionId"];
+    
+    return  [self postRequestWithServicePath:URL29_MISSIONSIGOUT_URL params:dic onSuccess:successBlock onFail:errorBlock];
 }
 //get movie list
 /*

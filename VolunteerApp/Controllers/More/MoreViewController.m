@@ -13,6 +13,9 @@
 #import "UIAlertView+Blocks.h"
 #import "MyInfoViewController.h"
 #import "ContactUsViewController.h"
+#import "ModifyPwdViewController.h"
+#import "ProTrendViewController.h"
+#import "UIAlertView+Blocks.h"
 @interface MoreViewController ()<LoginViewDelegate>
 {
     NSArray *itemList;
@@ -46,7 +49,8 @@
     
     [self setTitleWithString:@"更多设置"];
     // Do any additional setup after loading the view from its nib.
-    itemList = [NSArray arrayWithObjects:@"我的资料",@"我的求助", @"当前城市",@"广州志愿者项目动态",@"检查更新",@"关于志愿时",@"常见问题与反馈",nil];
+    itemList = [NSArray arrayWithObjects:@"我的资料",@"修改密码",@"广州志愿者项目动态",@"检查更新",@"关于志愿时",nil];
+    //@"常见问题与反馈"
     
     self.tableView.tableFooterView = self.bottomView;
     
@@ -126,7 +130,20 @@
         MyInfoViewController *vc =[MyInfoViewController ViewContorller];
         [self.flipboardNavigationController pushViewController:vc];
     }
-    if (indexPath.row == 5) {
+    if (indexPath.row == 1) {
+        ModifyPwdViewController *vc = [ModifyPwdViewController ViewContorller];
+        [self.flipboardNavigationController pushViewController:vc];
+    }
+    
+    if (indexPath.row == 2) {
+        ProTrendViewController *vc = [ProTrendViewController ViewContorller];
+        [self.flipboardNavigationController pushViewController:vc];
+    }
+    
+    if (indexPath.row == 3) {
+        [self checkUpdate];
+    }
+    if (indexPath.row == 4) {
         ContactUsViewController *vc = [ContactUsViewController ViewContorller];
         [self.flipboardNavigationController pushViewController:vc];
     }
@@ -137,7 +154,18 @@
 #pragma mark -  actions
 
 
-
+- (void)checkUpdate
+{
+    double delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [UIAlertView showAlertViewWithTitle:@"检查更新" message:@"当前已是最新版本" cancelButtonTitle:@"确定" otherButtonTitles:nil onDismiss:^(int buttonIndex) {
+            
+        } onCancel:^{
+            
+        }];
+    });
+}
 
 - (void)didLoginSuccess:(LoginViewController *)vc
 {

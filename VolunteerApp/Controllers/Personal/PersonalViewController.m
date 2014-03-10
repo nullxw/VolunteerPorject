@@ -508,33 +508,34 @@
     UserInfo *user = [UserInfo share];
     WeiboInfo *info = curTable.list[path.row];
 
-    if (cell.cellType == kWeiboCellTpyeMy) {
-        [[ZZLHttpRequstEngine engine]requestDelWeiboWithUid:user.userId weiboId:[NSString stringWithFormat:@"%d",info.weiboId] onSuccess:^(id responseObject)
-        {
+    if (cell.cellType == kWeiboCellTpyeNew) {
+        [[ZZLHttpRequstEngine engine]requestCollectWeiboWithUid:user.userId weiboId:[NSString stringWithFormat:@"%d",info.weiboId] onSuccess:^(id responseObject) {
+            cell.mCollectBtn.selected = YES;
             NSString *msg = responseObject;
             [self.view showHudMessage:msg];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [secondList removeObjectAtIndex:path.row];
-                [secondTable reloadData];
-            });
             
         } onFail:^(NSError *erro) {
+            
             [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
-        }];
-    }else if (cell.cellType == kWeiboCellTpyeNew)
+        } ];
+       
+    }else if (cell.cellType == kWeiboCellTpyeMy)
     {
         
-        [UIAlertView  showAlertViewWithTitle:@"您确认要删除该条微博吗" message:@"" cancelButtonTitle:@"取消" otherButtonTitles:@[@"确定"] onDismiss:^(int btnIndex) {
+        [UIAlertView  showAlertViewWithTitle:@"您确认要删除该条空间动态吗" message:@"" cancelButtonTitle:@"取消" otherButtonTitles:@[@"确定"] onDismiss:^(int btnIndex) {
+            [[ZZLHttpRequstEngine engine]requestDelWeiboWithUid:user.userId weiboId:[NSString stringWithFormat:@"%d",info.weiboId] onSuccess:^(id responseObject)
+             {
+                 NSString *msg = responseObject;
+                 [self.view showHudMessage:msg];
+                 dispatch_async(dispatch_get_main_queue(), ^{
+                     [secondList removeObjectAtIndex:path.row];
+                     [secondTable reloadData];
+                 });
+                 
+             } onFail:^(NSError *erro) {
+                 [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
+             }];
             
-            [[ZZLHttpRequstEngine engine]requestCollectWeiboWithUid:user.userId weiboId:[NSString stringWithFormat:@"%d",info.weiboId] onSuccess:^(id responseObject) {
-                cell.mCollectBtn.selected = YES;
-                NSString *msg = responseObject;
-                [self.view showHudMessage:msg];
-                
-            } onFail:^(NSError *erro) {
-                
-                [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
-            } ];
         } onCancel:^{
             return ;
         }];
@@ -565,7 +566,7 @@
         curTable = secondTable;
     }
     
-    CGFloat height = imageView.top+cell.top+curTable.top+self.navView.height+self.mTopBgView.height;
+    CGFloat height = imageView.top+cell.top+curTable.top+self.navView.height+self.mTopBgView.height-curTable.contentOffset.y;
     originRect = CGRectMake(imageView.left, height, imageView.width, imageView.height);
     WeiboInfo *info = curTable.list[cell.cellInPath.row];
     
@@ -614,7 +615,7 @@
     UIView *view = gestrue.view;
     view.backgroundColor = [UIColor clearColor];
     UIImageView *imageview = [[view subviews]lastObject];
-    [UIView animateWithDuration:0.5f animations:^{
+    [UIView animateWithDuration:0.3f animations:^{
         
         imageview.frame = originRect;
     } completion:^(BOOL finished) {

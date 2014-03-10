@@ -141,12 +141,6 @@
     double delayInSeconds = 1.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        
-        
-        
-        
-
-        
         [self.view showLoadingViewWithString:@"正在搜索"];
         
         [[ZZLHttpRequstEngine engine]requestSearchProjectListWithUid:self.userId isAllowJoin:YES title:self.key startDate:self.startDate endDate:self.endDate missionType:self.typeindex arearId:@"b0dc9771d14211e18718000aebf5352e" distributeDate:self.distrubutetype pageSize:mytableView.pageSize pageIndex:1 onSuccess:^(id responseDict) {

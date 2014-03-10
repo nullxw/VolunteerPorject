@@ -145,9 +145,23 @@
 - (NSString *)stringByDeCodeingRC4
 {
     NSString *str = [NSString stringFromHexString:self];
-    NSString *unencrypStr = [self rc4Key:VOLUNTEER_SYS_WEBSERVICE_RC4_KEY str:str];
     
-    NSString *decodeStr = [NSString decodeBase64:unencrypStr];
+    unsigned char s[256] = {0};
+    char key[256] = {"4387ABD38950D78E7D55A6095CCBBFB3"};
+    rc4_init(s,(unsigned char *)key,strlen(key));
+    const char *cstr = [str UTF8String];
+    char pData[256] = {0};
+    
+    for (int i=0; i<strlen(cstr); i++) {
+        pData[i] = cstr[i];
+    }
+    
+    rc4_crypt(s,(unsigned char *)pData,strlen(pData));//加密
+    NSData *data = [NSData dataWithBytes:pData length:strlen(pData)];
+    
+    NSString *basestr = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+    
+    NSString *decodeStr = [NSString decodeBase64:basestr];
     
     return decodeStr;
     
@@ -298,5 +312,24 @@ void rc4_crypt(unsigned char *s, unsigned char *Data, unsigned long Len) //加�
     }
 }
 
+
+// 十六进制转换为普通字符串的。
+- (NSString *)stringFromHexString:(NSString *)hexString {  //
+    
+    char *myBuffer = (char *)malloc((int)[hexString length] / 2 + 1);
+    bzero(myBuffer, [hexString length] / 2 + 1);
+    for (int i = 0; i < [hexString length] - 1; i += 2) {
+        unsigned int anInt;
+        NSString * hexCharStr = [hexString substringWithRange:NSMakeRange(i, 2)];
+        NSScanner * scanner = [[[NSScanner alloc] initWithString:hexCharStr] autorelease];
+        [scanner scanHexInt:&anInt];
+        myBuffer[i / 2] = (char)anInt;
+    }
+    NSString *unicodeString = [NSString stringWithCString:myBuffer encoding:4];
+    NSLog(@"------字符串=======%@",unicodeString);
+    return unicodeString;
+    
+    
+}
 
 @end

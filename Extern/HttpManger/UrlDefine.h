@@ -20,7 +20,7 @@
 #define BASE_URL                     @"59.41.39.98:443/VolunteerService"
 
 
-#define IMAGE_URL                    @"59.41.39.98:443"
+#define IMAGE_URL                    @"http://125cn.net"
 //1-5
 
 #define LOGIN_URL                    @"visitor/mobileLogin.action"
@@ -56,7 +56,8 @@
 #define URL24_GETMISSION_URL         @"visitor/getMission.action"
 #define URL25_APPLYMISSION_URL       @"mobile/mission/applyMission.action"
 //26-30
-
+#define URL28_MISSIONSIGIN_URL       @"mobile/mission/mobileSignIn.action"
+#define URL29_MISSIONSIGOUT_URL      @"mobile/mission/mobileSignOut.action"
 #define URL26_GETFLIGHTLIST_URL      @"mobile/flight/getFlightList.action"
 
 //31-35

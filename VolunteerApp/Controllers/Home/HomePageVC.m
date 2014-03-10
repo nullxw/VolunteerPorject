@@ -18,6 +18,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "ProTrendViewController.h"
 #import "ZZLHttpRequstEngine.h"
+#import "UrlDefine.h"
 @interface HomePageVC ()
 
 //properties:
@@ -181,7 +182,7 @@
 {
     UserInfo *user = [UserInfo share];
     self.mNameLb.text = user.userName;
-    [self.mAvatorImage setImageWithURL:[NSURL URLWithString:user.head] placeholderImage:[UIImage imageNamed:@"home_avator.png"]];
+    [self.mAvatorImage setImageWithURL:[NSURL URLWithString:[IMAGE_URL stringByAppendingString:user.head]] placeholderImage:[UIImage imageNamed:@"home_avator.png"]];
     self.mLvValuelb.text = [NSString stringWithFormat:@"%d",user.vvalue];
     self.mTimeLb.text = [[NSString stringWithFormat:@"%d",user.serviceTime/60] stringByAppendingString:@"小时"];
     self.mScroeLb.text = [[NSString stringWithFormat:@"%d",user.integral ]stringByAppendingString:@"分"];

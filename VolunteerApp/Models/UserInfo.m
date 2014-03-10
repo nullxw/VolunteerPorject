@@ -143,8 +143,7 @@ static UserInfo *shareInstance = nil;
     self.userName = [dic objectForKey:@"userName"];
     self.vvalue = [[dic objectForKey:@"vvalue"]integerValue];
     
-    
 
-    
 }
+
 @end

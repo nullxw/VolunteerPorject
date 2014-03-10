@@ -263,6 +263,12 @@
 		7BD02B1B18BCC2A300E067A0 /* REPresenceValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD02B1418BCC2A300E067A0 /* REPresenceValidator.m */; };
 		7BD02B1E18BD0EF600E067A0 /* MissionInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD02B1D18BD0EF600E067A0 /* MissionInfo.m */; };
 		7BD02B2118BD219D00E067A0 /* MyWaitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD02B2018BD219D00E067A0 /* MyWaitCell.m */; };
+		7BD63A1418CE0B4900408611 /* EditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD63A1318CE0B4900408611 /* EditCell.m */; };
+		7BD63A1618CE0B5B00408611 /* EditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BD63A1518CE0B5B00408611 /* EditCell.xib */; };
+		7BD63A1A18CE0C4600408611 /* ModifyPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD63A1818CE0C4600408611 /* ModifyPwdViewController.m */; };
+		7BD63A1B18CE0C4600408611 /* ModifyPwdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BD63A1918CE0C4600408611 /* ModifyPwdViewController.xib */; };
+		7BD63A1F18CE25B800408611 /* SiginCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD63A1E18CE25B800408611 /* SiginCell.m */; };
+		7BD63A2118CE25CB00408611 /* SiginCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BD63A2018CE25CB00408611 /* SiginCell.xib */; };
 		7BF6026918BD2324007DBAC3 /* MyWaitCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BF6026818BD2324007DBAC3 /* MyWaitCell.xib */; };
 		7BF6027018BDA959007DBAC3 /* mypro_cellbg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BF6026F18BDA959007DBAC3 /* mypro_cellbg@2x.png */; };
 		7BF6027418BDAB7A007DBAC3 /* mypro_complete.png in Resources */ = {isa = PBXBuildFile; fileRef = 7BF6027118BDAB7A007DBAC3 /* mypro_complete.png */; };
@@ -719,6 +725,15 @@
 		7BD02B1D18BD0EF600E067A0 /* MissionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MissionInfo.m; sourceTree = "<group>"; };
 		7BD02B1F18BD219D00E067A0 /* MyWaitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyWaitCell.h; sourceTree = "<group>"; };
 		7BD02B2018BD219D00E067A0 /* MyWaitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyWaitCell.m; sourceTree = "<group>"; };
+		7BD63A1218CE0B4900408611 /* EditCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCell.h; sourceTree = "<group>"; };
+		7BD63A1318CE0B4900408611 /* EditCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCell.m; sourceTree = "<group>"; };
+		7BD63A1518CE0B5B00408611 /* EditCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditCell.xib; sourceTree = "<group>"; };
+		7BD63A1718CE0C4600408611 /* ModifyPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifyPwdViewController.h; sourceTree = "<group>"; };
+		7BD63A1818CE0C4600408611 /* ModifyPwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifyPwdViewController.m; sourceTree = "<group>"; };
+		7BD63A1918CE0C4600408611 /* ModifyPwdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ModifyPwdViewController.xib; sourceTree = "<group>"; };
+		7BD63A1D18CE25B800408611 /* SiginCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SiginCell.h; sourceTree = "<group>"; };
+		7BD63A1E18CE25B800408611 /* SiginCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SiginCell.m; sourceTree = "<group>"; };
+		7BD63A2018CE25CB00408611 /* SiginCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SiginCell.xib; sourceTree = "<group>"; };
 		7BF6026818BD2324007DBAC3 /* MyWaitCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyWaitCell.xib; sourceTree = "<group>"; };
 		7BF6026F18BDA959007DBAC3 /* mypro_cellbg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mypro_cellbg@2x.png"; sourceTree = "<group>"; };
 		7BF6027118BDAB7A007DBAC3 /* mypro_complete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mypro_complete.png; sourceTree = "<group>"; };
@@ -1272,6 +1287,9 @@
 				7B233DA118CB3D9600D6B6C8 /* ContactUsViewController.h */,
 				7B233DA218CB3D9600D6B6C8 /* ContactUsViewController.m */,
 				7B233DA318CB3D9600D6B6C8 /* ContactUsViewController.xib */,
+				7BD63A1718CE0C4600408611 /* ModifyPwdViewController.h */,
+				7BD63A1818CE0C4600408611 /* ModifyPwdViewController.m */,
+				7BD63A1918CE0C4600408611 /* ModifyPwdViewController.xib */,
 			);
 			path = More;
 			sourceTree = "<group>";
@@ -1345,6 +1363,12 @@
 				7B74ED6818C8D85C002C8ABE /* DetailCell.xib */,
 				7B74ED6A18C8D86F002C8ABE /* DetailCell.h */,
 				7B74ED6B18C8D86F002C8ABE /* DetailCell.m */,
+				7BD63A1218CE0B4900408611 /* EditCell.h */,
+				7BD63A1318CE0B4900408611 /* EditCell.m */,
+				7BD63A1518CE0B5B00408611 /* EditCell.xib */,
+				7BD63A1D18CE25B800408611 /* SiginCell.h */,
+				7BD63A1E18CE25B800408611 /* SiginCell.m */,
+				7BD63A2018CE25CB00408611 /* SiginCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1700,6 +1724,7 @@
 				7BBB7B6C18BE3C8700739A3E /* promg_delbtn_nl.png in Resources */,
 				BFE8116518C0BE4800EB3E14 /* ico_complete.png in Resources */,
 				7B21B10F18CA13F2009EA7C3 /* SinaWeibo.bundle in Resources */,
+				7BD63A2118CE25CB00408611 /* SiginCell.xib in Resources */,
 				7B29EA8518B635730038C278 /* blueArrow@2x.png in Resources */,
 				BFE8116818C0BE4800EB3E14 /* ico_members.png in Resources */,
 				7B0E5E0A18CC43CD008BFC6A /* ProTrendViewController.xib in Resources */,
@@ -1739,6 +1764,7 @@
 				BFE8114718C0BC7500EB3E14 /* CheckPlanCell.xib in Resources */,
 				7B29EA8218B635730038C278 /* blackArrow.png in Resources */,
 				7B29EB3B18B6629C0038C278 /* MyProjectViewController.xib in Resources */,
+				7BD63A1618CE0B5B00408611 /* EditCell.xib in Resources */,
 				7BF6027418BDAB7A007DBAC3 /* mypro_complete.png in Resources */,
 				7BBB7B6818BE3C8700739A3E /* promg_cfbtn_nl.png in Resources */,
 				7B3ADA7318C8D5B60061CC26 /* CommentCell.xib in Resources */,
@@ -1803,6 +1829,7 @@
 				7B1830C618BF7A2E00AB2EC3 /* female@2x.png in Resources */,
 				7BBB7B7218BE3C8700739A3E /* promg_plan_nl.png in Resources */,
 				7B29EA8618B635730038C278 /* grayArrow.png in Resources */,
+				7BD63A1B18CE0C4600408611 /* ModifyPwdViewController.xib in Resources */,
 				7B96412B18BA7CB40089674F /* check.png in Resources */,
 				7B29EB4B18B667080038C278 /* ProjectSearchViewController.xib in Resources */,
 				7B96411E18BA6B920089674F /* home_my_nl@2x.png in Resources */,
@@ -1856,6 +1883,7 @@
 			files = (
 				7B85106618B78EAF00D20F90 /* XHTextFieldScrollView.m in Sources */,
 				7B2121A618C228AA003955EE /* MyInfoCell.m in Sources */,
+				7BD63A1A18CE0C4600408611 /* ModifyPwdViewController.m in Sources */,
 				7B29EADC18B636F00038C278 /* FXImage.m in Sources */,
 				7B29EA8018B635730038C278 /* MessageInterceptor.m in Sources */,
 				BFE8114518C0BC5C00EB3E14 /* CheckPlanCell.m in Sources */,
@@ -1962,6 +1990,7 @@
 				7B8615D718C246B60003BF15 /* WeiboInfo.m in Sources */,
 				7BD02B1618BCC2A300E067A0 /* NSError+REValidation.m in Sources */,
 				7B2121A218C22556003955EE /* MyInfoViewController.m in Sources */,
+				7BD63A1F18CE25B800408611 /* SiginCell.m in Sources */,
 				7B29EAA418B636690038C278 /* CommonAnimation.m in Sources */,
 				BF9265AE18C5FF190015BC5C /* GuildViewController.m in Sources */,
 				7BD02AFA18BCBF7E00E067A0 /* RETextItem.m in Sources */,
@@ -1971,6 +2000,7 @@
 				7B29EABC18B636A10038C278 /* NSString+MD5.m in Sources */,
 				7BD02AFD18BCBF7E00E067A0 /* RETableViewCell.m in Sources */,
 				7BD02AF218BCBF7E00E067A0 /* REBoolItem.m in Sources */,
+				7BD63A1418CE0B4900408611 /* EditCell.m in Sources */,
 				7B29EAE518B636F00038C278 /* UIButton+WebCache.m in Sources */,
 				7B29EAA518B636690038C278 /* DeviceInfo.m in Sources */,
 				7BD02B0318BCBF7E00E067A0 /* RETableViewSection.m in Sources */,

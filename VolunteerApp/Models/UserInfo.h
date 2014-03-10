@@ -61,4 +61,6 @@
 
 - (void)setup;
 - (void)updateUserInfoWithDic:(NSDictionary *)dic;
+
+- (void)updateNewPwd;
 @end

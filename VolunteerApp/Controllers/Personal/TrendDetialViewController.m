@@ -11,10 +11,13 @@
 #import "CommentCell.h"
 #import "DetailCell.h"
 #import "AppDelegate.h"
-@interface TrendDetialViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
+#import "UIImageView+WebCache.h"
+#import "UrlDefine.h"
+@interface TrendDetialViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,DetailCellDelegate>
 {
     MyTableView *mytableView;
-
+    CGRect         originRect;
+    CGSize        ratio;
     
 }
 @property (weak, nonatomic) IBOutlet UIView *mBottomView;
@@ -129,6 +132,7 @@
 
             DetailCell *cell = [DetailCell cellForTableView:mytableView fromNib:[DetailCell nib]];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.delegate = self;
             [cell setupWithWeiboInfo:self.info];
             return cell;
         }else{
@@ -139,10 +143,6 @@
             cell.backgroundColor = [UIColor whiteColor];
             return cell;
         }
-
-
-    
-    
     return nil;
     
 }
@@ -162,7 +162,7 @@
         if (self.info.picOriginal.length>0) {
             height = 80;
         }
-        return [self caculateFontSizeStr:self.info.content]+100+height;
+        return [self caculateFontSizeStr:self.info.content]+110+height;
     }else{
         WeiboInfo *temp = mytableView.list[indexPath.row];
         return [self caculateFontSizeStr:temp.content]+65;
@@ -190,13 +190,6 @@
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         
         UserInfo *user = [UserInfo share];
-        
-        
-
-        
-
-        
-        
         [[ZZLHttpRequstEngine engine]requestGetWeiboReplyWithUid:user.userId weiboId:[NSString stringWithFormat:@"%d",self.info.weiboId] pageSize:mytableView.pageSize pageIndex:mytableView.pageIndex createTime:@"" onSuccess:^(id responseDict) {
             [mytableView.pullToRefreshView stopAnimating];
             NSLog(@"___YYY__%@",responseDict);
@@ -375,7 +368,60 @@
     
     [mytableView setContentOffset:CGPointMake(0.0, kbSize.height) animated:YES];
 }
+- (void)DetailCell:(DetailCell *)cell actionImageView:(UIImageView *)imageView
+{
+    MyTableView *curTable = mytableView;
+    
+    
+    CGFloat height = imageView.top+cell.top+curTable.top+self.navView.height-curTable.contentOffset.y;
+    originRect = CGRectMake(imageView.left, height, imageView.width, imageView.height);
+   
+    [self checkPoster:imageView withImageUrl:[NSURL URLWithString:[IMAGE_URL stringByAppendingString:self.info.picMiddle]]];
+    
+    
+}
 
+- (void)checkPoster:(UIImageView *)imageView1 withImageUrl:(NSURL *)url
+{
+    
+    UIImage *bigImage = imageView1.image;
+    UIView *backView = [[UIView alloc]initWithFrame:self.view.bounds];
+    backView.backgroundColor = [UIColor blackColor];
+    CGSize size = bigImage.size;
+    ratio = CGSizeMake(originRect.size.width/size.width, originRect.size.height/size.height);
+    CGFloat height = (self.view.width*size.height)/size.width;
+    
+    UIImageView *imageview = [[UIImageView alloc]initWithFrame:originRect];
+    [imageview setImageWithURL:url placeholderImage:bigImage];
+    //imageview.transform = CGAffineTransformMakeScale(ratio.width, ratio.height);
+    
+    
+    [backView addSubview:imageview];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(removeBackView:)];
+    [backView addGestureRecognizer:tap];
+    
+    [self.view addSubview:backView];
+    [UIView animateWithDuration:0.5f animations:^{
+        imageview.frame= CGRectMake(0, backView.center.y-(height/2), self.view.width, height);
+        
+    } completion:^(BOOL finished) {
+        
+    }];
+    
+}
+- (void)removeBackView:(UITapGestureRecognizer *)gestrue
+{
+    UIView *view = gestrue.view;
+    view.backgroundColor = [UIColor clearColor];
+    UIImageView *imageview = [[view subviews]lastObject];
+    [UIView animateWithDuration:0.3f animations:^{
+        imageview.frame = originRect;
+    } completion:^(BOOL finished) {
+        [view removeFromSuperview];
+    }];
+    view = nil;
+    
+}
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     

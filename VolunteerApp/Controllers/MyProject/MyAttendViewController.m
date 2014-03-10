@@ -10,6 +10,7 @@
 #import "MyTableView.h"
 #import "MyAttenCell.h"
 #import "ZZLHttpRequstEngine.h"
+#import "SiginCell.h"
 @interface MyAttendViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     MyTableView *mytableView;
@@ -86,24 +87,57 @@
 #pragma mark - tableviewDelegate,tableviewDataSource
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([curList count]>0) {
-        MyAttenCell *cell = [MyAttenCell cellForTableView:mytableView fromNib:[MyAttenCell nib]];
+    if (indexPath.section == 1) {
+        if ([curList count]>0) {
+            MyAttenCell *cell = [MyAttenCell cellForTableView:mytableView fromNib:[MyAttenCell nib]];
+            
+            
+            SignInfo *info = [curList objectAtIndex:indexPath.row];
+            [cell setupWithSignInfo:info];
+            return cell;
+        }
+    }else{
+        
+            SiginCell *cell = [SiginCell cellForTableView:mytableView fromNib:[SiginCell nib]];
+//            SignInfo *info = [curList objectAtIndex:indexPath.row];
+//            cell.mTitleLb.text = info.missionName;
+            return cell;
         
         
-        SignInfo *info = [curList objectAtIndex:indexPath.row];
-        [cell setupWithSignInfo:info];
-        return cell;
     }
+    
     
     return nil;
     
 }
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return @"今天";
+    }else{
+        return @"以前";
+    }
+}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [curList count];
+    if (section == 0) {
+        return 1;
+    }else if(section == 1){
+        return [curList count];
+    }else{
+        return 1;
+    }
+    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section == 0) {
+        return 62;
+    }
     return [MyAttenCell cellHeight];
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -229,7 +263,7 @@
         NSMutableDictionary *dic = array[i];
         SignInfo *info = [SignInfo JsonModalWithDictionary:dic];
         [curList addObject:info];
-        [mytableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [mytableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:i inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
     [mytableView endUpdates];
     
@@ -241,7 +275,7 @@
         NSMutableDictionary *dic = array[i];
         SignInfo *info = [SignInfo JsonModalWithDictionary:dic];
         [curList addObject:info];
-        [mytableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:curList.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        [mytableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:curList.count-1 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
     [mytableView endUpdates];
 }
@@ -250,11 +284,29 @@
     if ([curList count]==0) {
         [self.view showHudMessage:@"无记录，不能签到"];
     }
+    UserInfo *user = [UserInfo share];
+    SignInfo *info = curList[0];
+    
+    [[ZZLHttpRequstEngine engine]requestProjectMissionSiginWithUid:user.userId curId:user.userId missionID:info._missionId onSuccess:^(id responseObject) {
+        [self.view showHudMessage:responseObject];
+        [mytableView triggerPullToRefresh];
+    } onFail:^(NSError *erro) {
+        [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
+    }];
 }
 
 - (IBAction)actionSignOut:(UIButton *)sender {
     if ([curList count]==0) {
         [self.view showHudMessage:@"无记录，不能签出"];
     }
+    UserInfo *user = [UserInfo share];
+    SignInfo *info = curList[0];
+    [[ZZLHttpRequstEngine engine]requestProjectMissionSiginOutWithUid:user.userId curId:user.userId missionID:info._missionId onSuccess:^(id responseObject) {
+        [self.view showHudMessage:responseObject];
+        [mytableView triggerPullToRefresh];
+    } onFail:^(NSError *erro) {
+        [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
+    }];
+    
 }
 @end
