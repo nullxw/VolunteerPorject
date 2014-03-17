@@ -60,6 +60,7 @@
 
 
 
+
     
     // 初始化UIDatePicker
     FristPick = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, self.view.height, 320, 216)];

@@ -224,7 +224,7 @@
 //    self.pageControl.numberOfPages = _pages.count;
 //    [self addSubview:self.pageControl];
     
-    self.skipButton = [[UIButton alloc] initWithFrame:CGRectMake(120, self.scrollView.height-120, 80, 40)];
+    self.skipButton = [[UIButton alloc] initWithFrame:CGRectMake(0, self.scrollView.height-120, 320, 120)];
     
     [self.skipButton setAutoresizingMask: UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin];
 //    [self.skipButton setTitle:NSLocalizedString(@"跳过", nil) forState:UIControlStateNormal];
