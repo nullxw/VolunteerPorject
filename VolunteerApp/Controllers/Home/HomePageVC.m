@@ -15,12 +15,16 @@
 #import "MoreViewController.h"
 #import "LoginViewController.h"
 #import "UIImageView+WebCache.h"
+#import "VolunInfoViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "ProTrendViewController.h"
+#import "MyInfoViewController.h"
 #import "ZZLHttpRequstEngine.h"
 #import "UrlDefine.h"
 @interface HomePageVC ()
-
+{
+    BOOL isManager;
+}
 //properties:
 @property (weak, nonatomic) IBOutlet UIView *mPersonView;
 @property (weak, nonatomic) IBOutlet UIImageView *mAvatorImage;
@@ -34,6 +38,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *mMyProBtn;
 @property (weak, nonatomic) IBOutlet UIButton *mProSearchBtn;
 @property (weak, nonatomic) IBOutlet UIButton *mMoreBtn;
+@property (weak, nonatomic) IBOutlet UIButton *mProTrendBtn;
+@property (weak, nonatomic) IBOutlet UILabel *mProTrendText;
+@property (weak, nonatomic) IBOutlet UILabel *mMyProText;
+@property (weak, nonatomic) IBOutlet UIScrollView *mScrollView;
 
 //actions:
 - (IBAction)goPersonal:(UIButton *)sender;
@@ -47,7 +55,9 @@
 
 
 - (IBAction)goMore:(UIButton *)sender;
+- (IBAction)goVolunInfo:(UIButton *)sender;
 
+- (IBAction)goMyInfo:(UIButton *)sender;
 @end
 
 @implementation HomePageVC
@@ -68,6 +78,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.mScrollView.contentSize = CGSizeMake(self.view.width, self.view.height+180);
+    
+    UserInfo *user = [UserInfo share];
+    if ([user.purview isEqualToString:@"MANAGER_SHOW"]) {
+        isManager = YES;
+        
+        self.mProTrendText.text = @"项目管理";
+        [self.mMyProBtn setImage:[UIImage imageNamed:@"home_register_nl"] forState:UIControlStateNormal];
+        [self.mMyProBtn setImage:[UIImage imageNamed:@"home_register_hl"] forState:UIControlStateHighlighted];
+        self.mMyProText.text = @"注册管理";
+    }
+    
+    
     [self setUpView];
     [self setTitleWithString:@"广东志愿者"];
     [self setBackBtnHidden];
@@ -159,6 +183,20 @@
 
 - (IBAction)goMore:(UIButton *)sender {
     MoreViewController *vc = [MoreViewController ViewContorller];
+    [self.flipboardNavigationController pushViewController:vc];
+
+}
+
+- (IBAction)goVolunInfo:(UIButton *)sender {
+    
+    VolunInfoViewController *vc = [VolunInfoViewController ViewContorller];
+    [self.flipboardNavigationController pushViewController:vc];
+    
+}
+
+- (IBAction)goMyInfo:(UIButton *)sender {
+    
+    MyInfoViewController *vc = [MyInfoViewController ViewContorller];
     [self.flipboardNavigationController pushViewController:vc];
 
 }

@@ -683,7 +683,11 @@ typedef void (^objectBlock)(id obj);
 
 
 
-
+// 66 获取志愿资讯
+- (ZZLRequestOperation *)requestGetVolunteerInfoWithPageSize:(int)psize
+                                                   pageIndex:(int)page
+                                                   onSuccess:(dictionaryBlock)successBlock
+                                                      onFail:(erroBlock)errorBlock;
 /*!
  @abstract:取消一个请求操作
  @description:通常，在一个页面返回的时候 （若该请求还未完成，我们需要取消该请求）

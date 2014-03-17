@@ -462,6 +462,124 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     
     return op;
 }
+
+
+- (ZZLRequestOperation *)postRequestNoTokenWithServicePath:(NSString *)path
+                                             params:(NSMutableDictionary *)params
+                                          onSuccess:(dictionaryBlock)successBlock
+                                             onFail:(erroBlock)aerrorBlock
+{
+    
+    
+    
+    
+    
+    ZZLRequestOperation *op = (ZZLRequestOperation *)[self operationWithPath:path params:params httpMethod:@"POST"];
+    
+    
+    [op setUsername:SystemKey_Parameter_Value password:SystemValue_Parameter_Value basicAuth:NO];
+
+    [params setObject:SystemKey_Parameter_Value forKey:@"systemKey"];
+    [params setObject:SystemValue_Parameter_Value forKey:@"systemValue"];
+    
+    
+    
+    [op onCompletion:^(MKNetworkOperation *completedOperation)
+     {
+         NSLog(@"<<>>url:%@",[self urlstr:completedOperation.url param:params]);
+         NSMutableDictionary *responseDict = [completedOperation responseJSON];
+         if ([responseDict isKindOfClass:[NSDictionary class]])
+         {
+             
+             NSString *status = [responseDict objectForKey:@"status"];
+             
+             if ([status isEqualToString:@"OK"])
+             {
+                 if ([[responseDict allKeys] containsObject:@"dataList"]) {
+                     
+                     id obj = [responseDict objectForKey:@"dataList"];
+                     if ([obj isKindOfClass:[NSArray class]]) {//多个数据对象
+                         NSArray *array = (NSArray *)obj;
+                         if (successBlock)
+                         {
+                             successBlock(array);
+                         }
+                     }else if([obj isKindOfClass:[NSDictionary class]]){// 单个数据对象
+                         NSDictionary *dic = (NSDictionary *)obj;
+                         if (successBlock)
+                         {
+                             successBlock(dic);
+                         }
+                     }
+                     
+                     
+                     
+                     
+                 }else if ([[responseDict allKeys] containsObject:@"data"])
+                 {
+                     id obj= [responseDict objectForKey:@"data"];
+                     if (successBlock)
+                     {
+                         successBlock(obj);
+                     }
+                     
+                 }
+                 else if ([[responseDict allKeys] containsObject:@"msg"])
+                 {
+                     id obj= [responseDict objectForKey:@"msg"];
+                     if (successBlock)
+                     {
+                         successBlock(obj);
+                     }
+                     
+                 }else
+                 {
+                     
+                     
+                     if (aerrorBlock) {
+                         NSError *anerr=[NSError errorWithDomain:@"ZZLHttpRequest.engine" code:DATA_REQUEST_FAILURE userInfo:
+                                         [NSDictionary dictionaryWithObjectsAndKeys:ERROR_DATA_REQUEST_FAILURE,@"description", nil]];
+                         aerrorBlock(anerr);
+                     }
+                     
+                 }
+                 
+                 
+                 
+             }else if([status isEqualToString:@"ERROR"])
+             {
+                 if (aerrorBlock) {
+                     
+                     NSString *erroMsg = [responseDict objectForKey:@"msg"];
+                     NSError *anerr=[NSError errorWithDomain:@"ZZLHttpRequest.engine" code:DATA_REQUEST_FAILURE userInfo:
+                                     [NSDictionary dictionaryWithObjectsAndKeys:erroMsg,@"description", nil]];
+                     aerrorBlock(anerr);
+                 }
+                 
+             }
+         }
+         
+         
+         
+         
+         
+         
+         
+         
+         NSLog(@"URL--->:%@",op.url);
+     } onError:^(NSError *error)
+     {
+         [ZZLHttpRequstEngine handleServerResponseError:error FailureBlock:aerrorBlock];
+         
+         
+         
+         
+         NSLog(@"URL--->:%@",op.url);
+     }];
+    [self enqueueOperation:op];
+    
+    return op;
+}
 #pragma mark - custom request
 //login
 
@@ -1128,7 +1246,17 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     return [self postRequestWithServicePath:URL63_GETDISTRICTLIST_URL params:dic onSuccess:successBlock onFail:errorBlock];
 
 }
-
+// 66 获取志愿资讯
+- (ZZLRequestOperation *)requestGetVolunteerInfoWithPageSize:(int)psize
+                                                   pageIndex:(int)page
+                                                   onSuccess:(dictionaryBlock)successBlock
+                                                      onFail:(erroBlock)errorBlock
+{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:[NSNumber numberWithInt:page] forKey:@"pageIndex"];
+    [dic setObject:[NSNumber numberWithInt:psize] forKey:@"pageSize"];
+    return [self postRequestWithServicePath:URL66_GETVOLUNINFO_URL params:dic onSuccess:successBlock onFail:errorBlock];
+}
 #pragma mark - cancel request 
 - (void)cancelRequestWithPath:(NSString *)urlpath
 {

@@ -75,4 +75,5 @@
 
 #define URL64_GETDISTRICTLIST_URL    @"visitor/findMissionType.action"
 #define URL65_GETDISTRICTLIST_URL    @"VolunteerService/mobile/findUsersByIdcard.action"
+#define URL66_GETVOLUNINFO_URL       @"visitor/getVolInformation.action"
 #endif
