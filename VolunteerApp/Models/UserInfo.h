@@ -57,6 +57,8 @@
 
 +(id)share;
 
+- (BOOL)isManager;
+- (BOOL)isLeader;
 - (void)handleSuccessLogin;
 
 - (void)setup;

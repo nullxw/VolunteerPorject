@@ -145,5 +145,13 @@ static UserInfo *shareInstance = nil;
     
 
 }
+- (BOOL)isManager
+{
+    return  [self.purview isEqualToString:@"MANAGER_SHOW"];
+}
+- (BOOL)isLeader
+{
+    return  [self.purview isEqualToString:@"LEADER_SHOW"];
+}
 
 @end

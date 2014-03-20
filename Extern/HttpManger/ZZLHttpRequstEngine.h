@@ -374,6 +374,11 @@ typedef void (^objectBlock)(id obj);
                                                    onSuccess:(dictionaryBlock)successBlock
                                                       onFail:(erroBlock)errorBlock;
 
+
+
+
+#pragma mark -  考勤
+
 //34 获取项目的最高权限的考勤队伍
 //考勤时要加载队伍列表，通过异步加载的形式，先加载项目中最高权限的队伍
 
@@ -390,9 +395,6 @@ typedef void (^objectBlock)(id obj);
                                        pageIndex:(int)page
                                        onSuccess:(dictionaryBlock)successBlock
                                           onFail:(erroBlock)errorBlock;
-
-
-#pragma mark -  考勤
 //36.统计队伍考勤待签到、待签出、未确认考勤、已确认考勤的人数
 
 - (ZZLRequestOperation *)reqeustTeamAttendanceWithUid:(NSString *)uid
@@ -437,7 +439,7 @@ typedef void (^objectBlock)(id obj);
                                                    missionid:(int)mid
                                                       teamID:(int)tid
                                                     isUpdate:(int)isupdate
-                                         missionServiceLogId:(int)msid
+                                         missionServiceLogId:(NSString *)msid
                                                    onSuccess:(dictionaryBlock)successBlock
                                                       onFail:(erroBlock)errorBlock;
 
@@ -445,7 +447,7 @@ typedef void (^objectBlock)(id obj);
 - (ZZLRequestOperation *)requestTeamAttendanceDelWithUid:(NSString *)uid
                                                missionid:(int)mid
                                                   teamID:(int)tid
-                                     missionServiceLogId:(int)msid
+                                     missionServiceLogId:(NSString *)msid
                                                onSuccess:(dictionaryBlock)successBlock
                                                   onFail:(erroBlock)errorBlock;
 

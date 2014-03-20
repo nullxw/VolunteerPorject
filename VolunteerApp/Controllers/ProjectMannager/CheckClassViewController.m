@@ -52,14 +52,7 @@
     
     [self.view addSubview:mytableView];
 
-    __weak CheckClassViewController *weakSelf = self;
-    [mytableView addPullToRefreshWithActionHandler:^{
-        [weakSelf refreshData];
-    }];
-    [mytableView addInfiniteScrollingWithActionHandler:^{
-        [weakSelf loadMore];
-    }];
-    mytableView.infiniteScrollingView.enabled = NO;
+
     
 }
 - (void)awakeFromNib

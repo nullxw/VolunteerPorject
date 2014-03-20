@@ -165,15 +165,26 @@
 
 - (IBAction)goProManager:(UIButton *)sender {
 
-//    ProjectMgViewController *vc  = [ProjectMgViewController ViewContorller];
-//    [self.flipboardNavigationController pushViewController:vc];
-    ProTrendViewController *vc = [ProTrendViewController ViewContorller];
-    [self.flipboardNavigationController pushViewController:vc];
+    
+    if (isManager) {
+        
+        ProjectMgViewController *vc = [ProjectMgViewController ViewContorller];
+        [self.flipboardNavigationController pushViewController:vc];
+    }else{
+        ProTrendViewController *vc = [ProTrendViewController ViewContorller];
+        [self.flipboardNavigationController pushViewController:vc];
+    }
+    
 }
 
 - (IBAction)goMyPro:(UIButton *)sender {
-    MyProjectViewController *vc = [MyProjectViewController ViewContorller];
-    [self.flipboardNavigationController pushViewController:vc];
+    if (isManager) {
+        
+    }else{
+        MyProjectViewController *vc = [MyProjectViewController ViewContorller];
+        [self.flipboardNavigationController pushViewController:vc];
+    }
+
 }
 
 - (IBAction)goProSearch:(UIButton *)sender {

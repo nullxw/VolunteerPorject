@@ -57,7 +57,8 @@
     myTableView = [[MyTableView alloc]initWithFrame:CGRectMake(0, self.mSearchBar.bottom, self.view.width, self.view.height-self.mSearchBar.bottom) style:UITableViewStyleGrouped];
     myTableView.dataSource = self;
     myTableView.delegate = self;
-
+    myTableView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:myTableView];
 
 
 
@@ -78,8 +79,7 @@
     [FristPick addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
     FristPick.hidden = YES;
     
-    myTableView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:myTableView];
+
     
     list = [[NSMutableArray alloc]initWithObjects:@"项目类型",@"实施日期",@"开始时间",@"结束时间", nil];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];

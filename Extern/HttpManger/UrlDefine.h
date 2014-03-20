@@ -6,8 +6,8 @@
 //  Copyright (c) 2014年 XiaoWoNiu2014. All rights reserved.
 //
 
-#ifndef                              VolunteerApp_define_h
-#define                              VolunteerApp_define_h
+#ifndef VolunteerApp_define_h
+#define VolunteerApp_define_h
 
 
 //http://59.41.39.98:443/VolunteerService/mobile/mission/getMissionList.action
@@ -61,14 +61,32 @@
 #define URL26_GETFLIGHTLIST_URL      @"mobile/flight/getFlightList.action"
 
 //31-35
-
+#define URL30_mobileSign_URL         @"mobile/mission/mobileSign.action"
 #define URL33_GETPROLIST_URL         @"mobile/mission/getLeaderPersonalList.action"
 #define URL31_GETMISSION_URL         @"visitor/findMissionList.action"
+#define URL34_highestTeam_URL        @"mobile/highestTeam.action"
+#define URL35_childTeam_URL          @"mobile/childTeam.action"
+
 //36-40
+#define URL36_queryCheckOutNum_URL   @"mobile/queryCheckOutNum.action"
+#define URL37_waitCheckInList_URL    @"mobile/waitCheckInList.action"
+#define URL38_waitCheckOutList_URL   @"mobile/waitCheckOutList.action"
+#define URL39_waitIsSureCheck_URL    @"mobile/waitIsSureCheck.action"
+#define URL40_updateServiceLog_URL   @"mobile/updateServiceLog.action"
 //41-45
+
+#define URL41_delSeviceLog_URL       @"mobile/delSeviceLog.action"
+
+#define URL42_GETPERSONL_URL         @"mobile/recruitUser.action"
+#define URL43_GETPERSONL_URL         @"mobile/queryRecruitCount.action"
+#define URL44_GETPERSONL_URL         @"mobile/queryPersonalRecruit.action"
+#define URL45_GETPERSONL_URL         @"mobile/hirePersonalRecruit.action"
+
 //46-50
+#define URL46_GETPERSONL_URL         @"VolunteerService/mobile/delPersonalRecruit.action"
 //51-55
 //56-60
+#define URL59_SEARCHVOLUNTEER_URL    @"mobile/findUsersList.action"
 //61-65
 #define URL_61_GETPLANLIST_URL       @"mobile/flight/getFlightPlantList.action"
 #define URL63_GETDISTRICTLIST_URL    @"visitor/getDistrictList.action"

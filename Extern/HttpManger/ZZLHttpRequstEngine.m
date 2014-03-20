@@ -1094,6 +1094,36 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
  
  
  */
+//30 手机客户端手动考勤
+- (ZZLRequestOperation *)requestProjectMissionSiginWithMobileWithUid:(NSString *)uid
+                                                               curId:(NSString *)cid
+                                                           missionId:(int)mid
+                                                              statue:(int)state
+                                                         checkOnDate:(NSString *)date
+                                                                hour:(int)h
+                                                              minute:(int)m
+                                                              teamId:(int)tid
+                                                           onSuccess:(dictionaryBlock)successBlock
+                                                              onFail:(erroBlock)errorBlock
+{
+    /*currentUserId
+     userId
+     missionId
+     statue
+     checkOnDate
+     hour
+     minute
+     teamId*/
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:uid forKey:@"currentUserId"];
+    [dic setObject:[NSNumber numberWithInt:mid] forKey:@"missionId"];
+    [dic setObject:[NSNumber numberWithInt:state] forKey:@"statue"];
+    [dic setObject:date forKey:@"checkOnDate"];
+    [dic setObject:[NSNumber numberWithInt:h] forKey:@"hour"];
+    [dic setObject:[NSNumber numberWithInt:m] forKey:@"minute"];
+    [dic setObject:[NSNumber numberWithInt:tid] forKey:@"teamId"];
+    return [self postRequestWithServicePath:URL30_mobileSign_URL params:dic onSuccess:successBlock onFail:errorBlock];
+}
 
 //31 搜索项目
 - (ZZLRequestOperation *)requestSearchProjectListWithUid:(NSString *)uid
@@ -1158,6 +1188,306 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
 
 }
 
+
+//34 获取项目的最高权限的考勤队伍
+//考勤时要加载队伍列表，通过异步加载的形式，先加载项目中最高权限的队伍
+
+- (ZZLRequestOperation *)requestHighestTeamWithUid:(NSString *)uid
+                                         missionId:(int)mid
+                                         onSuccess:(dictionaryBlock)successBlock
+                                            onFail:(erroBlock)errorBlock
+{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:uid forKey:@"currentUserId"];
+    [dic setObject:[NSNumber numberWithInt:mid] forKey:@"teamVo._missionId"];
+    return [self postRequestWithServicePath:URL34_highestTeam_URL params:dic onSuccess:successBlock onFail:errorBlock];
+}
+
+
+//35 获取子队伍列表   加载队伍列表，根据上级队伍的ID获取下级队伍
+- (ZZLRequestOperation *)requestChildTeamWithUid:(NSString *)uid
+                                          teamId:(int)tid
+                                        pageSize:(int)psize
+                                       pageIndex:(int)page
+                                       onSuccess:(dictionaryBlock)successBlock
+                                          onFail:(erroBlock)errorBlock
+{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:uid forKey:@"currentUserId"];
+
+    [dic setObject:[NSNumber numberWithInt:tid] forKey:@"teamVo._teamPid"];
+    [dic setObject:[NSNumber numberWithInt:page] forKey:@"pageIndex"];
+    [dic setObject:[NSNumber numberWithInt:psize] forKey:@"pageSize"];
+    return [self postRequestWithServicePath:URL35_childTeam_URL params:dic onSuccess:successBlock onFail:errorBlock];
+}
+//36.统计队伍考勤待签到、待签出、未确认考勤、已确认考勤的人数
+
+- (ZZLRequestOperation *)reqeustTeamAttendanceWithUid:(NSString *)uid
+                                          checkOndate:(NSString *)date
+                                            missionid:(int)mid
+                                               teamId:(int)tid
+                                            onSuccess:(dictionaryBlock)successBlock
+                                               onFail:(erroBlock)errorBlock
+{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:uid forKey:@"currentUserId"];
+    [dic setObject:[NSNumber numberWithInt:mid] forKey:@"serviceLogVo._missionId"];
+    [dic setObject:date forKey:@"serviceLogVo._checkOnDate"];
+    [dic setObject:[NSNumber numberWithInt:tid] forKey:@"teamId"];
+
+    return [self postRequestWithServicePath:URL36_queryCheckOutNum_URL params:dic onSuccess:successBlock onFail:errorBlock];
+}
+
+//37 获取队伍考勤待签到考勤的用户
+
+- (ZZLRequestOperation *)requestTeamAttendanceWaitCheckListWithUid:(NSString *)uid
+                                                       checkOnDate:(NSString *)date
+                                                         missionid:(int)mid
+                                                            teamID:(int)tid
+                                                          pageSize:(int)psize
+                                                         pageIndex:(int)page
+                                                         onSuccess:(dictionaryBlock)successBlock
+                                                            onFail:(erroBlock)errorBlock
+{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:uid forKey:@"currentUserId"];
+    [dic setObject:[NSNumber numberWithInt:mid] forKey:@"serviceLogVo._missionId"];
+    [dic setObject:date forKey:@"serviceLogVo._checkOnDate"];
+    [dic setObject:[NSNumber numberWithInt:tid] forKey:@"teamId"];
+    [dic setObject:[NSNumber numberWithInt:page] forKey:@"pageIndex"];
+    [dic setObject:[NSNumber numberWithInt:psize] forKey:@"pageSize"];
+    return [self postRequestWithServicePath:URL37_waitCheckInList_URL params:dic onSuccess:successBlock onFail:errorBlock];
+}
+//38 获取队伍考勤待签出考勤的用户
+- (ZZLRequestOperation *)requestTeamAttendanceWaitCheckOutListWithUid:(NSString *)uid
+                                                          checkOnDate:(NSString *)date
+                                                            missionid:(int)mid
+                                                               teamID:(int)tid
+                                                             pageSize:(int)psize
+                                                            pageIndex:(int)page
+                                                            onSuccess:(dictionaryBlock)successBlock
+                                                               onFail:(erroBlock)errorBlock
+{
+    
+    /*
+     currentUserId
+     serviceLogVo._checkOnDate
+     serviceLogVo._missionId
+     pageIndex
+     pageSize*/
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:uid forKey:@"currentUserId"];
+    [dic setObject:[NSNumber numberWithInt:mid] forKey:@"serviceLogVo._missionId"];
+    [dic setObject:date forKey:@"serviceLogVo._checkOnDate"];
+    [dic setObject:[NSNumber numberWithInt:tid] forKey:@"teamId"];
+    [dic setObject:[NSNumber numberWithInt:page] forKey:@"pageIndex"];
+    [dic setObject:[NSNumber numberWithInt:psize] forKey:@"pageSize"];
+    return [self postRequestWithServicePath:URL38_waitCheckOutList_URL params:dic onSuccess:successBlock onFail:errorBlock];
+}
+
+//39 获取队伍考勤未确认考勤、已确认考勤的用户
+- (ZZLRequestOperation *)requestTeamAttendanceDidCheckOutWithUid:(NSString *)uid
+                                                     checkOnDate:(NSString *)date
+                                                       missionid:(int)mid
+                                                          teamID:(int)tid
+                                                        isUpdate:(int)isupdate
+                                                        pageSize:(int)psize
+                                                       pageIndex:(int)page
+                                                       onSuccess:(dictionaryBlock)successBlock
+                                                          onFail:(erroBlock)errorBlock
+{
+    /*currentUserId
+     serviceLogVo._checkOnDate
+     serviceLogVo._missionId
+     serviceLogVo.isUpdated
+     pageIndex
+     pageSize
+     teamId*/
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:uid forKey:@"currentUserId"];
+    [dic setObject:[NSNumber numberWithInt:mid] forKey:@"serviceLogVo._missionId"];
+    [dic setObject:date forKey:@"serviceLogVo._checkOnDate"];
+    [dic setObject:[NSNumber numberWithInt:tid] forKey:@"teamId"];
+    [dic setObject:[NSNumber numberWithInt:page] forKey:@"pageIndex"];
+    [dic setObject:[NSNumber numberWithInt:psize] forKey:@"pageSize"];
+    [dic setObject:[NSNumber numberWithInt:isupdate] forKey:@"serviceLogVo.isUpdated"];
+    return [self postRequestWithServicePath:URL39_waitIsSureCheck_URL params:dic onSuccess:successBlock onFail:errorBlock];
+}
+
+//40 大队长确认/取消考勤
+- (ZZLRequestOperation *)requestTeamAttendanceConfirmWithUid:(NSString *)uid
+                                                   missionid:(int)mid
+                                                      teamID:(int)tid
+                                                    isUpdate:(int)isupdate
+                                         missionServiceLogId:(NSString *)msid
+                                                   onSuccess:(dictionaryBlock)successBlock
+                                                      onFail:(erroBlock)errorBlock
+{
+    /*currentUserId
+     missionId
+     missionServiceLogIds
+     serviceLogVo.isUpdated
+     teamId*/
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:uid forKey:@"currentUserId"];
+    [dic setObject:[NSNumber numberWithInt:mid] forKey:@"missionId"];
+    [dic setObject:msid forKey:@"missionServiceLogIds"];
+    [dic setObject:[NSNumber numberWithInt:tid] forKey:@"teamId"];
+    [dic setObject:[NSNumber numberWithInt:isupdate] forKey:@"serviceLogVo.isUpdated"];
+    return [self postRequestWithServicePath:URL40_updateServiceLog_URL params:dic onSuccess:successBlock onFail:errorBlock];
+    
+}
+
+//41 删除考勤
+- (ZZLRequestOperation *)requestTeamAttendanceDelWithUid:(NSString *)uid
+                                               missionid:(int)mid
+                                                  teamID:(int)tid
+                                     missionServiceLogId:(NSString *)msid
+                                               onSuccess:(dictionaryBlock)successBlock
+                                                  onFail:(erroBlock)errorBlock
+{
+    /*currentUserId
+     missionId
+     missionServiceLogIds
+     teamId*/
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:uid forKey:@"currentUserId"];
+    [dic setObject:[NSNumber numberWithInt:mid] forKey:@"missionId"];
+    [dic setObject:msid forKey:@"missionServiceLogIds"];
+    [dic setObject:[NSNumber numberWithInt:tid] forKey:@"teamId"];
+    
+    return [self postRequestWithServicePath:URL41_delSeviceLog_URL params:dic onSuccess:successBlock onFail:errorBlock];
+}
+//42 招募志愿者
+
+- (ZZLRequestOperation *)requestRecruitUserWithUid:(NSString *)uid
+                                          ugroupId:(NSString *)uuidss
+                                         missionid:(int)mid
+                                         onSuccess:(dictionaryBlock)successBlock
+                                            onFail:(erroBlock)errorBlock
+{
+    //currentUserId
+//    uuidss
+//    missionId
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:uid forKey:@"currentUserId"];
+    [dic setObject:[NSNumber numberWithInt:mid] forKey:@"missionId"];
+    [dic setObject:uuidss forKey:@"uuidss"];
+
+    return [self postRequestWithServicePath:URL42_GETPERSONL_URL params:dic onSuccess:successBlock onFail:errorBlock];
+}
+
+
+//43 获取招募列表中已录用/未录用的志愿者人数
+- (ZZLRequestOperation *)requestRecruitCountWithUid:(NSString *)uid
+                                          missionid:(int)mid
+                                           userName:(NSString *)userName
+                                           moblieno:(NSString *)moblie
+                                         selections:(NSString *)state
+                                          onSuccess:(dictionaryBlock)successBlock
+                                             onFail:(erroBlock)errorBlock
+{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:uid forKey:@"currentUserId"];
+    [dic setObject:[NSNumber numberWithInt:mid] forKey:@"personalVo.mission_id"];
+    [dic setObject:userName forKey:@"personalVo.userName"];
+    [dic setObject:moblie forKey:@"personalVo.mobile"];
+    [dic setObject:state forKey:@"selections"];
+    return [self postRequestWithServicePath:URL43_GETPERSONL_URL params:dic onSuccess:successBlock onFail:errorBlock];
+}
+//44 获取招募列表中已录用/未录用的志愿者
+- (ZZLRequestOperation *)requestRecruitListWithUid:(NSString *)uid
+                                         missionid:(int)mid
+                                          userName:(NSString *)userName
+                                          moblieno:(NSString *)moblie
+                                        selections:(NSString *)state
+                                          pageSize:(int)psize
+                                         pageIndex:(int)page
+                                         onSuccess:(dictionaryBlock)successBlock
+                                            onFail:(erroBlock)errorBlock
+{
+    
+    /*currentUserId
+    personalVo. mission_id
+    personalVo. userName
+    personalVo. mobile
+    selections
+    pageSize
+    pageIndex
+     */
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:uid forKey:@"currentUserId"];
+    [dic setObject:[NSNumber numberWithInt:mid] forKey:@"personalVo.mission_id"];
+    [dic setObject:userName forKey:@"personalVo.userName"];
+    [dic setObject:moblie forKey:@"personalVo.mobile"];
+    [dic setObject:state forKey:@"selections"];
+    [dic setObject:[NSNumber numberWithInt:page] forKey:@"pageIndex"];
+    [dic setObject:[NSNumber numberWithInt:psize] forKey:@"pageSize"];
+    return [self postRequestWithServicePath:URL44_GETPERSONL_URL params:dic onSuccess:successBlock onFail:errorBlock];
+}
+
+//45 批量录用项目志愿者
+
+- (ZZLRequestOperation *)requestRecruitHirePersonWithUid:(NSString *)uid
+                                         personaIdGroups:(NSString *)idgroup
+                                               missionId:(int)mid
+                                               onSuccess:(dictionaryBlock)successBlock
+                                                  onFail:(erroBlock)errorBlock
+{
+    
+    /*
+     currentUserId
+     personalIds
+     missionId
+     */
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:uid forKey:@"currentUserId"];
+    [dic setObject:[NSNumber numberWithInt:mid] forKey:@"missionId"];
+    [dic setObject:idgroup forKey:@"personalIds"];
+    
+    return [self postRequestWithServicePath:URL45_GETPERSONL_URL params:dic onSuccess:successBlock onFail:errorBlock];
+}
+
+//46 批量删除项目志愿者
+- (ZZLRequestOperation *)requestRecruitDelPersonWithUid:(NSString *)uid
+                                        personaIdGroups:(NSString *)idgroup
+                                              missionId:(int)mid
+                                              onSuccess:(dictionaryBlock)successBlock
+                                                 onFail:(erroBlock)errorBlock
+{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:uid forKey:@"currentUserId"];
+    [dic setObject:[NSNumber numberWithInt:mid] forKey:@"missionId"];
+    [dic setObject:idgroup forKey:@"personalIds"];
+    
+    return [self postRequestWithServicePath:URL46_GETPERSONL_URL params:dic onSuccess:successBlock onFail:errorBlock];
+}
+
+//59 搜索志愿者
+- (ZZLRequestOperation *)requestSearchVolunteersWithUid:(NSString *)uid
+                                              Rc4mobile:(NSString *)mobile
+                                               userName:(NSString *)userName
+                                          rc4IdcardCode:(NSString *)cid
+                                                arearId:(NSString *)aid
+                                              onSuccess:(dictionaryBlock)successBlock
+                                                 onFail:(erroBlock)errorBlock
+{
+    /*currentUserId
+     users.mobile
+     users.userName
+     users.idcardCode
+     districtId*/
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:uid forKey:@"currentUserId"];
+    [dic setObject:[mobile stringByEncodeingRC4] forKey:@"users.mobile"];
+    [dic setObject:userName forKey:@"users.userName"];
+    [dic setObject:[cid stringByEncodeingRC4] forKey:@"users.idcardCode"];
+    [dic setObject:aid forKey:@"districtId"];
+    
+    return [self postRequestWithServicePath:URL59_SEARCHVOLUNTEER_URL params:dic onSuccess:successBlock onFail:errorBlock];
+}
 //61 获取班次计划
 - (ZZLRequestOperation *)requestClassPlanPlaneListWithUid:(NSString *)uid
                                                 missionID:(int)mid
