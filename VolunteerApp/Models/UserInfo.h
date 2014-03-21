@@ -55,6 +55,10 @@
 
 @property (nonatomic,strong) NSString * locaUserName;
 
+
+@property (nonatomic,strong) NSString  *verifyCode;
+@property (nonatomic,strong) NSString  *createDate;
+
 +(id)share;
 
 - (BOOL)isManager;
@@ -62,7 +66,8 @@
 - (void)handleSuccessLogin;
 
 - (void)setup;
+- (void)clear;
 - (void)updateUserInfoWithDic:(NSDictionary *)dic;
-
+- (void)removePassWord;
 - (void)updateNewPwd;
 @end

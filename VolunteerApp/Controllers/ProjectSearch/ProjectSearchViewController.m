@@ -27,6 +27,8 @@
     int  curRow;
     UIDatePicker *FristPick;
     
+    UIToolbar  *inputToolBar;
+    
 
     NSString   *fristDate;
     NSString   *secnodDate;
@@ -79,6 +81,27 @@
     [FristPick addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
     FristPick.hidden = YES;
     
+    
+    // 工具条
+    inputToolBar = [[UIToolbar alloc] init];
+    inputToolBar.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 44);
+    // set style
+    [inputToolBar setBarStyle:UIBarStyleDefault];
+    
+    // 工具条上的按钮
+    UIBarButtonItem  *previousBarButton = [[UIBarButtonItem alloc] initWithTitle:@"清除" style:UIBarButtonItemStyleBordered target:self action:@selector(previousButtonIsClicked:)];
+
+    
+    UIBarButtonItem *flexBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+    UIBarButtonItem *doneBarButton = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(doneButtonIsClicked:)];
+    
+    NSArray *barButtonItems = @[previousBarButton, flexBarButton, doneBarButton];
+    
+    inputToolBar.items = barButtonItems;
+
+    inputToolBar.hidden = YES;
+    
 
     
     list = [[NSMutableArray alloc]initWithObjects:@"项目类型",@"实施日期",@"开始时间",@"结束时间", nil];
@@ -97,6 +120,21 @@
     [self registerNotification];
 }
 
+- (void)doneButtonIsClicked:(id)sender
+{
+    [self hidePicker];
+}
+- (void)previousButtonIsClicked:(id)sender
+{
+    [self hidePicker];
+    if (curRow == 2) {
+        secnodDate = @"";
+    }else if (curRow == 3)
+    {
+        thridDate = @"";
+    }
+    [myTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:curRow inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
 - (void)registerNotification
 {
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateWithProType:) name:Notification_Send_ProTYPE object:nil];
@@ -189,14 +227,7 @@
     {
         
         if (FristPick.hidden== NO) {
-            [self hidePicker];
-            if (curRow == 2) {
-                secnodDate = @"";
-            }else if (curRow == 3)
-            {
-                thridDate = @"";
-            }
-            [myTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:curRow inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+
         }else{
             [self addPikcer];
         }
@@ -221,10 +252,10 @@
     
 
 
-    if (typeStr.length == 0) {
-        [self.view showHudMessage:@"请选择项目类型"];
-        return;
-    }
+//    if (typeStr.length == 0) {
+//        [self.view showHudMessage:@"请选择项目类型"];
+//        return;
+//    }
 //    if (self.mSearchBar.text.length ==0) {
 //        return;
 //    }
@@ -335,20 +366,26 @@
 - (void)addPikcer
 {
     if (![FristPick isDescendantOfView:self.view]) {
+        inputToolBar.top = FristPick.top-44;
+        [self.view addSubview:inputToolBar];
         [self.view addSubview:FristPick];
     }
     
     [UIView animateWithDuration:0.3f animations:^{
         FristPick.hidden = NO;
+        inputToolBar.hidden = NO;
         FristPick.top = self.view.height - FristPick.height;
+        inputToolBar.top = FristPick.top-44;
     }];
 }
 - (void)hidePicker
 {
     if (!FristPick.hidden) {
         [UIView animateWithDuration:0.3f animations:^{
-            FristPick.top = self.view.height;
+            inputToolBar.top = self.view.height;
+            FristPick.top = self.view.height+inputToolBar.height;
             FristPick.hidden = YES;
+            inputToolBar.hidden = YES;
         }];
     }
 
@@ -372,7 +409,7 @@
     
     //zzz表示时区，zzz可以删除，这样返回的日期字符将不包含时区信息。
     
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
     
     NSString *destDateString = [dateFormatter stringFromDate:date];
     

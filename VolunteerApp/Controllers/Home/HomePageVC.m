@@ -79,7 +79,7 @@
 {
     [super viewDidLoad];
     
-    self.mScrollView.contentSize = CGSizeMake(self.view.width, self.view.height+180);
+    
     
     UserInfo *user = [UserInfo share];
     if ([user.purview isEqualToString:@"MANAGER_SHOW"]) {
@@ -90,7 +90,7 @@
         [self.mMyProBtn setImage:[UIImage imageNamed:@"home_register_hl"] forState:UIControlStateHighlighted];
         self.mMyProText.text = @"注册管理";
     }
-    
+    self.mScrollView.clipsToBounds =YES;
     
     [self setUpView];
     [self setTitleWithString:@"广东志愿者"];
@@ -98,8 +98,14 @@
     [self requestUserInfo];
 
 }
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+}
 - (void)viewDidUnload {
     [super viewDidUnload];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -109,6 +115,12 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    if (self.mScrollView.contentSize.height != 750) {
+        self.mScrollView.contentSize = CGSizeMake(self.view.width, 750);
+        
+    }
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

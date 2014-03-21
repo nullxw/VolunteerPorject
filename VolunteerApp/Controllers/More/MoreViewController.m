@@ -210,6 +210,8 @@
     for (BaseViewController *vc in self.flipboardNavigationController.viewControllers) {
         [self.flipboardNavigationController popViewController];
     }
+    UserInfo *user = [UserInfo share];
+    [user clear];
     [delegate showWithLoginView];
 
     

@@ -54,6 +54,12 @@
 		7B2121A618C228AA003955EE /* MyInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2121A518C228AA003955EE /* MyInfoCell.m */; };
 		7B2121A818C228DC003955EE /* MyInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B2121A718C228DC003955EE /* MyInfoCell.xib */; };
 		7B2121AB18C2403C003955EE /* WeiBoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B2121AA18C2403C003955EE /* WeiBoCell.m */; };
+		7B216E5818DB201F0017860C /* CheckAttendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B216E5618DB201F0017860C /* CheckAttendViewController.m */; };
+		7B216E5918DB201F0017860C /* CheckAttendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B216E5718DB201F0017860C /* CheckAttendViewController.xib */; };
+		7B216E5C18DB3B230017860C /* HandAttendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B216E5B18DB3B230017860C /* HandAttendCell.m */; };
+		7B216E5E18DB3B520017860C /* HandAttendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B216E5D18DB3B520017860C /* HandAttendCell.xib */; };
+		7B216E6118DB4CA70017860C /* browser_hl.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B216E5F18DB4CA70017860C /* browser_hl.png */; };
+		7B216E6218DB4CA70017860C /* browser_nl.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B216E6018DB4CA70017860C /* browser_nl.png */; };
 		7B21B10F18CA13F2009EA7C3 /* SinaWeibo.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7B21B10718CA13F2009EA7C3 /* SinaWeibo.bundle */; };
 		7B21B11018CA13F2009EA7C3 /* SinaWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B21B10918CA13F2009EA7C3 /* SinaWeibo.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7B21B11118CA13F2009EA7C3 /* SinaWeiboAuthorizeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B21B10B18CA13F2009EA7C3 /* SinaWeiboAuthorizeView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -242,6 +248,7 @@
 		7B9BDCB018D73FA200DA03A7 /* VolunInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9BDCAF18D73FA200DA03A7 /* VolunInfo.m */; };
 		7B9BDCB418D74F5B00DA03A7 /* VolunInfoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B9BDCB218D74F5B00DA03A7 /* VolunInfoDetailViewController.m */; };
 		7B9BDCB518D74F5B00DA03A7 /* VolunInfoDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B9BDCB318D74F5B00DA03A7 /* VolunInfoDetailViewController.xib */; };
+		7BAA1D1C18DBF6C2007ECE34 /* TeamInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BAA1D1B18DBF6C2007ECE34 /* TeamInfo.m */; };
 		7BABC7B418C4F72F009C8301 /* SendWeiboViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BABC7B218C4F72F009C8301 /* SendWeiboViewController.m */; };
 		7BABC7B518C4F72F009C8301 /* SendWeiboViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BABC7B318C4F72F009C8301 /* SendWeiboViewController.xib */; };
 		7BBB7B4018BE152700739A3E /* UIScrollView+SVInfiniteScrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBB7B3D18BE152700739A3E /* UIScrollView+SVInfiniteScrolling.m */; };
@@ -431,6 +438,14 @@
 		7B2121A718C228DC003955EE /* MyInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyInfoCell.xib; sourceTree = "<group>"; };
 		7B2121A918C2403C003955EE /* WeiBoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiBoCell.h; sourceTree = "<group>"; };
 		7B2121AA18C2403C003955EE /* WeiBoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeiBoCell.m; sourceTree = "<group>"; };
+		7B216E5518DB201F0017860C /* CheckAttendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckAttendViewController.h; sourceTree = "<group>"; };
+		7B216E5618DB201F0017860C /* CheckAttendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckAttendViewController.m; sourceTree = "<group>"; };
+		7B216E5718DB201F0017860C /* CheckAttendViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckAttendViewController.xib; sourceTree = "<group>"; };
+		7B216E5A18DB3B230017860C /* HandAttendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandAttendCell.h; sourceTree = "<group>"; };
+		7B216E5B18DB3B230017860C /* HandAttendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandAttendCell.m; sourceTree = "<group>"; };
+		7B216E5D18DB3B520017860C /* HandAttendCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HandAttendCell.xib; sourceTree = "<group>"; };
+		7B216E5F18DB4CA70017860C /* browser_hl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = browser_hl.png; sourceTree = "<group>"; };
+		7B216E6018DB4CA70017860C /* browser_nl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = browser_nl.png; sourceTree = "<group>"; };
 		7B21B10718CA13F2009EA7C3 /* SinaWeibo.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SinaWeibo.bundle; sourceTree = "<group>"; };
 		7B21B10818CA13F2009EA7C3 /* SinaWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinaWeibo.h; sourceTree = "<group>"; };
 		7B21B10918CA13F2009EA7C3 /* SinaWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinaWeibo.m; sourceTree = "<group>"; };
@@ -719,6 +734,8 @@
 		7B9BDCB118D74F5B00DA03A7 /* VolunInfoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VolunInfoDetailViewController.h; sourceTree = "<group>"; };
 		7B9BDCB218D74F5B00DA03A7 /* VolunInfoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VolunInfoDetailViewController.m; sourceTree = "<group>"; };
 		7B9BDCB318D74F5B00DA03A7 /* VolunInfoDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VolunInfoDetailViewController.xib; sourceTree = "<group>"; };
+		7BAA1D1A18DBF6C2007ECE34 /* TeamInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamInfo.h; sourceTree = "<group>"; };
+		7BAA1D1B18DBF6C2007ECE34 /* TeamInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamInfo.m; sourceTree = "<group>"; };
 		7BABC7B118C4F72F009C8301 /* SendWeiboViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendWeiboViewController.h; sourceTree = "<group>"; };
 		7BABC7B218C4F72F009C8301 /* SendWeiboViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendWeiboViewController.m; sourceTree = "<group>"; };
 		7BABC7B318C4F72F009C8301 /* SendWeiboViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendWeiboViewController.xib; sourceTree = "<group>"; };
@@ -1204,6 +1221,9 @@
 				7B090D3A18D9F1F10049443A /* MgAttendViewController.h */,
 				7B090D3B18D9F1F10049443A /* MgAttendViewController.m */,
 				7B090D3C18D9F1F10049443A /* MgAttendViewController.xib */,
+				7B216E5518DB201F0017860C /* CheckAttendViewController.h */,
+				7B216E5618DB201F0017860C /* CheckAttendViewController.m */,
+				7B216E5718DB201F0017860C /* CheckAttendViewController.xib */,
 			);
 			path = ProjectMannager;
 			sourceTree = "<group>";
@@ -1243,6 +1263,8 @@
 				7B4F7C2318D8A89F003052B3 /* RescruitVolunInfo.m */,
 				7B4F7C2E18D8C09A003052B3 /* AddVolunteerInfo.h */,
 				7B4F7C2F18D8C09A003052B3 /* AddVolunteerInfo.m */,
+				7BAA1D1A18DBF6C2007ECE34 /* TeamInfo.h */,
+				7BAA1D1B18DBF6C2007ECE34 /* TeamInfo.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1500,6 +1522,9 @@
 				7B4F7C1918D8A5B6003052B3 /* VolunteersCell.h */,
 				7B4F7C1A18D8A5B6003052B3 /* VolunteersCell.m */,
 				7B4F7C1C18D8A5CD003052B3 /* VolunteersCell.xib */,
+				7B216E5A18DB3B230017860C /* HandAttendCell.h */,
+				7B216E5B18DB3B230017860C /* HandAttendCell.m */,
+				7B216E5D18DB3B520017860C /* HandAttendCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1507,6 +1532,8 @@
 		7B96410718BA6A710089674F /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				7B216E5F18DB4CA70017860C /* browser_hl.png */,
+				7B216E6018DB4CA70017860C /* browser_nl.png */,
 				7B090D1218D9D7C90049443A /* _18.png */,
 				7B090D1318D9D7C90049443A /* _20.png */,
 				7B090D2218D9D8FF0049443A /* proaccept_hl.png */,
@@ -1885,6 +1912,7 @@
 				BFE8116418C0BE4800EB3E14 /* ico_collect.png in Resources */,
 				7B090D3218D9D8FF0049443A /* prohand_hl.png in Resources */,
 				7B3FBCEB18BB7DD20018DB8E /* nav_collect.png in Resources */,
+				7B216E6118DB4CA70017860C /* browser_hl.png in Resources */,
 				7B74ED6918C8D85C002C8ABE /* DetailCell.xib in Resources */,
 				7B3FBCF118BB7DD20018DB8E /* nav_search.png in Resources */,
 				7B090D1918D9D7C90049443A /* 114logo.png in Resources */,
@@ -1966,6 +1994,7 @@
 				7B7EE86518C75A1A00B51524 /* guildImage2.jpg in Resources */,
 				7BF6027518BDAB7A007DBAC3 /* mypro_join.png in Resources */,
 				7B3FBCEA18BB7DD20018DB8E /* nav_back.png in Resources */,
+				7B216E6218DB4CA70017860C /* browser_nl.png in Resources */,
 				7B9BDC8818D7242200DA03A7 /* home_register_nl.png in Resources */,
 				7B9BDCA218D7372F00DA03A7 /* home_proom_nl@2x.png in Resources */,
 				BFE8116918C0BE4800EB3E14 /* ico_myatten.png in Resources */,
@@ -1990,6 +2019,7 @@
 				7B9BDCAD18D73E7300DA03A7 /* VolunInfoCell.xib in Resources */,
 				7B3FBCEF18BB7DD20018DB8E /* nav_edit.png in Resources */,
 				7B96412918BA6BDB0089674F /* home_star_icon.png in Resources */,
+				7B216E5918DB201F0017860C /* CheckAttendViewController.xib in Resources */,
 				7B3FBCD818BB74D60018DB8E /* login_shadow.png in Resources */,
 				7BBB7B7118BE3C8700739A3E /* promg_plan_hl.png in Resources */,
 				7B090D1F18D9D7ED0049443A /* _12.png in Resources */,
@@ -2010,6 +2040,7 @@
 				7B9BDC9518D72FAB00DA03A7 /* home_mypro_hl.png in Resources */,
 				7BBB7B6918BE3C8700739A3E /* promg_classmg_hl.png in Resources */,
 				7B3FBCD218BB74D60018DB8E /* login_bg.jpg in Resources */,
+				7B216E5E18DB3B520017860C /* HandAttendCell.xib in Resources */,
 				7B9BDC9318D72FAB00DA03A7 /* home_more_hl.png in Resources */,
 				7B10526E18C8CE0600445EF8 /* TrendDetialViewController.xib in Resources */,
 				BFE8117918C0BE4800EB3E14 /* plan_signin.png in Resources */,
@@ -2116,6 +2147,7 @@
 				7B3FBCF418BBA1E40018DB8E /* UIAlertView+Blocks.m in Sources */,
 				7B29EA4418B631DA0038C278 /* NSString+MKNetworkKitAdditions.m in Sources */,
 				7BBB7B4418BE1E3600739A3E /* MyTableView.m in Sources */,
+				7B216E5818DB201F0017860C /* CheckAttendViewController.m in Sources */,
 				7BD02B1E18BD0EF600E067A0 /* MissionInfo.m in Sources */,
 				7BD02AED18BCBF7E00E067A0 /* RETableViewFloatCell.m in Sources */,
 				7B29EAC118B636A10038C278 /* UIImage+RoundRectImage.m in Sources */,
@@ -2130,6 +2162,7 @@
 				7B29EA4518B631DA0038C278 /* UIAlertView+MKNetworkKitAdditions.m in Sources */,
 				7BD02AFF18BCBF7E00E067A0 /* RETableViewItem.m in Sources */,
 				7B29EA7E18B635730038C278 /* EGORefreshTableHeaderView.m in Sources */,
+				7B216E5C18DB3B230017860C /* HandAttendCell.m in Sources */,
 				7BBB7B4018BE152700739A3E /* UIScrollView+SVInfiniteScrolling.m in Sources */,
 				7B29EA9218B635F90038C278 /* ZZLModalObjectFactory.m in Sources */,
 				7B29EA4118B631DA0038C278 /* NSData+Base64.m in Sources */,
@@ -2151,6 +2184,7 @@
 				7B29EB3218B65C0A0038C278 /* HomePageVC.m in Sources */,
 				7B29EABF18B636A10038C278 /* UIDevice+Resolutions.m in Sources */,
 				7B29EB4A18B667080038C278 /* ProjectSearchViewController.m in Sources */,
+				7BAA1D1C18DBF6C2007ECE34 /* TeamInfo.m in Sources */,
 				7BD02AF318BCBF7E00E067A0 /* RECreditCardItem.m in Sources */,
 				7B29EA4C18B631F30038C278 /* ZZLCacheManager.m in Sources */,
 				7B29EAE318B636F00038C278 /* SDWebImageManager.m in Sources */,

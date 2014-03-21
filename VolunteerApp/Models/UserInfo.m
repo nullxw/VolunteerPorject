@@ -143,6 +143,8 @@ static UserInfo *shareInstance = nil;
     self.userName = [dic objectForKey:@"userName"];
     self.vvalue = [[dic objectForKey:@"vvalue"]integerValue];
     
+    self.verifyCode = [dic objectForKey:@"verifyCode"];
+    self.createDate = [dic objectForKey:@"createDate"];
 
 }
 - (BOOL)isManager
@@ -153,5 +155,31 @@ static UserInfo *shareInstance = nil;
 {
     return  [self.purview isEqualToString:@"LEADER_SHOW"];
 }
-
+- (void)clear
+{
+    self.areaId = @"";
+    self.areaName = @"";
+    self.idcardType = 0;
+    self.email = @"";
+    self.gender = 0;
+    self.head = @"";
+    self.idcardCode =@"";
+    self.integral = 0;
+    self.mobile = @"";
+    self.politicalStatus = 0;
+    self.purview = @"";
+    self.queryPurview = @"";
+    self.serviceTime = 0;
+    self.userId = @"";
+    self.userName = @"";
+    self.vvalue = 0;
+    
+    self.verifyCode = @"";
+    self.createDate = @"";
+    [self removePassWord];
+}
+- (void)removePassWord
+{
+    [self removePwd];
+}
 @end

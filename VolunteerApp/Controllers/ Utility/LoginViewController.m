@@ -13,6 +13,7 @@
 #import "ZZLHttpRequstEngine.h"
 #import "UserInfo.h"
 #import "RegisterViewController.h"
+#import "VolunInfoViewController.h"
 #define check1Tage   39430
 #define check2Tage   90098
 @interface LoginViewController ()<QCheckBoxDelegate,UITextFieldDelegate>
@@ -32,6 +33,7 @@
 - (IBAction)actionRegsiter:(UIButton *)sender;
 - (IBAction)actionAutoLogin:(QCheckBox *)sender;
 - (IBAction)actionRemberPwd:(QCheckBox *)sender;
+- (IBAction)actionBrowser:(UIButton *)sender;
 @end
 
 @implementation LoginViewController
@@ -212,6 +214,12 @@
  userPwdNew = "";
  vvalue = 0;
  */
+- (void)clearPassword
+{
+    if (self.mPasswordTextFiled.text.length>0) {
+        self.mPasswordTextFiled.text = @"";
+    }
+}
 - (IBAction)loginAction:(UIButton *)sender {
  
     
@@ -281,5 +289,13 @@
 
 - (IBAction)actionRemberPwd:(QCheckBox *)sender {
     sender.selected = !sender.selected;
+}
+
+- (IBAction)actionBrowser:(UIButton *)sender {
+    
+    VolunInfoViewController *vc = [VolunInfoViewController ViewContorller];
+    [self.flipboardNavigationController pushViewController:vc];
+    
+    
 }
 @end

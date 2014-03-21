@@ -15,6 +15,8 @@
 @property (nonatomic,assign) id<LoginViewDelegate> delegate;
 
 - (void)loginWithUserName:(NSString *)userName password:(NSString *)pwd automic:(BOOL)isAutomic;
+
+- (void)clearPassword;
 @end
 
 

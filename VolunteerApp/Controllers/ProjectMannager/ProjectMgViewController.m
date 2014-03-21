@@ -322,6 +322,8 @@
     ProjectInfo *info = [projectTable.list objectAtIndex:cell.indexPath.row];
     MgAttendViewController *vc = [MgAttendViewController ViewContorller];
     vc.mid = info.mission_id;
+    NSLog(@"<><><><><cell.indexPath.row:%d >>>",cell.indexPath.row);
+    NSLog(@"<><><><><mission id:%d >>>",info.mission_id);
     [self.flipboardNavigationController pushViewController:vc];
 }
 - (void)ProjectMgCell:(ProjectMgCell *)cell actionRescruit:(UIButton *)rescruit
@@ -329,6 +331,7 @@
     VolunteersViewController *vc = [VolunteersViewController ViewContorller];
 
     ProjectInfo *info = [projectTable.list objectAtIndex:cell.indexPath.row];
+
     [vc setmissionId:info.mission_id];
     [self.flipboardNavigationController pushViewController:vc];
 }
