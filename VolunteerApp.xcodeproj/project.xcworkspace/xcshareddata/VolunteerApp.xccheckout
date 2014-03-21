@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>2142BA4A-D0CE-44C6-BFBB-A7BDF1D20F7B</string>
+	<key>IDESourceControlProjectName</key>
+	<string>VolunteerApp</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>22669C40-CFE0-4261-811F-92EA7549C47A</key>
+		<string>ssh://github.com/xiaowoniu2012/VolunteerPorject.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>VolunteerApp.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>22669C40-CFE0-4261-811F-92EA7549C47A</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/xiaowoniu2012/VolunteerPorject.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>22669C40-CFE0-4261-811F-92EA7549C47A</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>22669C40-CFE0-4261-811F-92EA7549C47A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>vounteer</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4488.1" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+    <dependencies>
+        <deployment defaultVersion="1296" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3715.3"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="76" id="Wwq-Vk-VLv" customClass="VolunteersCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="76"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wwq-Vk-VLv" id="ZNa-f6-W8I">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="il0-Ek-b6X">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </imageView>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ryO-AS-TXg">
+                        <rect key="frame" x="48" y="11" width="98" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Lx0-y2-8vB">
+                        <rect key="frame" x="62" y="44" width="128" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="LS6-01-tIZ">
+                        <rect key="frame" x="8" y="6" width="23" height="49"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="EKu-w6-X2y">
+                        <rect key="frame" x="146" y="10" width="19" height="19"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mobile.png" id="FUV-Lu-oBU">
+                        <rect key="frame" x="46" y="45" width="16" height="16"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mn7-g2-cOM">
+                        <rect key="frame" x="247" y="6" width="70" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <state key="normal" image="proaccept_nl.png">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <state key="highlighted" image="proaccept_hl.png"/>
+                        <connections>
+                            <action selector="actionRescruit:" destination="Wwq-Vk-VLv" eventType="touchUpInside" id="Ndn-8D-Dnf"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fWf-jR-Lvk">
+                        <rect key="frame" x="247" y="39" width="70" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <state key="normal" image="prodel_nl.png">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <state key="highlighted" image="prodel_hl.png"/>
+                        <connections>
+                            <action selector="actionDelete:" destination="Wwq-Vk-VLv" eventType="touchUpInside" id="c4Y-SK-6de"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="mBgImage" destination="il0-Ek-b6X" id="6JT-qt-ydb"/>
+                <outlet property="mDeletaBtn" destination="fWf-jR-Lvk" id="wor-aw-ZsN"/>
+                <outlet property="mGenderImage" destination="EKu-w6-X2y" id="2h5-Q3-hKh"/>
+                <outlet property="mName" destination="ryO-AS-TXg" id="Zlw-Mw-q59"/>
+                <outlet property="mPhone" destination="Lx0-y2-8vB" id="cIa-zp-2CY"/>
+                <outlet property="mRescruitBtn" destination="mn7-g2-cOM" id="6CK-HG-Kn1"/>
+                <outlet property="mStateImage" destination="LS6-01-tIZ" id="F1c-WO-jB8"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="mobile.png" width="32" height="32"/>
+        <image name="proaccept_hl.png" width="181" height="76"/>
+        <image name="proaccept_nl.png" width="181" height="76"/>
+        <image name="prodel_hl.png" width="181" height="76"/>
+        <image name="prodel_nl.png" width="181" height="76"/>
+    </resources>
+</document>
