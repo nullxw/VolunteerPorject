@@ -120,21 +120,8 @@
     [self registerNotification];
 }
 
-- (void)doneButtonIsClicked:(id)sender
-{
-    [self hidePicker];
-}
-- (void)previousButtonIsClicked:(id)sender
-{
-    [self hidePicker];
-    if (curRow == 2) {
-        secnodDate = @"";
-    }else if (curRow == 3)
-    {
-        thridDate = @"";
-    }
-    [myTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:curRow inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
+
+
 - (void)registerNotification
 {
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(updateWithProType:) name:Notification_Send_ProTYPE object:nil];
@@ -363,6 +350,21 @@
 //{
 //    
 //}
+- (void)previousButtonIsClicked:(id)sender
+{
+    [self hidePicker];
+    if (curRow == 2) {
+        secnodDate = @"";
+    }else if (curRow == 3)
+    {
+        thridDate = @"";
+    }
+    [myTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:curRow inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+- (void)doneButtonIsClicked:(id)sender
+{
+    [self hidePicker];
+}
 - (void)addPikcer
 {
     if (![FristPick isDescendantOfView:self.view]) {

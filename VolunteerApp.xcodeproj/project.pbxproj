@@ -29,6 +29,11 @@
 		7B090D3918D9DA190049443A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B090D3818D9DA190049443A /* Default@2x.png */; };
 		7B090D3D18D9F1F10049443A /* MgAttendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B090D3B18D9F1F10049443A /* MgAttendViewController.m */; };
 		7B090D3E18D9F1F10049443A /* MgAttendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B090D3C18D9F1F10049443A /* MgAttendViewController.xib */; };
+		7B0C4EDB18DC78EE00C8D108 /* UserAttend.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0C4EDA18DC78EE00C8D108 /* UserAttend.m */; };
+		7B0C4EDE18DC876A00C8D108 /* UserAttendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0C4EDD18DC876A00C8D108 /* UserAttendView.m */; };
+		7B0C4EE018DC87A100C8D108 /* UserAttendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B0C4EDF18DC87A100C8D108 /* UserAttendView.xib */; };
+		7B0C4EE418DC9AC300C8D108 /* HandAttendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0C4EE218DC9AC300C8D108 /* HandAttendViewController.m */; };
+		7B0C4EE518DC9AC300C8D108 /* HandAttendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B0C4EE318DC9AC300C8D108 /* HandAttendViewController.xib */; };
 		7B0E5E0918CC43CD008BFC6A /* ProTrendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B0E5E0718CC43CD008BFC6A /* ProTrendViewController.m */; };
 		7B0E5E0A18CC43CD008BFC6A /* ProTrendViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B0E5E0818CC43CD008BFC6A /* ProTrendViewController.xib */; };
 		7B0E5E0C18CC9EF7008BFC6A /* DefaultCover.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B0E5E0B18CC9EF7008BFC6A /* DefaultCover.png */; };
@@ -402,6 +407,14 @@
 		7B090D3A18D9F1F10049443A /* MgAttendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MgAttendViewController.h; sourceTree = "<group>"; };
 		7B090D3B18D9F1F10049443A /* MgAttendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MgAttendViewController.m; sourceTree = "<group>"; };
 		7B090D3C18D9F1F10049443A /* MgAttendViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MgAttendViewController.xib; sourceTree = "<group>"; };
+		7B0C4ED918DC78EE00C8D108 /* UserAttend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAttend.h; sourceTree = "<group>"; };
+		7B0C4EDA18DC78EE00C8D108 /* UserAttend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAttend.m; sourceTree = "<group>"; };
+		7B0C4EDC18DC876A00C8D108 /* UserAttendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAttendView.h; sourceTree = "<group>"; };
+		7B0C4EDD18DC876A00C8D108 /* UserAttendView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAttendView.m; sourceTree = "<group>"; };
+		7B0C4EDF18DC87A100C8D108 /* UserAttendView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserAttendView.xib; sourceTree = "<group>"; };
+		7B0C4EE118DC9AC300C8D108 /* HandAttendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandAttendViewController.h; sourceTree = "<group>"; };
+		7B0C4EE218DC9AC300C8D108 /* HandAttendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandAttendViewController.m; sourceTree = "<group>"; };
+		7B0C4EE318DC9AC300C8D108 /* HandAttendViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HandAttendViewController.xib; sourceTree = "<group>"; };
 		7B0E5E0618CC43CD008BFC6A /* ProTrendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProTrendViewController.h; sourceTree = "<group>"; };
 		7B0E5E0718CC43CD008BFC6A /* ProTrendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProTrendViewController.m; sourceTree = "<group>"; };
 		7B0E5E0818CC43CD008BFC6A /* ProTrendViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProTrendViewController.xib; sourceTree = "<group>"; };
@@ -1224,6 +1237,9 @@
 				7B216E5518DB201F0017860C /* CheckAttendViewController.h */,
 				7B216E5618DB201F0017860C /* CheckAttendViewController.m */,
 				7B216E5718DB201F0017860C /* CheckAttendViewController.xib */,
+				7B0C4EE118DC9AC300C8D108 /* HandAttendViewController.h */,
+				7B0C4EE218DC9AC300C8D108 /* HandAttendViewController.m */,
+				7B0C4EE318DC9AC300C8D108 /* HandAttendViewController.xib */,
 			);
 			path = ProjectMannager;
 			sourceTree = "<group>";
@@ -1265,6 +1281,8 @@
 				7B4F7C2F18D8C09A003052B3 /* AddVolunteerInfo.m */,
 				7BAA1D1A18DBF6C2007ECE34 /* TeamInfo.h */,
 				7BAA1D1B18DBF6C2007ECE34 /* TeamInfo.m */,
+				7B0C4ED918DC78EE00C8D108 /* UserAttend.h */,
+				7B0C4EDA18DC78EE00C8D108 /* UserAttend.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1280,6 +1298,9 @@
 				7BBB7B4318BE1E3600739A3E /* MyTableView.m */,
 				7B4F7C1618D88C0A003052B3 /* MyTabView.h */,
 				7B4F7C1718D88C0A003052B3 /* MyTabView.m */,
+				7B0C4EDC18DC876A00C8D108 /* UserAttendView.h */,
+				7B0C4EDD18DC876A00C8D108 /* UserAttendView.m */,
+				7B0C4EDF18DC87A100C8D108 /* UserAttendView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1916,6 +1937,7 @@
 				7B74ED6918C8D85C002C8ABE /* DetailCell.xib in Resources */,
 				7B3FBCF118BB7DD20018DB8E /* nav_search.png in Resources */,
 				7B090D1918D9D7C90049443A /* 114logo.png in Resources */,
+				7B0C4EE018DC87A100C8D108 /* UserAttendView.xib in Resources */,
 				7B9BDC8D18D7244800DA03A7 /* home_promg_hl.png in Resources */,
 				7BBB7B6C18BE3C8700739A3E /* promg_delbtn_nl.png in Resources */,
 				7B090D2D18D9D8FF0049443A /* proaccept_nl.png in Resources */,
@@ -2070,6 +2092,7 @@
 				7B090D2118D9D7ED0049443A /* _24.png in Resources */,
 				7B13F4D018C4CAD0006D58E0 /* SearchResultViewController.xib in Resources */,
 				7B090D2E18D9D8FF0049443A /* proattend_hl.png in Resources */,
+				7B0C4EE518DC9AC300C8D108 /* HandAttendViewController.xib in Resources */,
 				BFE8116F18C0BE4800EB3E14 /* ico_sel.png in Resources */,
 				7BBB7B7018BE3C8700739A3E /* promg_groupbtn_nl.png in Resources */,
 				7B9BDCA818D73C7300DA03A7 /* VolunInfoViewController.xib in Resources */,
@@ -2140,12 +2163,14 @@
 				7BD02AEE18BCBF7E00E067A0 /* RETableViewLongTextCell.m in Sources */,
 				7B29EB3618B662680038C278 /* BaseViewController.m in Sources */,
 				7B85107518B7983200D20F90 /* NSStringAddition.m in Sources */,
+				7B0C4EE418DC9AC300C8D108 /* HandAttendViewController.m in Sources */,
 				7B29EB4418B662DB0038C278 /* ProjectMgViewController.m in Sources */,
 				7BD02B0218BCBF7E00E067A0 /* RETableViewOptionsController.m in Sources */,
 				7BD02B2118BD219D00E067A0 /* MyWaitCell.m in Sources */,
 				7B85107C18B79A7D00D20F90 /* UIView+Additon.m in Sources */,
 				7B3FBCF418BBA1E40018DB8E /* UIAlertView+Blocks.m in Sources */,
 				7B29EA4418B631DA0038C278 /* NSString+MKNetworkKitAdditions.m in Sources */,
+				7B0C4EDB18DC78EE00C8D108 /* UserAttend.m in Sources */,
 				7BBB7B4418BE1E3600739A3E /* MyTableView.m in Sources */,
 				7B216E5818DB201F0017860C /* CheckAttendViewController.m in Sources */,
 				7BD02B1E18BD0EF600E067A0 /* MissionInfo.m in Sources */,
@@ -2176,6 +2201,7 @@
 				7B0E5E0918CC43CD008BFC6A /* ProTrendViewController.m in Sources */,
 				7B29EA0B18B62A230038C278 /* AppDelegate.m in Sources */,
 				7B85106318B78EAF00D20F90 /* UIView+XHFindViewController.m in Sources */,
+				7B0C4EDE18DC876A00C8D108 /* UserAttendView.m in Sources */,
 				7B21B12018CA2173009EA7C3 /* JSONKit.m in Sources */,
 				7B29EADF18B636F00038C278 /* SDWebImageCompat.m in Sources */,
 				7B4F7C2418D8A89F003052B3 /* RescruitVolunInfo.m in Sources */,

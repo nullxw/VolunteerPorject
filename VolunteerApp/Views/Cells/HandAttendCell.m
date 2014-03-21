@@ -7,8 +7,8 @@
 //
 
 #import "HandAttendCell.h"
+#import "UserAttendView.h"
 
-static UIImage *bgimage = nil;
 @implementation HandAttendCell
 
 - (id)initWithFrame:(CGRect)frame
@@ -21,7 +21,7 @@ static UIImage *bgimage = nil;
 }
 +(void)initialize
 {
-    bgimage = [[UIImage imageNamed:@"mypro_cellbg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
+
     
     
 }
@@ -29,7 +29,7 @@ static UIImage *bgimage = nil;
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    self.mBgVIew.image = bgimage;
+    
     
 
 }
@@ -37,11 +37,26 @@ static UIImage *bgimage = nil;
 {
     return 160;
 }
-
-- (IBAction)ActionAttend:(UIButton *)sender {
+- (void)setupWithUserAttendInfo:(NSArray *)list index:(NSInteger)idx
+{
+    self.backgroundColor = [UIColor clearColor];
+    for (int i=0 ;i<list.count;i++) {
+        UserAttend *item = list[i];
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"UserAttendView" owner:self options:nil];
+        UserAttendView *view = [nib objectAtIndex:0];
+        view.left = i*160;
+        [view setupWithUserAttendInfo:item];
+        
+        [view addActionBlock:^(int a) {
+            [self doActionAtIndex:idx+i];
+        }];
+        [self.contentView addSubview:view];
+    }
+}
+- (void)doActionAtIndex:(int)idx {
     
     if (_delegate && [_delegate respondsToSelector:@selector(HandAttendCellDelegate:actionWithIndex:)]) {
-        [_delegate HandAttendCellDelegate:self actionWithIndex:self.index];
+        [_delegate HandAttendCellDelegate:self actionWithIndex:idx];
     }
 }
 @end

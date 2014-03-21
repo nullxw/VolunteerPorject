@@ -16,17 +16,12 @@
 
 @end
 @interface HandAttendCell : PDBaseCell
-@property (weak, nonatomic) IBOutlet UIView *mContainerView;
-@property (weak, nonatomic) IBOutlet UIImageView *mBgVIew;
-@property (weak, nonatomic) IBOutlet UILabel *mName;
 
-@property (weak, nonatomic) IBOutlet UIImageView *mGenderView;
-@property (weak, nonatomic) IBOutlet UILabel *mTime;
-@property (weak, nonatomic) IBOutlet UIImageView *mSeplineView;
-@property (weak, nonatomic) IBOutlet UILabel *mTitleView;
 
-@property (nonatomic,assign) int index;
+
 @property (nonatomic,assign) id<HandAttendCellDelegate> delegate;
 
-- (IBAction)ActionAttend:(UIButton *)sender;
+
+
+- (void)setupWithUserAttendInfo:(NSArray *)list index:(NSInteger)idx;
 @end

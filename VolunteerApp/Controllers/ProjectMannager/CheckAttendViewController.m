@@ -10,6 +10,8 @@
 #import "MyTableView.h"
 #import "MyTabView.h"
 #import "HandAttendCell.h"
+#import "UserAttend.h"
+#import "HandAttendViewController.h"
 @interface CheckAttendViewController () <MyTabViewDelegate,UITableViewDataSource,UITableViewDelegate,HandAttendCellDelegate>
 {
     UIScrollView *scrollView;
@@ -29,6 +31,8 @@
     NSMutableArray  *fourthList;
     
     int             missionId;
+    int             teamId;
+    NSString        *checkDate;
 }
 @end
 
@@ -44,16 +48,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setTitleWithString:@"志愿者"];
+    [self setTitleWithString:@"考勤管理"];
     
-    
-    //right btn
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(265, self.navView.bottom - 37, 30, 30);
-    [btn setImage:[UIImage imageNamed:@"add_volunteer.png"] forState:UIControlStateNormal];
-    
-    [btn addTarget:self action:@selector(actionAdd:) forControlEvents:UIControlEventTouchUpInside];
-    [self.navView addSubview:btn];
     MyTabView *tabView = [[MyTabView alloc]initWithFrame:CGRectMake(0, self.navView.bottom, self.view.width, 44) delegate:self];
     
     [self.view addSubview:tabView];
@@ -171,7 +167,12 @@
     
     [firstTable triggerPullToRefresh];
 }
-
+- (void)setupMissionId:(int)mid date:(NSString *)date teamId:(int)tid
+{
+    missionId  = mid;
+    checkDate = date;
+    teamId = tid;
+}
 - (void)viewDidUnload {
     [super viewDidUnload];
 }
@@ -240,64 +241,222 @@
         
         UserInfo *user = [UserInfo share];
         
-        NSString *str =@"";
-        NSString *selections = @"";
+        NSString *str =@"暂无数据";
+        
         if (curTableView == firstTable) {
-            
-            selections = @"1,4";
-            str = @"暂无报名的志愿者";
-        }else if(curTableView == secondTable)
+            [[ZZLHttpRequstEngine engine]requestTeamAttendanceWaitCheckListWithUid:user.userId checkOnDate:checkDate missionid:missionId teamID:teamId pageSize:curTableView.pageSize pageIndex:curTableView.pageIndex onSuccess:^(id responseObject) {
+                curTableView.hasRequest = YES;
+                [curTableView.pullToRefreshView stopAnimating];
+                NSLog(@"___YYY__%@",responseObject);
+                if ([responseObject isKindOfClass:[NSArray class]]) {
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        
+                        int itemCount = [responseObject count];
+                        if (itemCount == 0 ) {
+                            if ([curTableView.list count]==0) {
+                                [curTableView reloadData];
+                                [curTableView addCenterMsgView:str];
+                            }else{
+                                [curTableView.pullToRefreshView stopAnimating];
+                            }
+                            return ;
+                            
+                        }else{
+                            [curTableView removeCenterMsgView];
+                            if ([curTableView.list count] > 0) {
+                                [curTableView.list removeAllObjects];
+                                
+                                curTableView.pageIndex = 1;
+                                
+                            }
+                            for (int i=0; i<itemCount; i++) {
+                                NSMutableDictionary *dic = responseObject[i];
+                                UserAttend *info = [UserAttend JsonModalWithDictionary:dic];
+                                [curTableView.list addObject:info];
+                                
+                            }
+                            [curTableView reloadData];
+                            
+                            
+                            if (itemCount%curTableView.pageSize == 0) {
+                                curTableView.infiniteScrollingView.enabled = YES;
+                            }
+                            
+                        }
+                        
+                    }) ;
+                }
+                
+            } onFail:^(NSError *erro) {
+                NSLog(@"___xxx___%@",[erro.userInfo objectForKey:@"description"]);
+                
+                
+                
+                [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
+                [curTableView.pullToRefreshView stopAnimating];
+                [curTableView removeCenterMsgView];
+            }];
+        }else if (curTableView == secondTable)
         {
+            [[ZZLHttpRequstEngine engine]requestTeamAttendanceWaitCheckOutListWithUid:user.userId checkOnDate:checkDate missionid:missionId teamID:teamId pageSize:curTableView.pageSize pageIndex:curTableView.pageIndex onSuccess:^(id responseObject) {
+                curTableView.hasRequest = YES;
+                [curTableView.pullToRefreshView stopAnimating];
+                NSLog(@"___YYY__%@",responseObject);
+                if ([responseObject isKindOfClass:[NSArray class]]) {
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        
+                        int itemCount = [responseObject count];
+                        if (itemCount == 0 ) {
+                            if ([curTableView.list count]==0) {
+                                [curTableView reloadData];
+                                [curTableView addCenterMsgView:str];
+                            }else{
+                                [curTableView.pullToRefreshView stopAnimating];
+                            }
+                            return ;
+                            
+                        }else{
+                            [curTableView removeCenterMsgView];
+                            if ([curTableView.list count] > 0) {
+                                [curTableView.list removeAllObjects];
+                                
+                                curTableView.pageIndex = 1;
+                                
+                            }
+                            for (int i=0; i<itemCount; i++) {
+                                NSMutableDictionary *dic = responseObject[i];
+                                UserAttend *info = [UserAttend JsonModalWithDictionary:dic];
+                                [curTableView.list addObject:info];
+                                
+                            }
+                            [curTableView reloadData];
+                            
+                            
+                            if (itemCount%curTableView.pageSize == 0) {
+                                curTableView.infiniteScrollingView.enabled = YES;
+                            }
+                            
+                        }
+                        
+                    }) ;
+                }
+                
+            } onFail:^(NSError *erro) {
+                NSLog(@"___xxx___%@",[erro.userInfo objectForKey:@"description"]);
+                
+                
+                
+                [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
+                [curTableView.pullToRefreshView stopAnimating];
+                [curTableView removeCenterMsgView];
+            }];
+        }else
+        {
+            int isupdate =0;
+            if (curTableView == fourthTable) {
+                isupdate = 1;
+            }
             
-            str = @"暂无已确认志愿者";
-            selections = @"1";
-        }else{
-            
-            
-            str = @"暂无未确认的志愿者";
-            selections = @"4";
+            [[ZZLHttpRequstEngine engine]requestTeamAttendanceDidCheckOutWithUid:user.userId checkOnDate:checkDate missionid:missionId teamID:teamId isUpdate:isupdate pageSize:curTableView.pageSize pageIndex:curTableView.pageIndex onSuccess:^(id responseObject) {
+                curTableView.hasRequest = YES;
+                [curTableView.pullToRefreshView stopAnimating];
+                NSLog(@"___YYY__%@",responseObject);
+                if ([responseObject isKindOfClass:[NSArray class]]) {
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        
+                        int itemCount = [responseObject count];
+                        if (itemCount == 0 ) {
+                            if ([curTableView.list count]==0) {
+                                [curTableView reloadData];
+                                [curTableView addCenterMsgView:str];
+                            }else{
+                                [curTableView.pullToRefreshView stopAnimating];
+                            }
+                            return ;
+                            
+                        }else{
+                            [curTableView removeCenterMsgView];
+                            if ([curTableView.list count] > 0) {
+                                [curTableView.list removeAllObjects];
+                                
+                                curTableView.pageIndex = 1;
+                                
+                            }
+                            for (int i=0; i<itemCount; i++) {
+                                NSMutableDictionary *dic = responseObject[i];
+                                UserAttend *info = [UserAttend JsonModalWithDictionary:dic];
+                                [curTableView.list addObject:info];
+                                
+                            }
+                            [curTableView reloadData];
+                            
+                            
+                            if (itemCount%curTableView.pageSize == 0) {
+                                curTableView.infiniteScrollingView.enabled = YES;
+                            }
+                            
+                        }
+                        
+                    }) ;
+                }
+                
+            } onFail:^(NSError *erro) {
+                NSLog(@"___xxx___%@",[erro.userInfo objectForKey:@"description"]);
+                
+                
+                
+                [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
+                [curTableView.pullToRefreshView stopAnimating];
+                [curTableView removeCenterMsgView];
+            }];
         }
+
+
         
-        //        pageSize:curTableView.pageSize pageIndex:<#(int)#> onSuccess:<#^(id responseObject)successBlock#> onFail:<#^(NSError *erro)errorBlock#>;
-        
-        [[ZZLHttpRequstEngine engine]requestRecruitListWithUid:user.userId missionid:missionId userName:@"" moblieno:@"" selections:selections  pageSize:curTableView.pageSize pageIndex:1 onSuccess:^(id responseDict) {
-            curTableView.hasRequest = YES;
-            [curTableView.pullToRefreshView stopAnimating];
+
+    });
+    
+}
+- (void)loadMoreWithTableView:(MyTableView *)curTableView
+{
+    UserInfo *user = [UserInfo share];
+    
+
+
+    
+
+    
+    if (curTableView == firstTable) {
+        [[ZZLHttpRequstEngine engine]requestTeamAttendanceWaitCheckListWithUid:user.userId checkOnDate:checkDate missionid:missionId teamID:teamId pageSize:curTableView.pageSize pageIndex:curTableView.pageIndex+1 onSuccess:^(id responseDict) {
+            
+            [curTableView.infiniteScrollingView stopAnimating];
             NSLog(@"___YYY__%@",responseDict);
             if ([responseDict isKindOfClass:[NSArray class]]) {
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    
                     int itemCount = [responseDict count];
                     if (itemCount == 0 ) {
-                        if ([curTableView.list count]==0) {
-                            [curTableView reloadData];
-                            [curTableView addCenterMsgView:str];
-                        }else{
-                            [curTableView.pullToRefreshView stopAnimating];
-                        }
-                        return ;
                         
+                        curTableView.infiniteScrollingView.enabled = NO;
                     }else{
-                        [curTableView removeCenterMsgView];
-                        if ([curTableView.list count] > 0) {
-                            [curTableView.list removeAllObjects];
-                            
-                            curTableView.pageIndex = 1;
-                            
-                        }
                         for (int i=0; i<itemCount; i++) {
                             NSMutableDictionary *dic = responseDict[i];
-//                            RescruitVolunInfo *info = [RescruitVolunInfo JsonModalWithDictionary:dic];
-//                            [curTableView.list addObject:info];
-                            
+                            UserAttend *info = [UserAttend JsonModalWithDictionary:dic];
+                            [curTableView.list addObject:info];
                         }
                         [curTableView reloadData];
-                        
-                        
                         if (itemCount%curTableView.pageSize == 0) {
+                            curTableView.pageIndex++;
                             curTableView.infiniteScrollingView.enabled = YES;
+                        }else{
+                            curTableView.infiniteScrollingView.enabled = NO;
                         }
                         
                     }
@@ -309,78 +468,99 @@
             NSLog(@"___xxx___%@",[erro.userInfo objectForKey:@"description"]);
             
             
-            
             [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
-            [curTableView.pullToRefreshView stopAnimating];
-            [curTableView removeCenterMsgView];
-            
+            [curTableView.infiniteScrollingView stopAnimating];
         }];
-    });
-    
-}
-- (void)loadMoreWithTableView:(MyTableView *)curTableView
-{
-    UserInfo *user = [UserInfo share];
-    
-    NSString *str =@"";
-    NSString *selections = @"";
-    if (curTableView == firstTable) {
-        
-        selections = @"1,4";
-        str = @"暂无报名的志愿者";
-    }else if(curTableView == secondTable)
+    }else if (curTableView == secondTable)
     {
-        
-        str = @"暂无已确认志愿者";
-        selections = @"1";
-    }else{
-        
-        
-        str = @"暂无未确认的志愿者";
-        selections = @"4";
-    }
-    
-    //        pageSize:curTableView.pageSize pageIndex:<#(int)#> onSuccess:<#^(id responseObject)successBlock#> onFail:<#^(NSError *erro)errorBlock#>;
-    
-    [[ZZLHttpRequstEngine engine]requestRecruitListWithUid:user.userId missionid:missionId userName:@"" moblieno:@"" selections:selections pageSize:curTableView.pageSize pageIndex:curTableView.pageIndex+1 onSuccess:^(id responseDict) {
-        
-        [curTableView.infiniteScrollingView stopAnimating];
-        NSLog(@"___YYY__%@",responseDict);
-        if ([responseDict isKindOfClass:[NSArray class]]) {
+       [[ZZLHttpRequstEngine engine]requestTeamAttendanceWaitCheckOutListWithUid:user.userId checkOnDate:checkDate missionid:missionId teamID:teamId pageSize:curTableView.pageSize pageIndex:curTableView.pageIndex+1 onSuccess:^(id responseDict) {
             
-            dispatch_async(dispatch_get_main_queue(), ^{
+            [curTableView.infiniteScrollingView stopAnimating];
+            NSLog(@"___YYY__%@",responseDict);
+            if ([responseDict isKindOfClass:[NSArray class]]) {
                 
-                int itemCount = [responseDict count];
-                if (itemCount == 0 ) {
+                dispatch_async(dispatch_get_main_queue(), ^{
                     
-                    curTableView.infiniteScrollingView.enabled = NO;
-                }else{
-                    for (int i=0; i<itemCount; i++) {
-                        NSMutableDictionary *dic = responseDict[i];
-//                        RescruitVolunInfo *info = [RescruitVolunInfo JsonModalWithDictionary:dic];
-//                        [curTableView.list addObject:info];
+                    int itemCount = [responseDict count];
+                    if (itemCount == 0 ) {
+                        
+                        curTableView.infiniteScrollingView.enabled = NO;
+                    }else{
+                        for (int i=0; i<itemCount; i++) {
+                            NSMutableDictionary *dic = responseDict[i];
+                            UserAttend *info = [UserAttend JsonModalWithDictionary:dic];
+                            [curTableView.list addObject:info];
+                        }
+                        [curTableView reloadData];
+                        if (itemCount%curTableView.pageSize == 0) {
+                            curTableView.pageIndex++;
+                            curTableView.infiniteScrollingView.enabled = YES;
+                        }else{
+                            curTableView.infiniteScrollingView.enabled = NO;
+                        }
                         
                     }
-                    [curTableView reloadData];
-                    if (itemCount%curTableView.pageSize == 0) {
-                        curTableView.pageIndex++;
-                        curTableView.infiniteScrollingView.enabled = YES;
-                    }else{
-                        curTableView.infiniteScrollingView.enabled = NO;
-                    }
                     
-                }
-                
-            }) ;
+                }) ;
+            }
+            
+        } onFail:^(NSError *erro) {
+            NSLog(@"___xxx___%@",[erro.userInfo objectForKey:@"description"]);
+            
+            
+            [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
+            [curTableView.infiniteScrollingView stopAnimating];
+        }];
+
+    }else{
+        int isupadate = 0;
+        if (curTableView == fourthTable) {
+            isupadate = 1;
         }
         
-    } onFail:^(NSError *erro) {
-        NSLog(@"___xxx___%@",[erro.userInfo objectForKey:@"description"]);
         
-        
-        [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
-        [curTableView.infiniteScrollingView stopAnimating];
-    }];
+        [[ZZLHttpRequstEngine engine]requestTeamAttendanceDidCheckOutWithUid:user.userId checkOnDate:checkDate missionid:missionId teamID:teamId isUpdate:isupadate pageSize:curTableView.pageSize pageIndex:curTableView.pageIndex+1 onSuccess:^(id responseDict) {
+            
+            [curTableView.infiniteScrollingView stopAnimating];
+            NSLog(@"___YYY__%@",responseDict);
+            if ([responseDict isKindOfClass:[NSArray class]]) {
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    int itemCount = [responseDict count];
+                    if (itemCount == 0 ) {
+                        
+                        curTableView.infiniteScrollingView.enabled = NO;
+                    }else{
+                        for (int i=0; i<itemCount; i++) {
+                            NSMutableDictionary *dic = responseDict[i];
+                            UserAttend *info = [UserAttend JsonModalWithDictionary:dic];
+                            [curTableView.list addObject:info];
+                        }
+                        [curTableView reloadData];
+                        if (itemCount%curTableView.pageSize == 0) {
+                            curTableView.pageIndex++;
+                            curTableView.infiniteScrollingView.enabled = YES;
+                        }else{
+                            curTableView.infiniteScrollingView.enabled = NO;
+                        }
+                        
+                    }
+                    
+                }) ;
+            }
+            
+        } onFail:^(NSError *erro) {
+            NSLog(@"___xxx___%@",[erro.userInfo objectForKey:@"description"]);
+            
+            
+            [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
+            [curTableView.infiniteScrollingView stopAnimating];
+        }];
+
+    }
+    
+
 }
 
 #pragma mark -
@@ -392,8 +572,16 @@
         HandAttendCell *cell = [HandAttendCell cellForTableView:curTableView fromNib:[HandAttendCell nib]];
         cell.delegate = self;
 
-//        RescruitVolunInfo *info = [curTableView.list objectAtIndex:indexPath.row];
-//        [cell setupWithRescruitVolunInfo:info];
+        int len = 2;
+        if ((indexPath.row+1)*2>curTableView.list.count) {
+            len = 1;
+        }
+        NSRange range = NSMakeRange(indexPath.row*2, len);
+        NSArray *array = [curTableView.list subarrayWithRange:range];
+    
+        [cell setupWithUserAttendInfo:array index:indexPath.row*2];
+
+
         return cell;
     }else{
         return nil;
@@ -404,7 +592,12 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     MyTableView *curTableView = (MyTableView *)tableView;
-    return [curTableView.list count];
+    if (curTableView.list.count%2 == 0) {
+        return curTableView.list.count/2;
+    }else{
+        return curTableView.list.count/2+1;
+    }
+
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -414,7 +607,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     
     
@@ -435,6 +628,9 @@
     if (index == 2 && thridList.count == 0) {
         [thridTable triggerPullToRefresh];
     }
+    if (index == 3 && fourthList.count == 0) {
+        [fourthTable triggerPullToRefresh];
+    }
     
 }
 - (NSArray *)MyTabViewTitleForTabView:(MyTabView *)tabview
@@ -445,6 +641,25 @@
 
 - (void)HandAttendCellDelegate:(HandAttendCell *)cell actionWithIndex:(NSInteger)index
 {
+    NSLog(@"inndex is :<%d>  ",index);
+
+    MyTableView *temp ;
+    if (curpage == 0) {
+        temp =firstTable;
+    }else if (curpage == 1)
+    {
+        temp =secondTable;
+    }else if (curpage == 2)
+    {
+        temp =thridTable;
+    }else if (curpage == 3)
+    {
+        temp =fourthTable;
+    }
     
+    UserAttend *tempInfo = [temp.list objectAtIndex:index];
+    HandAttendViewController *vc = [HandAttendViewController ViewContorller];
+    vc.attendInfo = tempInfo;
+    [self.flipboardNavigationController pushViewController:vc];
 }
 @end
