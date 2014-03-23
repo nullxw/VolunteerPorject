@@ -49,10 +49,14 @@ static UIImage *noRescruitimage = nil;
     }
     
     if (info.selection == 1) {
+        
         self.mStateImage.image = hasApplyimage;
-    }else
+        self.mRescruitBtn.hidden = YES;
+        
+    }else if (info.selection == 4)
     {
         self.mStateImage.image = noRescruitimage;
+        
     }
     
 }

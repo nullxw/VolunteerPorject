@@ -37,6 +37,23 @@
 {
     return 160;
 }
+
+- (void)setupWithUserAttendInfo:(NSArray *)list
+{
+    self.backgroundColor = [UIColor clearColor];
+    for (int i=0 ;i<list.count;i++) {
+        UserAttend *item = list[i];
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"UserAttendView" owner:self options:nil];
+        UserAttendView *view = [nib objectAtIndex:0];
+        view.left = i*160;
+        [view setupWithUserAttendInfo:item];
+        
+        view.mAttendBtn.hidden = YES;
+        
+        
+        [self.contentView addSubview:view];
+    }
+}
 - (void)setupWithUserAttendInfo:(NSArray *)list index:(NSInteger)idx
 {
     self.backgroundColor = [UIColor clearColor];

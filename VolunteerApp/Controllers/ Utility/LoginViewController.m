@@ -14,6 +14,8 @@
 #import "UserInfo.h"
 #import "RegisterViewController.h"
 #import "VolunInfoViewController.h"
+#import "VerifyUserViewController.h"
+#import "ProTrendViewController.h"
 #define check1Tage   39430
 #define check2Tage   90098
 @interface LoginViewController ()<QCheckBoxDelegate,UITextFieldDelegate>
@@ -34,6 +36,7 @@
 - (IBAction)actionAutoLogin:(QCheckBox *)sender;
 - (IBAction)actionRemberPwd:(QCheckBox *)sender;
 - (IBAction)actionBrowser:(UIButton *)sender;
+- (IBAction)actionGetPwd:(UIButton *)sender;
 @end
 
 @implementation LoginViewController
@@ -92,7 +95,8 @@
     self.mUserNameTextFiled.rightViewMode = UITextFieldViewModeNever;
 
     self.mUserNameTextFiled.rightView = nil;
-    
+    self.mUserNameTextFiled.isCustom = NO;
+    self.mPasswordTextFiled.isCustom = NO;
     self.mPasswordTextFiled.rightView = nil;
     self.mPasswordTextFiled.rightViewMode = UITextFieldViewModeNever;
 
@@ -296,6 +300,13 @@
     VolunInfoViewController *vc = [VolunInfoViewController ViewContorller];
     [self.flipboardNavigationController pushViewController:vc];
     
+//    ProTrendViewController *vc = [ProTrendViewController ViewContorller];
+//    [self.flipboardNavigationController pushViewController:vc];
+}
+
+- (IBAction)actionGetPwd:(UIButton *)sender {
     
+    VerifyUserViewController *vc = [VerifyUserViewController ViewContorller];
+    [self.flipboardNavigationController pushViewController:vc];
 }
 @end

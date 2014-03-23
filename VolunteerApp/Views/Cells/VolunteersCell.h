@@ -9,6 +9,14 @@
 #import "PDBaseCell.h"
 #import "RescruitVolunInfo.h"
 #import "AddVolunteerInfo.h"
+
+
+//typedef enum {
+//    kProjectType_35 = 35,
+//    kProjectType_50 = 50,
+//    kProjectType_100 = 100,
+//    kProjectType_1000 = 1000
+//}ProjectType;
 @class VolunteersCell;
 @protocol VolunteersCellDelegate <NSObject>
 

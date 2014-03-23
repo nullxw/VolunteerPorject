@@ -22,6 +22,7 @@
     
     UIButton     *curBtn;
     UInt16       curpage;
+    UIButton     *rightBtn;
     
     
     
@@ -30,6 +31,7 @@
     NSMutableArray  *thridList;
     
     int             missionId;
+    BOOL            shouldActive;
 }
 @end
 
@@ -43,9 +45,10 @@
     }
     return self;
 }
-- (void)setmissionId:(int)mid
+- (void)setmissionId:(int)mid active:(BOOL)isActive;
 {
     missionId = mid;
+    shouldActive = isActive;
 }
 #pragma mark - view Lifecycle
 
@@ -55,12 +58,12 @@
     
     
     //right btn
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(265, self.navView.bottom - 37, 30, 30);
-    [btn setImage:[UIImage imageNamed:@"add_volunteer.png"] forState:UIControlStateNormal];
+    rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightBtn.frame = CGRectMake(265, self.navView.bottom - 37, 30, 30);
+    [rightBtn setImage:[UIImage imageNamed:@"add_volunteer.png"] forState:UIControlStateNormal];
     
-    [btn addTarget:self action:@selector(actionAdd:) forControlEvents:UIControlEventTouchUpInside];
-    [self.navView addSubview:btn];
+    [rightBtn addTarget:self action:@selector(actionAdd:) forControlEvents:UIControlEventTouchUpInside];
+    [self.navView addSubview:rightBtn];
     MyTabView *tabView = [[MyTabView alloc]initWithFrame:CGRectMake(0, self.navView.bottom, self.view.width, 44) delegate:self];
 
     [self.view addSubview:tabView];
@@ -165,6 +168,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    if (!shouldActive) {
+        rightBtn.hidden = YES;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -371,8 +377,14 @@
         VolunteersCell *cell = [VolunteersCell cellForTableView:curTableView fromNib:[VolunteersCell nib]];
         cell.delegate = self;
         cell.indexPath = indexPath;
+
+        
         RescruitVolunInfo *info = [curTableView.list objectAtIndex:indexPath.row];
         [cell setupWithRescruitVolunInfo:info];
+        if (!shouldActive) {
+            cell.mRescruitBtn.hidden = YES;
+            cell.mDeletaBtn.hidden = YES;
+        }
         return cell;
     }else{
         return nil;

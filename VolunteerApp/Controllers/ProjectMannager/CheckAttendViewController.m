@@ -33,6 +33,7 @@
     int             missionId;
     int             teamId;
     NSString        *checkDate;
+    int             stateId;
 }
 @end
 
@@ -40,10 +41,7 @@
 
 
 
-- (void)setmissionId:(int)mid
-{
-    missionId = mid;
-}
+
 #pragma mark - view Lifecycle
 
 - (void)viewDidLoad {
@@ -167,11 +165,12 @@
     
     [firstTable triggerPullToRefresh];
 }
-- (void)setupMissionId:(int)mid date:(NSString *)date teamId:(int)tid
+- (void)setupMissionId:(int)mid date:(NSString *)date teamId:(int)tid stateId:(int)sid;
 {
     missionId  = mid;
     checkDate = date;
     teamId = tid;
+    stateId = sid;
 }
 - (void)viewDidUnload {
     [super viewDidUnload];
@@ -570,7 +569,7 @@
     MyTableView *curTableView = (MyTableView *)tableView;
     if ( [curTableView.list count]>0) {
         HandAttendCell *cell = [HandAttendCell cellForTableView:curTableView fromNib:[HandAttendCell nib]];
-        cell.delegate = self;
+        
 
         int len = 2;
         if ((indexPath.row+1)*2>curTableView.list.count) {
@@ -579,8 +578,15 @@
         NSRange range = NSMakeRange(indexPath.row*2, len);
         NSArray *array = [curTableView.list subarrayWithRange:range];
     
-        [cell setupWithUserAttendInfo:array index:indexPath.row*2];
+        
 
+        if (stateId>=100) {
+            [cell setupWithUserAttendInfo:array];
+        }else{
+            
+            cell.delegate = self;
+            [cell setupWithUserAttendInfo:array index:indexPath.row*2];
+        }
 
         return cell;
     }else{
@@ -601,8 +607,11 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+
+        return [HandAttendCell cellHeight];
+
     
-    return [HandAttendCell cellHeight];
+    
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -660,6 +669,8 @@
     UserAttend *tempInfo = [temp.list objectAtIndex:index];
     HandAttendViewController *vc = [HandAttendViewController ViewContorller];
     vc.attendInfo = tempInfo;
+    vc.mid = missionId;
+    vc.teamId = teamId;
     [self.flipboardNavigationController pushViewController:vc];
 }
 @end

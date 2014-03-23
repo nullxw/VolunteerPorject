@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *mTime;
 @property (weak, nonatomic) IBOutlet UIImageView *mSeplineView;
 @property (weak, nonatomic) IBOutlet UILabel *mTitleView;
+@property (weak, nonatomic) IBOutlet UIButton *mAttendBtn;
 
 - (IBAction)ActionAttend:(UIButton *)sender;
 

@@ -99,6 +99,8 @@ static NSDictionary *imageDict = nil;
     self.mState.text = [dict objectForKey:info.state];
     
 
+    
+    
     [self.mAttenBtn setBackgroundImage:bgimage1 forState:UIControlStateNormal];
     [self.mAttenBtn setBackgroundImage:bgimage2 forState:UIControlStateHighlighted];
     [self.mAttenBtn setTitle:@"报名" forState:UIControlStateNormal];
@@ -110,8 +112,6 @@ static NSDictionary *imageDict = nil;
         self.mAttenBtn.selected = YES;
     }
     
-
-
 }
 
 - (void)awakeFromNib

@@ -35,8 +35,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *moveLine;
 
-- (IBAction)actionClass:(UIButton *)sender;
-- (IBAction)actionProject:(UIButton *)sender;
+
 @end
 
 @implementation ProjectMgViewController
@@ -195,9 +194,7 @@
         
         UserInfo *user = [UserInfo share];
          MyTableView *tempTableView;
-        int flag = 0;
-        
-        flag = 50;
+
         tempTableView = projectTable;
         
         
@@ -266,9 +263,6 @@
     
 
     MyTableView *tempTableView;
-    int flag = 0;
-    
-    flag = 50;
     tempTableView = projectTable;
     
     
@@ -322,6 +316,7 @@
     ProjectInfo *info = [projectTable.list objectAtIndex:cell.indexPath.row];
     MgAttendViewController *vc = [MgAttendViewController ViewContorller];
     vc.mid = info.mission_id;
+    vc.stateId = info.stateId;
     NSLog(@"<><><><><cell.indexPath.row:%d >>>",cell.indexPath.row);
     NSLog(@"<><><><><mission id:%d >>>",info.mission_id);
     [self.flipboardNavigationController pushViewController:vc];
@@ -332,7 +327,12 @@
 
     ProjectInfo *info = [projectTable.list objectAtIndex:cell.indexPath.row];
 
-    [vc setmissionId:info.mission_id];
+    if (info.stateId>=100) {
+        [vc setmissionId:info.mission_id active:NO];
+    }else{
+        [vc setmissionId:info.mission_id active:YES];
+    }
+    
     [self.flipboardNavigationController pushViewController:vc];
 }
 @end

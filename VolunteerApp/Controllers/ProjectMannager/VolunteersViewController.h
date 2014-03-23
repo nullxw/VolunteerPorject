@@ -10,5 +10,5 @@
 
 @interface VolunteersViewController : BaseViewController
 
-- (void)setmissionId:(int)mid;
+- (void)setmissionId:(int)mid active:(BOOL)isActive;
 @end

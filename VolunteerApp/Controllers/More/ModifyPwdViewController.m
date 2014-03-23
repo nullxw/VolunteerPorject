@@ -87,6 +87,7 @@
 {
     EditCell *cell = [EditCell cellForTableView:self.mTableView fromNib:[EditCell nib]];
     cell.mTextLb.text = namelist[indexPath.row];
+    cell.mTextFiled.width -=30;
     cell.mTextFiled.placeholder = placeHoldlist[indexPath.row];
     cell.mTextFiled.secureTextEntry = YES;
     cell.mTextFiled.delegate = self;

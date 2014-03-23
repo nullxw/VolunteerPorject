@@ -42,7 +42,7 @@ static UserInfo *shareInstance = nil;
 }
 - (void)handleSuccessLogin
 {
-    
+    self.islogin = YES;
     [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:self.shouldSavePwd] forKey:@"shouldSave"];
     [[NSUserDefaults standardUserDefaults ]setObject:[NSNumber numberWithBool:self.shouldAutoLogin] forKey:@"shouldAutoLogin"];
     [[NSUserDefaults standardUserDefaults] synchronize];

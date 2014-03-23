@@ -48,18 +48,19 @@ static UIImage *bgimage = nil;
     
     if (info.stateId == 35) {
         self.mStateImage.image = [UIImage imageNamed:@"_22.png"];
+        self.mAttendBtn.hidden = YES;
     }else if (info.stateId == 50)
     {
         self.mStateImage.image = [UIImage imageNamed:@"_03.png"];
     }else if (info.stateId == 100)
     {
-        self.mRescruitBtn.hidden = YES;
-        self.mAttendBtn.hidden = YES;
+
+
         self.mStateImage.image = [UIImage imageNamed:@"_12.png"];
     }else if (info.stateId == 1000)
     {
-        self.mRescruitBtn.hidden = YES;
-        self.mAttendBtn.hidden = YES;
+
+
         self.mStateImage.image = [UIImage imageNamed:@"_12.png"];
     }
 

@@ -59,6 +59,8 @@
 @property (nonatomic,strong) NSString  *verifyCode;
 @property (nonatomic,strong) NSString  *createDate;
 
+@property (nonatomic,assign) BOOL      islogin;
+
 +(id)share;
 
 - (BOOL)isManager;

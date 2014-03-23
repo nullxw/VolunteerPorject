@@ -34,7 +34,7 @@
     [super viewDidLoad];
     [self setTitleWithString:@"联系我们"];
     
-    list = [NSArray arrayWithObjects:@"版本：   1.7",@"联系电话： 020-83861999",@"工作邮箱：  gd_zyz@126.com",@"邮政编码:    510080",@"工作地址： 广东省广州市越秀区", nil];
+    list = [NSArray arrayWithObjects:@"版本：     1.7",@"联系电话： 020-83861999",@"工作邮箱：  gd_zyz@126.com",@"邮政编码:    510080",@"工作地址： 广东省广州市越秀区", nil];
 }
 
 - (void)viewDidUnload {

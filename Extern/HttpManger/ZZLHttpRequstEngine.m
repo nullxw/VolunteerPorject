@@ -1116,6 +1116,7 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
      teamId*/
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:uid forKey:@"currentUserId"];
+    [dic setObject:cid forKey:@"userId"];
     [dic setObject:[NSNumber numberWithInt:mid] forKey:@"missionId"];
     [dic setObject:[NSNumber numberWithInt:state] forKey:@"statue"];
     [dic setObject:date forKey:@"checkOnDate"];

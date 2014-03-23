@@ -58,6 +58,7 @@
                 </button>
             </subviews>
             <connections>
+                <outlet property="mAttendBtn" destination="lfU-Gu-qxN" id="0Cm-gE-YeW"/>
                 <outlet property="mBgVIew" destination="4KL-fU-Xzb" id="aEl-7K-KP5"/>
                 <outlet property="mGenderView" destination="IiF-1L-cgb" id="Lj7-b9-RC0"/>
                 <outlet property="mName" destination="5Hb-Jr-yrs" id="0pw-Zk-OhC"/>

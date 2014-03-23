@@ -10,4 +10,6 @@
 #import "UserAttend.h"
 @interface HandAttendViewController : BaseViewController
 @property (nonatomic,strong) UserAttend *attendInfo;
+@property (nonatomic,assign) int mid;
+@property (nonatomic,assign) int teamId;
 @end

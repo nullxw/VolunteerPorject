@@ -24,4 +24,6 @@
 
 
 - (void)setupWithUserAttendInfo:(NSArray *)list index:(NSInteger)idx;
+
+- (void)setupWithUserAttendInfo:(NSArray *)list;
 @end

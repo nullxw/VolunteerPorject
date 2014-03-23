@@ -10,5 +10,5 @@
 
 @interface CheckAttendViewController : BaseViewController
 
-- (void)setupMissionId:(int)mid date:(NSString *)date teamId:(int)tid;
+- (void)setupMissionId:(int)mid date:(NSString *)date teamId:(int)tid stateId:(int)sid;
 @end

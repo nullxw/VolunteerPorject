@@ -156,6 +156,8 @@
 		7B29EB5018B667820038C278 /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B29EB4E18B667820038C278 /* MoreViewController.m */; };
 		7B29EB5118B667820038C278 /* MoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B29EB4F18B667820038C278 /* MoreViewController.xib */; };
 		7B3ADA7318C8D5B60061CC26 /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B3ADA7218C8D5B60061CC26 /* CommentCell.xib */; };
+		7B3C38E418DF413000379088 /* VerifyUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B3C38E218DF413000379088 /* VerifyUserViewController.m */; };
+		7B3C38E518DF413000379088 /* VerifyUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B3C38E318DF413000379088 /* VerifyUserViewController.xib */; };
 		7B3FBCD218BB74D60018DB8E /* login_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7B3FBCCA18BB74D60018DB8E /* login_bg.jpg */; };
 		7B3FBCD318BB74D60018DB8E /* login_hl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B3FBCCB18BB74D60018DB8E /* login_hl@2x.png */; };
 		7B3FBCD418BB74D60018DB8E /* login_inputbg.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B3FBCCC18BB74D60018DB8E /* login_inputbg.png */; };
@@ -618,6 +620,9 @@
 		7B29EB4E18B667820038C278 /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreViewController.m; sourceTree = "<group>"; };
 		7B29EB4F18B667820038C278 /* MoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoreViewController.xib; sourceTree = "<group>"; };
 		7B3ADA7218C8D5B60061CC26 /* CommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentCell.xib; sourceTree = "<group>"; };
+		7B3C38E118DF413000379088 /* VerifyUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyUserViewController.h; sourceTree = "<group>"; };
+		7B3C38E218DF413000379088 /* VerifyUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyUserViewController.m; sourceTree = "<group>"; };
+		7B3C38E318DF413000379088 /* VerifyUserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VerifyUserViewController.xib; sourceTree = "<group>"; };
 		7B3FBCCA18BB74D60018DB8E /* login_bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = login_bg.jpg; sourceTree = "<group>"; };
 		7B3FBCCB18BB74D60018DB8E /* login_hl@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_hl@2x.png"; sourceTree = "<group>"; };
 		7B3FBCCC18BB74D60018DB8E /* login_inputbg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_inputbg.png; sourceTree = "<group>"; };
@@ -1467,6 +1472,9 @@
 				7B85105518B78D5000D20F90 /* LoginViewController.xib */,
 				7B3FBCF518BBABAB0018DB8E /* RegisterViewController.h */,
 				7B3FBCF618BBABAB0018DB8E /* RegisterViewController.m */,
+				7B3C38E118DF413000379088 /* VerifyUserViewController.h */,
+				7B3C38E218DF413000379088 /* VerifyUserViewController.m */,
+				7B3C38E318DF413000379088 /* VerifyUserViewController.xib */,
 			);
 			path = " Utility";
 			sourceTree = "<group>";
@@ -2082,6 +2090,7 @@
 				7B29EB4018B662AF0038C278 /* PersonalViewController.xib in Resources */,
 				7B9BDC9D18D730B800DA03A7 /* home_mypro_nl.png in Resources */,
 				7B3FBCD718BB74D60018DB8E /* login_pwd.png in Resources */,
+				7B3C38E518DF413000379088 /* VerifyUserViewController.xib in Resources */,
 				BFE8116C18C0BE4800EB3E14 /* ico_nosel2.png in Resources */,
 				BFE8117818C0BE4800EB3E14 /* plan_recruit.png in Resources */,
 				7BBB7B6418BE3C8700739A3E /* promg_apply_nl.png in Resources */,
@@ -2223,6 +2232,7 @@
 				7BD02B1918BCC2A300E067A0 /* REEmailValidator.m in Sources */,
 				7B10526D18C8CE0600445EF8 /* TrendDetialViewController.m in Sources */,
 				7B233DA418CB3D9600D6B6C8 /* ContactUsViewController.m in Sources */,
+				7B3C38E418DF413000379088 /* VerifyUserViewController.m in Sources */,
 				7BBB7B4118BE152700739A3E /* UIScrollView+SVPullToRefresh.m in Sources */,
 				7B8615DB18C2514E0003BF15 /* MyAttendViewController.m in Sources */,
 				7B4F7C1818D88C0A003052B3 /* MyTabView.m in Sources */,
@@ -2404,8 +2414,6 @@
 		7B29EA2418B62A230038C278 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: 泽龙 邹 (2XT47Y9SW8)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VolunteerApp/VolunteerApp-Prefix.pch";
@@ -2420,8 +2428,6 @@
 		7B29EA2518B62A230038C278 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: 泽龙 邹 (2XT47Y9SW8)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VolunteerApp/VolunteerApp-Prefix.pch";

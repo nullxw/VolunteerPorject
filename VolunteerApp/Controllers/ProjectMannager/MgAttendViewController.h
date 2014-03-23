@@ -10,4 +10,5 @@
 
 @interface MgAttendViewController : BaseViewController
 @property (nonatomic,assign) int mid;
+@property (nonatomic,assign) int stateId;
 @end

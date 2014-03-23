@@ -18,6 +18,7 @@
     int curPage;
     NSMutableArray *curList;
     MyTableView    *mytableView;
+    BOOL isLogin;
 }
 @end
 
@@ -64,6 +65,8 @@
     
     curPage = 0;
     curList = [[NSMutableArray alloc]init];
+    UserInfo *user = [UserInfo share];
+    isLogin = user.islogin;
     
 }
 
@@ -103,6 +106,10 @@
         cell.delegate = self;
         SearchResult *info = [curList objectAtIndex:indexPath.row];
         [cell setupMyResultCell:info];
+        
+        if (!isLogin) {
+            cell.mAttenBtn.hidden = YES;
+        }
         return cell;
     }
     

@@ -222,7 +222,7 @@
     if (searchTime.length>0 && teamObject.missionTeamname.length>0) {
         [self hidePicker];
         CheckAttendViewController *vc = [CheckAttendViewController ViewContorller];
-        [vc setupMissionId:self.mid date:searchTime teamId:teamObject.missionTeamId];
+        [vc setupMissionId:self.mid date:searchTime teamId:teamObject.missionTeamId stateId:self.stateId];
         [self.flipboardNavigationController pushViewController:vc];
     }
 }
