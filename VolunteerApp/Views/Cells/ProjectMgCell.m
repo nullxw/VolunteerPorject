@@ -61,7 +61,7 @@ static UIImage *bgimage = nil;
     {
 
 
-        self.mStateImage.image = [UIImage imageNamed:@"_12.png"];
+        self.mStateImage.image = [UIImage imageNamed:@"_15.png"];
     }
 
 

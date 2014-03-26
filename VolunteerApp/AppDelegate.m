@@ -121,7 +121,23 @@
     }
 }
 
-
+- (void)handleNotLoginWithBaseViewController:(BaseViewController *)targetVc
+{
+    
+    [UIAlertView showAlertViewWithTitle:@"提示" message:@"您需要登录才能继续操作！" cancelButtonTitle:@"取消" otherButtonTitles:@[@"去登录"] onDismiss:^(int buttonIndex) {
+        
+        for (BaseViewController *vc in targetVc.flipboardNavigationController.viewControllers) {
+            [targetVc.flipboardNavigationController popViewController];
+        }
+        UserInfo *user = [UserInfo share];
+        [user clear];
+        [self showWithLoginView];
+        
+    } onCancel:^{
+        
+    }];
+    
+}
 
 #pragma mark - login delegate
 - (void)didLoginSuccess:(LoginViewController *)vc

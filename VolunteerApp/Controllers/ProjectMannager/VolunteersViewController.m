@@ -430,7 +430,7 @@
 }
 - (NSArray *)MyTabViewTitleForTabView:(MyTabView *)tabview
 {
-    return @[@"已报名",@"已确认",@"未确认"];
+    return @[@"新报名",@"已确认",@"未确认"];
 }
 
 #pragma mark - 

@@ -10,6 +10,7 @@
 static UIImage *bgimage = nil;
 static UIImage *hasApplyimage = nil;
 static UIImage *noRescruitimage = nil;
+static UIImage *newApplyimage = nil;
 
 @implementation VolunteersCell
 
@@ -27,8 +28,8 @@ static UIImage *noRescruitimage = nil;
     bgimage = [[UIImage imageNamed:@"mypro_cellbg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)] ;
     
     hasApplyimage = [UIImage imageNamed:@"_18.png"];
-    noRescruitimage = [UIImage imageNamed:@"_20.png"];
-    
+    noRescruitimage = [UIImage imageNamed:@"_24.png"];
+    newApplyimage = [UIImage imageNamed:@"_16.png"];
 }
 
 + (CGFloat)cellHeight
@@ -55,8 +56,11 @@ static UIImage *noRescruitimage = nil;
         
     }else if (info.selection == 4)
     {
-        self.mStateImage.image = noRescruitimage;
+        self.mStateImage.image = newApplyimage;
         
+    }else if(info.selection == 0)
+    {
+        self.mStateImage.image = noRescruitimage;
     }
     
 }

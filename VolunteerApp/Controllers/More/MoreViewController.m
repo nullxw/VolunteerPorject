@@ -19,6 +19,7 @@
 @interface MoreViewController ()<LoginViewDelegate>
 {
     NSArray *itemList;
+    BOOL    isLogin;
 }
 
 @property (strong, nonatomic) IBOutlet UIButton *quitBtn;
@@ -49,22 +50,30 @@
     
     [self setTitleWithString:@"更多设置"];
     // Do any additional setup after loading the view from its nib.
-    itemList = [NSArray arrayWithObjects:@"我的资料",@"修改密码",@"广州志愿者项目动态",@"检查更新",@"关于志愿时",nil];
+    UserInfo *user = [UserInfo share];
+    isLogin = user.islogin;
+
+    itemList = [NSArray arrayWithObjects:@"修改密码",@"检查更新",@"关于志愿时",nil];
+    
+
     //@"常见问题与反馈"
     
-    self.tableView.tableFooterView = self.bottomView;
-    
-    UIImage *bgimage1 = [[UIImage imageNamed:@"login_nl.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(15, 8, 15, 8)];
-    UIImage *bgimage2 = [[UIImage imageNamed:@"login_hl.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(15, 8, 15, 8)];
-    
-    [self.quitBtn setBackgroundImage:bgimage1 forState:UIControlStateNormal];
-    [self.quitBtn setBackgroundImage:bgimage2 forState:UIControlStateHighlighted];
-    
-    UIImage *bgimage3 = [[UIImage imageNamed:@"more_switch_hl.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
-    UIImage *bgimage4 = [[UIImage imageNamed:@"more_switch_nl.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
-    
-    [self.switchBtn setBackgroundImage:bgimage4 forState:UIControlStateNormal];
-    [self.switchBtn setBackgroundImage:bgimage3 forState:UIControlStateHighlighted];
+    if (isLogin) {
+        self.tableView.tableFooterView = self.bottomView;
+        
+        UIImage *bgimage1 = [[UIImage imageNamed:@"login_nl.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(15, 8, 15, 8)];
+        UIImage *bgimage2 = [[UIImage imageNamed:@"login_hl.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(15, 8, 15, 8)];
+        
+        [self.quitBtn setBackgroundImage:bgimage1 forState:UIControlStateNormal];
+        [self.quitBtn setBackgroundImage:bgimage2 forState:UIControlStateHighlighted];
+        
+        UIImage *bgimage3 = [[UIImage imageNamed:@"more_switch_hl.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
+        UIImage *bgimage4 = [[UIImage imageNamed:@"more_switch_nl.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
+        
+        [self.switchBtn setBackgroundImage:bgimage4 forState:UIControlStateNormal];
+        [self.switchBtn setBackgroundImage:bgimage3 forState:UIControlStateHighlighted];
+    }
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -127,26 +136,28 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == 0) {
-        MyInfoViewController *vc =[MyInfoViewController ViewContorller];
-        [self.flipboardNavigationController pushViewController:vc];
+        if (isLogin) {
+            ModifyPwdViewController *vc = [ModifyPwdViewController ViewContorller];
+            [self.flipboardNavigationController pushViewController:vc];
+        }else{
+            AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            [delegate handleNotLoginWithBaseViewController:self];
+        }
+//        MyInfoViewController *vc =[MyInfoViewController ViewContorller];
+//        [self.flipboardNavigationController pushViewController:vc];
     }
     if (indexPath.row == 1) {
-        ModifyPwdViewController *vc = [ModifyPwdViewController ViewContorller];
-        [self.flipboardNavigationController pushViewController:vc];
+        [self checkUpdate];
     }
     
     if (indexPath.row == 2) {
-        ProTrendViewController *vc = [ProTrendViewController ViewContorller];
-        [self.flipboardNavigationController pushViewController:vc];
-    }
-    
-    if (indexPath.row == 3) {
-        [self checkUpdate];
-    }
-    if (indexPath.row == 4) {
+//        ProTrendViewController *vc = [ProTrendViewController ViewContorller];
+//        [self.flipboardNavigationController pushViewController:vc];
         ContactUsViewController *vc = [ContactUsViewController ViewContorller];
         [self.flipboardNavigationController pushViewController:vc];
     }
+    
+
 }
 
 #pragma mark -  actions

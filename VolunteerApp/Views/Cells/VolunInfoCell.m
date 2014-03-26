@@ -45,7 +45,7 @@
     self.mTimeLb.top = self.mTitleLb.bottom+5;
     self.mVistorLb.top = self.mTimeLb.top;
     self.mTimeLb.text = info.addDate;
-    self.mVistorLb.text = [NSString stringWithFormat:@"%d人访问",info.browseCount];
+    self.mVistorLb.text = [NSString stringWithFormat:@"%d人浏览",info.browseCount];
     
     
 }

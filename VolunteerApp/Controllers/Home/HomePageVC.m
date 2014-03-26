@@ -236,10 +236,10 @@
 }
 
 - (IBAction)goMore:(UIButton *)sender {
-    if (!isLogin) {
-        [self handleNotLogin];
-        return;
-    }
+//    if (!isLogin) {
+//        [self handleNotLogin];
+//        return;
+//    }
     MoreViewController *vc = [MoreViewController ViewContorller];
     [self.flipboardNavigationController pushViewController:vc];
 

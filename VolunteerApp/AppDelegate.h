@@ -9,11 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "SinaWeibo.h"
 #import "LoginViewController.h"
+#import "BaseViewController.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate,SinaWeiboDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic)    LoginViewController *loginVc;
 
 - (void)showWithLoginView;
+
+- (void)handleNotLoginWithBaseViewController:(BaseViewController *)targetVc;
+
 @property (nonatomic,strong) SinaWeibo *weibo;
 @end
