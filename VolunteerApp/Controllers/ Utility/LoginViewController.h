@@ -24,5 +24,6 @@
 
 - (void)didLoginSuccess:(LoginViewController *)vc;
 - (void)didLoginFailure:(LoginViewController *)vc;
+- (void)didLoginWithVisitor:(LoginViewController *)vc;
 
 @end

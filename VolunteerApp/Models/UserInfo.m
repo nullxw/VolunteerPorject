@@ -26,6 +26,8 @@ static UserInfo *shareInstance = nil;
 }
 - (void)setup
 {
+    
+    self.userId = @"";
     self.shouldAutoLogin = [[[NSUserDefaults standardUserDefaults] objectForKey:@"shouldAutoLogin"]boolValue];
     self.shouldSavePwd = [[[NSUserDefaults standardUserDefaults] objectForKey:@"shouldSave"]boolValue];
     NSString *temp1 = [[NSUserDefaults standardUserDefaults] objectForKey:@"mycache1"];
@@ -176,6 +178,8 @@ static UserInfo *shareInstance = nil;
     
     self.verifyCode = @"";
     self.createDate = @"";
+    
+    self.islogin = NO;
     [self removePassWord];
 }
 - (void)removePassWord

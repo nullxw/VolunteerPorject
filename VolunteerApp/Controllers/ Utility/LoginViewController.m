@@ -13,9 +13,10 @@
 #import "ZZLHttpRequstEngine.h"
 #import "UserInfo.h"
 #import "RegisterViewController.h"
-#import "VolunInfoViewController.h"
+//#import "VolunInfoViewController.h"
 #import "VerifyUserViewController.h"
-#import "ProTrendViewController.h"
+//#import "ProTrendViewController.h"
+//#import "HomePageVC.h"
 #define check1Tage   39430
 #define check2Tage   90098
 @interface LoginViewController ()<QCheckBoxDelegate,UITextFieldDelegate>
@@ -297,11 +298,18 @@
 
 - (IBAction)actionBrowser:(UIButton *)sender {
     
-    VolunInfoViewController *vc = [VolunInfoViewController ViewContorller];
-    [self.flipboardNavigationController pushViewController:vc];
+//    VolunInfoViewController *vc = [VolunInfoViewController ViewContorller];
+//    [self.flipboardNavigationController pushViewController:vc];
     
 //    ProTrendViewController *vc = [ProTrendViewController ViewContorller];
 //    [self.flipboardNavigationController pushViewController:vc];
+//    HomePageVC *vc = [HomePageVC ViewContorller];
+//    [self.flipboardNavigationController pushViewController:vc];
+    
+    if (_delegate && [_delegate respondsToSelector:@selector(didLoginWithVisitor:)]) {
+        [_delegate didLoginWithVisitor:self];
+    }
+    
 }
 
 - (IBAction)actionGetPwd:(UIButton *)sender {

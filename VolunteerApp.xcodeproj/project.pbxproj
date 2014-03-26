@@ -232,6 +232,10 @@
 		7B96411918BA6B920089674F /* home_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B96410918BA6B920089674F /* home_bg.png */; };
 		7B96412918BA6BDB0089674F /* home_star_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B96412818BA6BDB0089674F /* home_star_icon.png */; };
 		7B96412B18BA7CB40089674F /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B96412A18BA7CB40089674F /* check.png */; };
+		7B99EF2B18E1D22900552441 /* ConfirmPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B99EF2918E1D22900552441 /* ConfirmPwdViewController.m */; };
+		7B99EF2C18E1D22900552441 /* ConfirmPwdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B99EF2A18E1D22900552441 /* ConfirmPwdViewController.xib */; };
+		7B99EF3018E1E51400552441 /* EditInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B99EF2E18E1E51400552441 /* EditInfoViewController.m */; };
+		7B99EF3118E1E51400552441 /* EditInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7B99EF2F18E1E51400552441 /* EditInfoViewController.xib */; };
 		7B9BDC8618D7242200DA03A7 /* home_info_nl.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9BDC8318D7242200DA03A7 /* home_info_nl.png */; };
 		7B9BDC8718D7242200DA03A7 /* home_promg_nl.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9BDC8418D7242200DA03A7 /* home_promg_nl.png */; };
 		7B9BDC8818D7242200DA03A7 /* home_register_nl.png in Resources */ = {isa = PBXBuildFile; fileRef = 7B9BDC8518D7242200DA03A7 /* home_register_nl.png */; };
@@ -725,6 +729,12 @@
 		7B96410918BA6B920089674F /* home_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_bg.png; sourceTree = "<group>"; };
 		7B96412818BA6BDB0089674F /* home_star_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_star_icon.png; sourceTree = "<group>"; };
 		7B96412A18BA7CB40089674F /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
+		7B99EF2818E1D22800552441 /* ConfirmPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmPwdViewController.h; sourceTree = "<group>"; };
+		7B99EF2918E1D22900552441 /* ConfirmPwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmPwdViewController.m; sourceTree = "<group>"; };
+		7B99EF2A18E1D22900552441 /* ConfirmPwdViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConfirmPwdViewController.xib; sourceTree = "<group>"; };
+		7B99EF2D18E1E51400552441 /* EditInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditInfoViewController.h; sourceTree = "<group>"; };
+		7B99EF2E18E1E51400552441 /* EditInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditInfoViewController.m; sourceTree = "<group>"; };
+		7B99EF2F18E1E51400552441 /* EditInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditInfoViewController.xib; sourceTree = "<group>"; };
 		7B9BDC8318D7242200DA03A7 /* home_info_nl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_info_nl.png; sourceTree = "<group>"; };
 		7B9BDC8418D7242200DA03A7 /* home_promg_nl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_promg_nl.png; sourceTree = "<group>"; };
 		7B9BDC8518D7242200DA03A7 /* home_register_nl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_register_nl.png; sourceTree = "<group>"; };
@@ -1211,6 +1221,9 @@
 				7B10526A18C8CE0600445EF8 /* TrendDetialViewController.h */,
 				7B10526B18C8CE0600445EF8 /* TrendDetialViewController.m */,
 				7B10526C18C8CE0600445EF8 /* TrendDetialViewController.xib */,
+				7B99EF2D18E1E51400552441 /* EditInfoViewController.h */,
+				7B99EF2E18E1E51400552441 /* EditInfoViewController.m */,
+				7B99EF2F18E1E51400552441 /* EditInfoViewController.xib */,
 			);
 			path = Personal;
 			sourceTree = "<group>";
@@ -1475,6 +1488,9 @@
 				7B3C38E118DF413000379088 /* VerifyUserViewController.h */,
 				7B3C38E218DF413000379088 /* VerifyUserViewController.m */,
 				7B3C38E318DF413000379088 /* VerifyUserViewController.xib */,
+				7B99EF2818E1D22800552441 /* ConfirmPwdViewController.h */,
+				7B99EF2918E1D22900552441 /* ConfirmPwdViewController.m */,
+				7B99EF2A18E1D22900552441 /* ConfirmPwdViewController.xib */,
 			);
 			path = " Utility";
 			sourceTree = "<group>";
@@ -2002,6 +2018,7 @@
 				7BF6027618BDAB7A007DBAC3 /* mypro_wait.png in Resources */,
 				BFE8114718C0BC7500EB3E14 /* CheckPlanCell.xib in Resources */,
 				7B29EA8218B635730038C278 /* blackArrow.png in Resources */,
+				7B99EF2C18E1D22900552441 /* ConfirmPwdViewController.xib in Resources */,
 				7B29EB3B18B6629C0038C278 /* MyProjectViewController.xib in Resources */,
 				7BD63A1618CE0B5B00408611 /* EditCell.xib in Resources */,
 				7BF6027418BDAB7A007DBAC3 /* mypro_complete.png in Resources */,
@@ -2014,6 +2031,7 @@
 				7B3FBCD918BB74D60018DB8E /* login_userName.png in Resources */,
 				7B85106F18B7926F00D20F90 /* checkbox1_checked@2x.png in Resources */,
 				7B4F7C0A18D873CC003052B3 /* ProjectMgCell.xib in Resources */,
+				7B99EF3118E1E51400552441 /* EditInfoViewController.xib in Resources */,
 				7BD02B0018BCBF7E00E067A0 /* RETableViewManager.bundle in Resources */,
 				7B7EE86718C75A1A00B51524 /* guildImage4.jpg in Resources */,
 				BFE8116318C0BE4800EB3E14 /* class_plan.png in Resources */,
@@ -2185,6 +2203,7 @@
 				7BD02B1E18BD0EF600E067A0 /* MissionInfo.m in Sources */,
 				7BD02AED18BCBF7E00E067A0 /* RETableViewFloatCell.m in Sources */,
 				7B29EAC118B636A10038C278 /* UIImage+RoundRectImage.m in Sources */,
+				7B99EF2B18E1D22900552441 /* ConfirmPwdViewController.m in Sources */,
 				7B85107218B7926F00D20F90 /* QCheckBox.m in Sources */,
 				7B29EB5018B667820038C278 /* MoreViewController.m in Sources */,
 				7B21B11118CA13F2009EA7C3 /* SinaWeiboAuthorizeView.m in Sources */,
@@ -2243,6 +2262,7 @@
 				7BD02AEC18BCBF7E00E067A0 /* RETableViewDateTimeCell.m in Sources */,
 				7B16C91918C33A400076250B /* ProtypeInfo.m in Sources */,
 				7B9BDCB018D73FA200DA03A7 /* VolunInfo.m in Sources */,
+				7B99EF3018E1E51400552441 /* EditInfoViewController.m in Sources */,
 				7B2121AB18C2403C003955EE /* WeiBoCell.m in Sources */,
 				7B29EAE418B636F00038C278 /* SDWebImagePrefetcher.m in Sources */,
 				7B29EA5A18B632060038C278 /* ZZLRequestOperation.m in Sources */,
@@ -2414,13 +2434,16 @@
 		7B29EA2418B62A230038C278 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: 泽龙 邹 (2XT47Y9SW8)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VolunteerApp/VolunteerApp-Prefix.pch";
 				INFOPLIST_FILE = "VolunteerApp/VolunteerApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "508E6C3E-5337-4FDD-8C95-8442F88E1BC9";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2428,13 +2451,16 @@
 		7B29EA2518B62A230038C278 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: 泽龙 邹 (2XT47Y9SW8)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VolunteerApp/VolunteerApp-Prefix.pch";
 				INFOPLIST_FILE = "VolunteerApp/VolunteerApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "508E6C3E-5337-4FDD-8C95-8442F88E1BC9";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

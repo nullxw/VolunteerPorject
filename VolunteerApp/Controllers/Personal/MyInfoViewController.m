@@ -9,11 +9,13 @@
 #import "MyInfoViewController.h"
 #import "MyInfoCell.h"
 #import "ZZLHttpRequstEngine.h"
-@interface MyInfoViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface MyInfoViewController ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate>
 {
     NSArray *list;
     NSMutableArray *infoList;
     UITableView *myTableView;
+    
+
 }
 @end
 
@@ -46,6 +48,7 @@
     }
     
     
+
     
     NSString *serverTime = [NSString stringWithFormat:@"%d 小时",user.serviceTime/3600];
     infoList = [NSMutableArray arrayWithObjects:user.userName,gender,user.email,user.mobile,user.areaName,@"",serverTime,nil];
@@ -60,9 +63,22 @@
     [self.view addSubview:myTableView];
     
     
-
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(265, self.navView.bottom - 44, 46, 46);
+    [btn setImage:[UIImage imageNamed:@"nav_edit.png"] forState:UIControlStateNormal];
+    
+    [btn addTarget:self action:@selector(actionEdit:) forControlEvents:UIControlEventTouchUpInside];
+    [self.navView addSubview:btn];
 }
-
+- (void)actionEdit:(UIButton *)btn
+{
+//    for (UITextField *item in editFieldList) {
+//        item.enabled = YES;
+//    }
+//    
+//    UITextField *item1 = [editFieldList objectAtIndex:0];
+//    [item1 becomeFirstResponder];
+}
 - (void)viewDidUnload {
     [super viewDidUnload];
 }
@@ -97,8 +113,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([list count]>0) {
+        int row = indexPath.row;
         MyInfoCell *cell = [MyInfoCell cellForTableView:tableView fromNib:[MyInfoCell nib]];
-        [cell setupWithInfo:list[indexPath.row] detailInfo:infoList[indexPath.row]];
+        [cell setupWithInfo:list[row] detailInfo:infoList[row]];
+        if (row>4) {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
         return cell;
     }
     return nil;
@@ -111,13 +131,36 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [MyInfoCell cellHeight];
+    return 44;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    int row = indexPath.row;
+    if (row == 1) {
+        [self hideEditActions];
+        [self showAction];
+    }
+    if (row>=4) {
+        return;
+    }
     
+}
+- (void)hideEditActions
+{
+//    for (UITextField *item in editFieldList) {
+//        if ([item isFirstResponder]) {
+//            [item resignFirstResponder];
+//        }
+//    }
+}
+- (void)showAction
+{
+    UIActionSheet * actionSheet = [[UIActionSheet alloc]initWithTitle:@"选择性别" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"男",@"女", nil];
+    actionSheet.delegate = self;
+    [actionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
+    [actionSheet showInView:self.view];
 }
 
 - (void)requestRank

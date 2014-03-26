@@ -144,7 +144,15 @@
 //    }];
 }
 
-
+- (void)didLoginWithVisitor:(LoginViewController *)vc
+{
+    HomePageVC *homeVC = [HomePageVC ViewContorller];
+    FlipBoardNavigationController *nav = [[FlipBoardNavigationController alloc]initWithRootViewController:homeVC];
+    nav.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [vc presentViewController:nav animated:YES completion:^{
+        [self.window setRootViewController:nav];
+    }];
+}
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {

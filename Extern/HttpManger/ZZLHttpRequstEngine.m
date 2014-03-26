@@ -1589,7 +1589,30 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:[NSNumber numberWithInt:psize] forKey:@"pageSize"];
     return [self postRequestWithServicePath:URL66_GETVOLUNINFO_URL params:dic onSuccess:successBlock onFail:errorBlock];
 }
-#pragma mark - cancel request 
+//67 手机用户密码更改效验码
+- (ZZLRequestOperation *)requestCheckAccountWithIdcardCode:(NSString *)cardCode onSuccess:(dictionaryBlock)successBlock
+                                                    onFail:(erroBlock)errorBlock
+{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:cardCode forKey:@"idcardCode"];
+    return [self postRequestWithServicePath:URL67_GETVOLUNINFO_URL params:dic onSuccess:successBlock onFail:errorBlock];
+}
+
+//68 手机用户密码更改
+- (ZZLRequestOperation *)requestUpdatePwdbyUserId:(NSString *)uid password:(NSString *)pwd surePassword:(NSString *)spwd onSuccess:(dictionaryBlock)successBlock
+                                           onFail:(erroBlock)errorBlock
+{
+    
+    //userId
+//    password
+//    surePassword
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:uid forKey:@"userId"];
+    [dic setObject:pwd forKey:@"password"];
+    [dic setObject:spwd forKey:@"surePassword"];
+    return [self postRequestWithServicePath:URL68_GETVOLUNINFO_URL params:dic onSuccess:successBlock onFail:errorBlock];
+}
+#pragma mark - cancel request
 - (void)cancelRequestWithPath:(NSString *)urlpath
 {
     if ([[_requestPoolDict allKeys] containsObject:urlpath]) {

@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 @interface HomePageVC : BaseViewController
-
+- (void)updateData:(BOOL)islogin;
 @end

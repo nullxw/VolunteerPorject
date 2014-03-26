@@ -690,6 +690,16 @@ typedef void (^objectBlock)(id obj);
                                                    pageIndex:(int)page
                                                    onSuccess:(dictionaryBlock)successBlock
                                                       onFail:(erroBlock)errorBlock;
+
+
+//67 手机用户密码更改效验码
+- (ZZLRequestOperation *)requestCheckAccountWithIdcardCode:(NSString *)cardCode onSuccess:(dictionaryBlock)successBlock
+                                                    onFail:(erroBlock)errorBlock;
+
+//68 手机用户密码更改
+- (ZZLRequestOperation *)requestUpdatePwdbyUserId:(NSString *)uid password:(NSString *)pwd surePassword:(NSString *)spwd onSuccess:(dictionaryBlock)successBlock
+                                           onFail:(erroBlock)errorBlock;
+
 /*!
  @abstract:取消一个请求操作
  @description:通常，在一个页面返回的时候 （若该请求还未完成，我们需要取消该请求）

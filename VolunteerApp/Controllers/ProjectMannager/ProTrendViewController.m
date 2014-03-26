@@ -107,7 +107,7 @@
         SearchResult *info = [curList objectAtIndex:indexPath.row];
         [cell setupMyResultCell:info];
         
-        if (!isLogin) {
+        if (!isLogin || [[UserInfo share] isManager]) {
             cell.mAttenBtn.hidden = YES;
         }
         return cell;

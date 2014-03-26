@@ -78,8 +78,9 @@
     // 设置UIDatePicker的显示模式
     [FristPick setDatePickerMode:UIDatePickerModeDate];
     // 当值发生改变的时候调用的方法
-    [FristPick addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
+//    [FristPick addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
     FristPick.hidden = YES;
+    FristPick.backgroundColor = [UIColor grayColor];
     
     
     // 工具条
@@ -364,6 +365,16 @@
 - (void)doneButtonIsClicked:(id)sender
 {
     [self hidePicker];
+    NSString *datestr = [self stringFromDate:FristPick.date];
+    if (curRow == 2)
+    {
+        secnodDate = datestr;
+    }else if(curRow == 3)
+    {
+        thridDate = datestr;
+    }
+    [myTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:curRow inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
 }
 - (void)addPikcer
 {
@@ -392,18 +403,10 @@
     }
 
 }
-- (void)datePickerValueChanged:(UIDatePicker *)picker
-{
-    NSString *datestr = [self stringFromDate:picker.date];
-    if (curRow == 2)
-    {
-        secnodDate = datestr;
-    }else if(curRow == 3)
-    {
-        thridDate = datestr;
-    }
-    [myTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:curRow inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
+//- (void)datePickerValueChanged:(UIDatePicker *)picker
+//{
+//
+//}
 
 - (NSString *)stringFromDate:(NSDate *)date{
     

@@ -303,8 +303,15 @@
     if (modelInfo.isJoined) {
         [self.mJoinBtn setTitle:@"已报名" forState:UIControlStateNormal];
     }
-    self.mBottomBar.top = self.view.height - self.mBottomBar.height;
-    [self.view addSubview:self.mBottomBar];
+    
+    UserInfo *user = [UserInfo share];
+    if (!user.islogin || user.isManager) {
+        self.mBottomBar.hidden = YES;
+    }else{
+        self.mBottomBar.top = self.view.height - self.mBottomBar.height;
+        [self.view addSubview:self.mBottomBar];
+    }
+    
     
 }
 - (CGSize)caculateStrSize:(NSString *)str

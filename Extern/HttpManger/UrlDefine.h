@@ -93,5 +93,10 @@
 
 #define URL64_GETDISTRICTLIST_URL    @"visitor/findMissionType.action"
 #define URL65_GETDISTRICTLIST_URL    @"VolunteerService/mobile/findUsersByIdcard.action"
+
+
+//66 - 70
 #define URL66_GETVOLUNINFO_URL       @"visitor/getVolInformation.action"
+#define URL67_GETVOLUNINFO_URL       @"visitor/checkAccount.acton"
+#define URL68_GETVOLUNINFO_URL       @"visitor/updatePwdByUserId.acton"
 #endif

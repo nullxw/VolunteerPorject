@@ -21,9 +21,12 @@
 #import "MyInfoViewController.h"
 #import "ZZLHttpRequstEngine.h"
 #import "UrlDefine.h"
+#import "AppDelegate.h"
+#import "UIAlertView+Blocks.h"
 @interface HomePageVC ()
 {
     BOOL isManager;
+    BOOL isLogin;
 }
 //properties:
 @property (weak, nonatomic) IBOutlet UIView *mPersonView;
@@ -42,6 +45,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *mProTrendText;
 @property (weak, nonatomic) IBOutlet UILabel *mMyProText;
 @property (weak, nonatomic) IBOutlet UIScrollView *mScrollView;
+@property (weak, nonatomic) IBOutlet UIImageView *mStarImageView;
 
 //actions:
 - (IBAction)goPersonal:(UIButton *)sender;
@@ -70,7 +74,10 @@
     }
     return self;
 }
-
+- (void)updateData:(BOOL)islogin
+{
+    isLogin = islogin;
+}
 
 #pragma mark - view Lifecycle
 
@@ -82,20 +89,28 @@
     
     
     UserInfo *user = [UserInfo share];
+    
+    isLogin = user.islogin;
     if ([user.purview isEqualToString:@"MANAGER_SHOW"]) {
         isManager = YES;
         
         self.mProTrendText.text = @"项目管理";
-        [self.mMyProBtn setImage:[UIImage imageNamed:@"home_register_nl"] forState:UIControlStateNormal];
-        [self.mMyProBtn setImage:[UIImage imageNamed:@"home_register_hl"] forState:UIControlStateHighlighted];
-        self.mMyProText.text = @"注册管理";
+//        [self.mMyProBtn setImage:[UIImage imageNamed:@"home_register_nl"] forState:UIControlStateNormal];
+//        [self.mMyProBtn setImage:[UIImage imageNamed:@"home_register_hl"] forState:UIControlStateHighlighted];
+        self.mMyProText.text = @"项目动态";
     }
     self.mScrollView.clipsToBounds =YES;
     
     [self setUpView];
     [self setTitleWithString:@"广东志愿者"];
     [self setBackBtnHidden];
-    [self requestUserInfo];
+    
+    if (isLogin) {
+        [self requestUserInfo];
+    }else{
+        [self updateVisitorInfo];
+    }
+    
 
 }
 - (void)awakeFromNib
@@ -171,12 +186,22 @@
 }
 
 - (IBAction)goPersonal:(UIButton *)sender {
+    
+    if (!isLogin) {
+        [self handleNotLogin];
+        return;
+    }
     PersonalViewController *vc = [PersonalViewController ViewContorller];
     [self.flipboardNavigationController pushViewController:vc];
 }
 
 - (IBAction)goProManager:(UIButton *)sender {
 
+    if (!isLogin) {
+        ProTrendViewController *vc = [ProTrendViewController ViewContorller];
+        [self.flipboardNavigationController pushViewController:vc];
+        return;
+    }
     
     if (isManager) {
         
@@ -190,8 +215,14 @@
 }
 
 - (IBAction)goMyPro:(UIButton *)sender {
+    
+    if (!isLogin) {
+        [self handleNotLogin];
+        return;
+    }
     if (isManager) {
-        
+        ProTrendViewController *vc = [ProTrendViewController ViewContorller];
+        [self.flipboardNavigationController pushViewController:vc];
     }else{
         MyProjectViewController *vc = [MyProjectViewController ViewContorller];
         [self.flipboardNavigationController pushViewController:vc];
@@ -205,6 +236,10 @@
 }
 
 - (IBAction)goMore:(UIButton *)sender {
+    if (!isLogin) {
+        [self handleNotLogin];
+        return;
+    }
     MoreViewController *vc = [MoreViewController ViewContorller];
     [self.flipboardNavigationController pushViewController:vc];
 
@@ -219,8 +254,32 @@
 
 - (IBAction)goMyInfo:(UIButton *)sender {
     
+    if (!isLogin) {
+        [self handleNotLogin];
+        return;
+    }
     MyInfoViewController *vc = [MyInfoViewController ViewContorller];
     [self.flipboardNavigationController pushViewController:vc];
+
+}
+
+- (void)handleNotLogin
+{
+    
+    [UIAlertView showAlertViewWithTitle:@"提示" message:@"您需要登录才能继续操作！" cancelButtonTitle:@"取消" otherButtonTitles:@[@"去登录"] onDismiss:^(int buttonIndex) {
+        
+        AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        
+        for (BaseViewController *vc in self.flipboardNavigationController.viewControllers) {
+            [self.flipboardNavigationController popViewController];
+        }
+        UserInfo *user = [UserInfo share];
+        [user clear];
+        [delegate showWithLoginView];
+
+    } onCancel:^{
+        
+    }];
 
 }
 
@@ -243,12 +302,24 @@
 {
     UserInfo *user = [UserInfo share];
     self.mNameLb.text = user.userName;
+    
+    self.mStarImageView.left = self.mNameLb.right+5;
+    self.mTimeLb.left = self.mStarImageView.right+5;
     [self.mAvatorImage setImageWithURL:[NSURL URLWithString:[IMAGE_URL stringByAppendingString:user.head]] placeholderImage:[UIImage imageNamed:@"home_avator.png"]];
     self.mLvValuelb.text = [NSString stringWithFormat:@"%d",user.vvalue];
     self.mTimeLb.text = [[NSString stringWithFormat:@"%d",user.serviceTime/60] stringByAppendingString:@"小时"];
     self.mScroeLb.text = [[NSString stringWithFormat:@"%d",user.integral ]stringByAppendingString:@"分"];
     
-
+}
+- (void)updateVisitorInfo
+{
+    self.mNameLb.text = @"游客";
+    self.mStarImageView.left = self.mNameLb.right+5;
+    self.mTimeLb.left = self.mStarImageView.right+5;
+    [self.mAvatorImage setImageWithURL:[NSURL URLWithString:[IMAGE_URL stringByAppendingString:@""]] placeholderImage:[UIImage imageNamed:@"home_avator.png"]];
     
+    self.mLvValuelb.text = [NSString stringWithFormat:@"%d",0];
+    self.mTimeLb.text = [[NSString stringWithFormat:@"%d",0] stringByAppendingString:@"小时"];
+    self.mScroeLb.text = [[NSString stringWithFormat:@"%d",0]stringByAppendingString:@"分"];
 }
 @end

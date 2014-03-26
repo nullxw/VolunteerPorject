@@ -7,8 +7,11 @@
 //
 
 #import "VerifyUserViewController.h"
-
+#import "ConfirmPwdViewController.h"
 @interface VerifyUserViewController ()
+{
+    NSString *verifyCode;
+}
 @property (weak, nonatomic) IBOutlet UITextField *mUserNameTextField;
 @property (weak, nonatomic) IBOutlet UITextField *mVerityCodeTextFiled;
 - (IBAction)actionVerifyCode:(UIButton *)sender;
@@ -31,6 +34,7 @@
 {
     [super viewDidLoad];
     [self setTitleWithString:@"找回密码"];
+    verifyCode = @"";
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,6 +50,7 @@
         [self.view showHudMessage:@"用户名不能为空"];
         return;
     }
+    [self requestCode];
     
 }
 
@@ -59,6 +64,46 @@
     }
     if (self.mVerityCodeTextFiled.text.length == 0) {
         [self.view showHudMessage:@"验证码不能为空"];
+        return;
+    }
+    [self checkVerifyCode];
+    
+}
+
+- (void)requestCode
+{
+    if (verifyCode.length>0) {
+        return;
+    }
+    [[ZZLHttpRequstEngine engine] requestCheckAccountWithIdcardCode:self.mUserNameTextField.text onSuccess:^(id responseObject) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self.view showHudMessage:@"验证码已发至您的手机"];
+            verifyCode = [responseObject objectForKey:@"verifyCode"];
+            
+            
+
+            
+        });
+        
+    } onFail:^(NSError *erro) {
+        verifyCode = @"";
+        [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
+    }];
+}
+
+- (void)checkVerifyCode
+{
+    
+    if (verifyCode.length>0) {
+        return;
+    }
+    if ([verifyCode isEqualToString:self.mVerityCodeTextFiled.text]) {
+        ConfirmPwdViewController *vc = [ConfirmPwdViewController ViewContorller];
+        [self.flipboardNavigationController pushViewController:vc];
+    }else{
+        [self.view showHudMessage:@"验证码输入有误"];
         return;
     }
 }
