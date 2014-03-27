@@ -95,9 +95,9 @@
         isManager = YES;
         
         self.mProTrendText.text = @"项目管理";
-//        [self.mMyProBtn setImage:[UIImage imageNamed:@"home_register_nl"] forState:UIControlStateNormal];
-//        [self.mMyProBtn setImage:[UIImage imageNamed:@"home_register_hl"] forState:UIControlStateHighlighted];
-        self.mMyProText.text = @"项目动态";
+        [self.mMyProBtn setImage:[UIImage imageNamed:@"home_register_nl"] forState:UIControlStateNormal];
+        [self.mMyProBtn setImage:[UIImage imageNamed:@"home_register_hl"] forState:UIControlStateHighlighted];
+        self.mMyProText.text = @"我的项目";
     }
     self.mScrollView.clipsToBounds =YES;
     
@@ -220,13 +220,13 @@
         [self handleNotLogin];
         return;
     }
-    if (isManager) {
-        ProTrendViewController *vc = [ProTrendViewController ViewContorller];
-        [self.flipboardNavigationController pushViewController:vc];
-    }else{
+//    if (isManager) {
+//        ProTrendViewController *vc = [ProTrendViewController ViewContorller];
+//        [self.flipboardNavigationController pushViewController:vc];
+//    }else{
         MyProjectViewController *vc = [MyProjectViewController ViewContorller];
         [self.flipboardNavigationController pushViewController:vc];
-    }
+//    }
 
 }
 
