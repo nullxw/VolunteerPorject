@@ -11,6 +11,7 @@
 #import "UIColor+Addition.h"
 #import "UrlDefine.h"
 #import <QuartzCore/QuartzCore.h>
+#import "NSString+WiFi.h"
 @implementation WeiBoCell
 
 static UIImage *bgimage = nil;
@@ -59,15 +60,22 @@ static UIFont  *font = nil;
     self.mTimeLb.text = info._createTime;
     self.mContentLb.text = info.content;
 
+//    if ([info.portrain hasPrefix:@"http"]) {
+//        [self.mAvatorView setImageWithURL:[NSURL URLWithString:info.portrain] placeholderImage:[UIImage imageNamed:@"defaultHeadImage.png"]];
+//    }else{
+//        [self.mAvatorView setImageWithURL:[NSURL URLWithString:[IMAGE_URL stringByAppendingString:info.portrain]] placeholderImage:[UIImage imageNamed:@"defaultHeadImage.png"]];
+//    }
+    
+    [self.mAvatorView setImageWithURL:[NSURL URLWithString:[info.portrain checkUrl] ] placeholderImage:[UIImage imageNamed:@"defaultHeadImage.png"]];
 
-    [self.mAvatorView setImageWithURL:[NSURL URLWithString:[IMAGE_URL stringByAppendingString:info.portrain]] placeholderImage:[UIImage imageNamed:@"defaultHeadImage.png"]];
+    
     
     if (info.userName.length==0) {
         self.mNameLb.text = @"匿名用户";
     }else{
         self.mNameLb.text = info.userName;
     }
-    
+
     
     if (self.cellType == kWeiboCellTpyeNew) {
         [self.mCollectBtn setTitle:@"收藏" forState:UIControlStateNormal];
@@ -86,7 +94,8 @@ static UIFont  *font = nil;
     if (info.picLittle.length>0) {
     
         UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(self.mContentLb.left, self.mContentLb.bottom+5, 120, 80)];
-        [imageview setImageWithURL:[NSURL URLWithString:[IMAGE_URL stringByAppendingString:info.picLittle]] placeholderImage:[UIImage imageNamed:@"DefaultCover.png"]];
+//        [imageview setImageWithURL:[NSURL URLWithString:[IMAGE_URL stringByAppendingString:info.picLittle]] placeholderImage:[UIImage imageNamed:@"DefaultCover.png"]];
+        [imageview setImageWithURL:[NSURL URLWithString:[info.picLittle checkUrl]] placeholderImage:[UIImage imageNamed:@"DefaultCover.png"]];
         imageview.userInteractionEnabled = YES;
         imageview.layer.borderColor = [UIColor whiteColor].CGColor;
         imageview.layer.borderWidth = 2.0f;

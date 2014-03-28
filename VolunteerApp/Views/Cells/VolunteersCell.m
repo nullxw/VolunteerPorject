@@ -40,6 +40,7 @@ static UIImage *newApplyimage = nil;
 {
     
     self.mName.text = info.userName;
+    [self.mName sizeToFit];
     self.mPhone.text = info.mobile;
     
     if (info._sex == 1 ) {
@@ -48,7 +49,7 @@ static UIImage *newApplyimage = nil;
     {
         self.mGenderImage.image = [UIImage imageNamed:@"ic_female.png"];
     }
-    
+    self.mGenderImage.left = self.mName.right+10;
     if (info.selection == 1) {
         
         self.mStateImage.image = hasApplyimage;

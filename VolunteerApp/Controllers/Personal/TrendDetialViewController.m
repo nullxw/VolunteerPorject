@@ -13,6 +13,7 @@
 #import "AppDelegate.h"
 #import "UIImageView+WebCache.h"
 #import "UrlDefine.h"
+#import "NSString+WiFi.h"
 @interface TrendDetialViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,DetailCellDelegate>
 {
     MyTableView *mytableView;
@@ -376,7 +377,7 @@
     CGFloat height = imageView.top+cell.top+curTable.top+self.navView.height-curTable.contentOffset.y;
     originRect = CGRectMake(imageView.left, height, imageView.width, imageView.height);
    
-    [self checkPoster:imageView withImageUrl:[NSURL URLWithString:[IMAGE_URL stringByAppendingString:self.info.picMiddle]]];
+    [self checkPoster:imageView withImageUrl:[NSURL URLWithString:[self.info.picMiddle checkUrl]]];
     
     
 }

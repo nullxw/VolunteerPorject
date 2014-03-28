@@ -21,6 +21,7 @@
                 <outlet property="mBottomBar" destination="qFt-3p-2Z7" id="4Po-w4-cLA"/>
                 <outlet property="mCheckClassBtn" destination="hLV-nc-nZf" id="vZ9-eU-HCs"/>
                 <outlet property="mContactLb" destination="G7s-FB-Mcb" id="zfJ-1k-P58"/>
+                <outlet property="mDetailAddrLb" destination="ehw-5x-x9c" id="HLM-Ul-jQv"/>
                 <outlet property="mJoinBtn" destination="bLn-JS-CUe" id="tcU-Vl-1ZY"/>
                 <outlet property="partyLb" destination="Ut5-I5-1TW" id="exs-UD-H45"/>
                 <outlet property="placeLb" destination="tgZ-SN-VEc" id="nRl-ia-HCf"/>
@@ -51,7 +52,7 @@
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
         </view>
         <view contentMode="scaleToFill" id="eV2-Qe-lF7">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="241"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="272"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="举办时间:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aDS-f2-RNy">
@@ -89,8 +90,8 @@
                     <color key="textColor" red="1" green="0.0" blue="0.25490197539999998" alpha="1" colorSpace="deviceRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="项目ID:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KmH-VM-bz9">
-                    <rect key="frame" x="10" y="172" width="62" height="21"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="街区：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KmH-VM-bz9">
+                    <rect key="frame" x="10" y="201" width="62" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="1" green="0.0" blue="0.25490197539999998" alpha="1" colorSpace="deviceRGB"/>
@@ -127,20 +128,33 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="p7d-9m-QNX">
-                    <rect key="frame" x="80" y="172" width="235" height="21"/>
+                    <rect key="frame" x="80" y="201" width="235" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="详细地址：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4Hp-Si-vsC">
+                    <rect key="frame" x="10" y="231" width="70" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="1" green="0.0" blue="0.25490197539999998" alpha="1" colorSpace="deviceRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ehw-5x-x9c">
+                    <rect key="frame" x="91" y="231" width="224" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="联系方式：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZOz-qV-VsS">
-                    <rect key="frame" x="10" y="200" width="70" height="21"/>
+                    <rect key="frame" x="10" y="172" width="70" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="1" green="0.0" blue="0.25490197539999998" alpha="1" colorSpace="deviceRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="G7s-FB-Mcb">
-                    <rect key="frame" x="80" y="200" width="235" height="21"/>
+                    <rect key="frame" x="80" y="172" width="235" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <nil key="highlightedColor"/>

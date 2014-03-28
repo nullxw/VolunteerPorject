@@ -23,6 +23,7 @@
 #import "UrlDefine.h"
 #import "AppDelegate.h"
 #import "UIAlertView+Blocks.h"
+#import "NSString+WiFi.h"
 @interface HomePageVC ()
 {
     BOOL isManager;
@@ -305,7 +306,9 @@
     
     self.mStarImageView.left = self.mNameLb.right+5;
     self.mTimeLb.left = self.mStarImageView.right+5;
-    [self.mAvatorImage setImageWithURL:[NSURL URLWithString:[IMAGE_URL stringByAppendingString:user.head]] placeholderImage:[UIImage imageNamed:@"home_avator.png"]];
+    
+
+    [self.mAvatorImage setImageWithURL:[NSURL URLWithString:[user.head checkUrl]] placeholderImage:[UIImage imageNamed:@"home_avator.png"]];
     self.mLvValuelb.text = [NSString stringWithFormat:@"%d",user.vvalue];
     self.mTimeLb.text = [[NSString stringWithFormat:@"%d",user.serviceTime/60] stringByAppendingString:@"小时"];
     self.mScroeLb.text = [[NSString stringWithFormat:@"%d",user.integral ]stringByAppendingString:@"分"];
@@ -316,7 +319,10 @@
     self.mNameLb.text = @"游客";
     self.mStarImageView.left = self.mNameLb.right+5;
     self.mTimeLb.left = self.mStarImageView.right+5;
-    [self.mAvatorImage setImageWithURL:[NSURL URLWithString:[IMAGE_URL stringByAppendingString:@""]] placeholderImage:[UIImage imageNamed:@"home_avator.png"]];
+    self.mAvatorImage.image = [UIImage imageNamed:@"home_avator.png"];
+
+    
+    
     
     self.mLvValuelb.text = [NSString stringWithFormat:@"%d",0];
     self.mTimeLb.text = [[NSString stringWithFormat:@"%d",0] stringByAppendingString:@"小时"];

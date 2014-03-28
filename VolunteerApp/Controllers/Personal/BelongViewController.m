@@ -1,23 +1,22 @@
 //
-//  ContactUsViewController.m
+//  BelongViewController.m
 //  VolunteerApp
 //
-//  Created by zelong zou on 14-3-8.
+//  Created by zelong zou on 14-3-29.
 //  Copyright (c) 2014年 XiaoWoNiu2014. All rights reserved.
 //
 
-#import "ContactUsViewController.h"
-
-@interface ContactUsViewController ()
+#import "BelongViewController.h"
+#import "AreaViewController.h"
+@interface BelongViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
-    NSArray  *list;
+    UITableView *myTableView;
+    
+    NSArray     *list;
 }
-
-@property (weak, nonatomic) IBOutlet UIImageView *mLogoImage;
-@property (weak, nonatomic) IBOutlet UITableView *mTableView;
 @end
 
-@implementation ContactUsViewController
+@implementation BelongViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,34 +27,23 @@
     return self;
 }
 
-#pragma mark - view Lifecycle
-
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
-    [self setTitleWithString:@"联系我们"];
     
-    list = [NSArray arrayWithObjects:@"版本：     1.7",@"联系电话： 020-83861999",@"工作邮箱：  gd_zyz@126.com",@"邮政编码:    510080",@"工作地址： 广东省广州市越秀区", nil];
-}
-
-- (void)viewDidUnload {
-    [super viewDidUnload];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.view.backgroundColor = [UIColor whiteColor];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
+    [self setTitleWithString:@"选择归属地"];
+    // Do any additional setup after loading the view from its nib.
+    myTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, self.navView.bottom, 320, self.view.height-self.navView.bottom) style:UITableViewStyleGrouped];
+    myTableView.backgroundColor = [UIColor clearColor];
+    myTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    myTableView.dataSource = self;
+    myTableView.delegate = self;
+    [self.view addSubview:myTableView];
+    
+    
+    list = @[@"地市",@"行业",@"高校"];
+    
+    
 }
 
 #pragma mark -
@@ -86,6 +74,11 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    AreaViewController *vc = [AreaViewController ViewContorller];
+    vc.type = indexPath.row;
+    [self.flipboardNavigationController pushViewController:vc];
+    
     
 }
+
 @end

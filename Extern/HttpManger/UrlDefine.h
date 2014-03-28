@@ -83,7 +83,7 @@
 #define URL45_GETPERSONL_URL         @"mobile/hirePersonalRecruit.action"
 
 //46-50
-#define URL46_GETPERSONL_URL         @"VolunteerService/mobile/delPersonalRecruit.action"
+#define URL46_GETPERSONL_URL         @"mobile/delPersonalRecruit.action"
 //51-55
 //56-60
 #define URL59_SEARCHVOLUNTEER_URL    @"mobile/findUsersList.action"
@@ -92,7 +92,7 @@
 #define URL63_GETDISTRICTLIST_URL    @"visitor/getDistrictList.action"
 
 #define URL64_GETDISTRICTLIST_URL    @"visitor/findMissionType.action"
-#define URL65_GETDISTRICTLIST_URL    @"VolunteerService/mobile/findUsersByIdcard.action"
+#define URL65_GETDISTRICTLIST_URL    @"mobile/findUsersByIdcard.action"
 
 
 //66 - 70

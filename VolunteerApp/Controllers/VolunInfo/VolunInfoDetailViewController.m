@@ -40,6 +40,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.view showLoadingView];
+    
+    
+    
     [self.mWebView loadHTMLString:self.htmlContent baseURL:nil];
     
 }
@@ -62,8 +65,34 @@
 {
     [self.view hideLoadingView];
 }
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    [self.view addCenterMsgView:@"信息加载失败"];
+}
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    webView.scrollView.contentSize = CGSizeMake(webView.scrollView.contentSize.width, webView.scrollView.contentSize.height+self.navView.height);
+    [self.view removeCenterMsgView];
+
+    
+    [webView stringByEvaluatingJavaScriptFromString:
+     @"var script = document.createElement('script');"
+     "script.type = 'text/javascript';"
+     "script.text = \"function ResizeImages() { "
+     "var myimg,oldwidth;"
+     "var maxwidth=310;" //缩放系数
+     "for(i=0;i <document.images.length;i++){"
+     "myimg = document.images[i];"
+     "if(myimg.width > maxwidth){"
+     "oldwidth = myimg.width;"
+     "myimg.width = maxwidth;"
+     "myimg.height = myimg.height * (maxwidth/oldwidth);"
+     "}"
+     "}"
+     "}\";"
+     "document.getElementsByTagName('head')[0].appendChild(script);"];
+    
+    [webView stringByEvaluatingJavaScriptFromString:@"ResizeImages();"];
+    
+    webView.scrollView.contentSize = CGSizeMake(webView.scrollView.contentSize.width, webView.scrollView.contentSize.height+self.navView.height+20);
 }
 @end

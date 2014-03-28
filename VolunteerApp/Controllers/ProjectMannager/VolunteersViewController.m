@@ -228,19 +228,19 @@
         NSString *str =@"";
         NSString *selections = @"";
         if (curTableView == firstTable) {
-  
-            selections = @"1,4";
-            str = @"暂无报名的志愿者";
+            
+            selections = @"4";
+            str = @"暂无新报名的志愿者";
         }else if(curTableView == secondTable)
         {
-
-            str = @"暂无已确认志愿者";
+            
+            str = @"暂无录用的志愿者";
             selections = @"1";
         }else{
-
-
-            str = @"暂无未确认的志愿者";
-            selections = @"4";
+            
+            
+            str = @"暂无未录用的志愿者";
+            selections = @"0,4";
         }
         
 //        pageSize:curTableView.pageSize pageIndex:<#(int)#> onSuccess:<#^(id responseObject)successBlock#> onFail:<#^(NSError *erro)errorBlock#>;
@@ -311,18 +311,18 @@
     NSString *selections = @"";
     if (curTableView == firstTable) {
         
-        selections = @"1,4";
-        str = @"暂无报名的志愿者";
+        selections = @"4";
+        str = @"暂无新报名的志愿者";
     }else if(curTableView == secondTable)
     {
         
-        str = @"暂无已确认志愿者";
+        str = @"暂无录用的志愿者";
         selections = @"1";
     }else{
         
         
-        str = @"暂无未确认的志愿者";
-        selections = @"4";
+        str = @"暂无未录用的志愿者";
+        selections = @"0,4";
     }
     
     //        pageSize:curTableView.pageSize pageIndex:<#(int)#> onSuccess:<#^(id responseObject)successBlock#> onFail:<#^(NSError *erro)errorBlock#>;
@@ -376,7 +376,7 @@
     if ( [curTableView.list count]>0) {
         VolunteersCell *cell = [VolunteersCell cellForTableView:curTableView fromNib:[VolunteersCell nib]];
         cell.delegate = self;
-        cell.indexPath = indexPath;
+        cell.index = indexPath.row;
 
         
         RescruitVolunInfo *info = [curTableView.list objectAtIndex:indexPath.row];
@@ -430,7 +430,7 @@
 }
 - (NSArray *)MyTabViewTitleForTabView:(MyTabView *)tabview
 {
-    return @[@"新报名",@"已确认",@"未确认"];
+    return @[@"新报名",@"已录用",@"未录用"];
 }
 
 #pragma mark - 
@@ -456,7 +456,7 @@
     }
     
     
-    RescruitVolunInfo *info = tempList[cell.indexPath.row];
+    RescruitVolunInfo *info = tempList[cell.index];
     
     [UIAlertView  showAlertViewWithTitle:@"您确认要删除该志愿者吗" message:@"" cancelButtonTitle:@"取消" otherButtonTitles:@[@"确定"] onDismiss:^(int btnIndex) {
         [[ZZLHttpRequstEngine engine]requestRecruitDelPersonWithUid:user.userId personaIdGroups:info._userId missionId:missionId onSuccess:^(id responseObject) {
@@ -473,7 +473,7 @@
             
         }];
     } onCancel:^{
-        return ;
+        
     }];
 
 }
@@ -492,7 +492,7 @@
     {
         tempList = thridList;
     }
-    RescruitVolunInfo *info = tempList[cell.indexPath.row];
+    RescruitVolunInfo *info = tempList[cell.index];
     [[ZZLHttpRequstEngine engine]requestRecruitUserWithUid:user.userId ugroupId:info._userId missionid:missionId onSuccess:^(id responseObject) {
     
         [self.view showHudMessage:@"录用成功!"];

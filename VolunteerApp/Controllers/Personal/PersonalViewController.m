@@ -16,6 +16,7 @@
 #import "UIAlertView+Blocks.h"
 #import "UIImageView+WebCache.h"
 #import "UrlDefine.h"
+#import "NSString+WiFi.h"
 @interface PersonalViewController ()<UITableViewDataSource,UITableViewDelegate,WeiboCellDelegate>
 {
     
@@ -62,7 +63,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self setTitleWithString:@"个人空间"];
+    [self setTitleWithString:@"我的空间"];
     self.classRankBtn.selected = YES;
 
     
@@ -571,7 +572,15 @@
     WeiboInfo *info = curTable.list[cell.cellInPath.row];
     
     
-    [self checkPoster:imageView withImageUrl:[NSURL URLWithString:[IMAGE_URL stringByAppendingString:info.picMiddle]]];
+    
+//    if ([info.picMiddle hasPrefix:@"http"]) {
+//        [self checkPoster:imageView withImageUrl:[NSURL URLWithString:info.picMiddle]];
+//    }else{
+//        [self checkPoster:imageView withImageUrl:[NSURL URLWithString:[IMAGE_URL stringByAppendingString:info.picMiddle]]];
+//    }
+    
+    [self checkPoster:imageView withImageUrl:[NSURL URLWithString:[info.picMiddle checkUrl]]];
+    
     
     
 }

@@ -9,6 +9,7 @@
 #import "MyInfoViewController.h"
 #import "MyInfoCell.h"
 #import "ZZLHttpRequstEngine.h"
+#import "EditInfoViewController.h"
 @interface MyInfoViewController ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate>
 {
     NSArray *list;
@@ -34,7 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setTitleWithString:@"我的资料"];
-    list = [NSArray arrayWithObjects:@"姓名",@"性别",@"邮箱",@"手机号码",@"归属单位",@"个人排名",@"志愿时长", nil];
+    list = [NSArray arrayWithObjects:@"姓名",@"性别",@"邮箱",@"手机号码",@"归属单位",/*@"个人排名",*/@"志愿时长", nil];
     UserInfo *user = [UserInfo share];
     NSString *gender;
     if (user.gender == 0) {
@@ -78,6 +79,9 @@
 //    
 //    UITextField *item1 = [editFieldList objectAtIndex:0];
 //    [item1 becomeFirstResponder];
+    
+    EditInfoViewController *vc  = [EditInfoViewController ViewContorller];
+    [self.flipboardNavigationController pushViewController:vc];
 }
 - (void)viewDidUnload {
     [super viewDidUnload];
@@ -89,7 +93,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self requestRank];
+//    [self requestRank];
 
 }
 
@@ -138,10 +142,10 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     int row = indexPath.row;
-    if (row == 1) {
-        [self hideEditActions];
-        [self showAction];
-    }
+//    if (row == 1) {
+//        [self hideEditActions];
+//        [self showAction];
+//    }
     if (row>=4) {
         return;
     }
@@ -155,13 +159,7 @@
 //        }
 //    }
 }
-- (void)showAction
-{
-    UIActionSheet * actionSheet = [[UIActionSheet alloc]initWithTitle:@"选择性别" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"男",@"女", nil];
-    actionSheet.delegate = self;
-    [actionSheet setActionSheetStyle:UIActionSheetStyleBlackTranslucent];
-    [actionSheet showInView:self.view];
-}
+
 
 - (void)requestRank
 {

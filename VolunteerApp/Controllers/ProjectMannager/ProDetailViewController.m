@@ -41,6 +41,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *proIdLb;
 @property (strong, nonatomic) IBOutlet UIView *mBottomBar;
 
+@property (weak, nonatomic) IBOutlet UILabel *mDetailAddrLb;
 - (IBAction)joinBtnAction:(UIButton *)sender;
 - (IBAction)viewClassAction:(UIButton *)sender;
 @end
@@ -266,6 +267,7 @@
     self.activStatuesLb.font = font;
     self.proIdLb.font = font;
     self.mContactLb.font = font;
+    self.mDetailAddrLb.font = font;
     
     NSString *str1 = [modelInfo.startDateString substringToIndex:10];
     NSString *str2 = [modelInfo.endDateString substringToIndex:10];
@@ -273,16 +275,19 @@
     self.endTimeLb.text = modelInfo.applyDeadlineString;
     self.placeLb.text = modelInfo.venueAddress;
     self.partyLb.text = modelInfo.districtName;
-    self.activStatuesLb.text = modelInfo.state;
-    self.proIdLb.text = [NSString stringWithFormat:@"%d",missionId];
-    
-    
-
-
-
-
 
     
+    if (modelInfo.isAllowJoin == 0) {
+        self.activStatuesLb.text = @"停止报名";
+    }else{
+        self.activStatuesLb.text = @"正在报名";
+    }
+    
+    self.proIdLb.text = modelInfo.venue;
+    
+    self.mDetailAddrLb.text = modelInfo.venueAddress;
+    
+
     
     self.mContactLb.userInteractionEnabled = YES;
     NSMutableAttributedString *contact = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@ %@",modelInfo.contactName,modelInfo.contactPhone]];
@@ -304,13 +309,14 @@
         [self.mJoinBtn setTitle:@"已报名" forState:UIControlStateNormal];
     }
     
-    UserInfo *user = [UserInfo share];
-    if (!user.islogin || user.isManager) {
-        self.mBottomBar.hidden = YES;
-    }else{
-        self.mBottomBar.top = self.view.height - self.mBottomBar.height;
-        [self.view addSubview:self.mBottomBar];
+
+    
+    if ([modelInfo.state isEqualToString:@"100"] ||[modelInfo.state isEqualToString:@"1000"] || [modelInfo.state isEqualToString:@"1003"]) {
+        self.mJoinBtn.enabled = NO;
     }
+    self.mBottomBar.top = self.view.height - self.mBottomBar.height;
+    [self.view addSubview:self.mBottomBar];
+    
     
     
 }

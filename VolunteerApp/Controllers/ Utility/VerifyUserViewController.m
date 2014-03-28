@@ -8,6 +8,7 @@
 
 #import "VerifyUserViewController.h"
 #import "ConfirmPwdViewController.h"
+#import "UIView+Additon.h"
 @interface VerifyUserViewController ()
 {
     NSString *verifyCode;

@@ -192,7 +192,7 @@
     if ( [list count]>0) {
         VolunteersCell *cell = [VolunteersCell cellForTableView:tableView fromNib:[VolunteersCell nib]];
         cell.delegate = self;
-        cell.indexPath = indexPath;
+        cell.index = indexPath.row;
         AddVolunteerInfo *info = [list objectAtIndex:indexPath.row];
         [cell setupWithAddVolunteerInfo:info];
         return cell;
@@ -222,7 +222,7 @@
     UserInfo *user = [UserInfo share];
     
 
-    AddVolunteerInfo *info = list[cell.indexPath.row];
+    AddVolunteerInfo *info = list[cell.index];
     [[ZZLHttpRequstEngine engine]requestRecruitUserWithUid:user.userId ugroupId:info.userId missionid:self.missionID onSuccess:^(id responseObject) {
         
         [self.view showHudMessage:@"录用成功!"];

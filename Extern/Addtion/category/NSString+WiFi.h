@@ -22,4 +22,7 @@
 - (NSString *)stringByDeCodeingRC4;
 - (NSString *)stringToHexString:(NSString *)test;
 - (NSString *)stringWithRC4;
+
+
+- (NSString *)checkUrl;
 @end

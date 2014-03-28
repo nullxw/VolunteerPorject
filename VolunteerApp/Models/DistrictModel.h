@@ -15,4 +15,6 @@
 @property (nonatomic,strong) NSString * districtId;
 
 @property (nonatomic)        int        districtLevel;
+
+ @property (nonatomic)        int        haveChild;
 @end

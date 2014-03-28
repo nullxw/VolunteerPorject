@@ -9,7 +9,7 @@
 #import "DetailCell.h"
 #import "UIImageView+WebCache.h"
 #import "UrlDefine.h"
-
+#import "NSString+WiFi.h"
 @implementation DetailCell
 
 - (id)initWithFrame:(CGRect)frame
@@ -25,7 +25,7 @@
 {
     self.backgroundColor= [UIColor whiteColor];
     
-    [self.mAvator setImageWithURL:[NSURL URLWithString:[IMAGE_URL stringByAppendingString:info.portrain]] placeholderImage:[UIImage imageNamed:@"defaultHeadImage.png"]];
+    [self.mAvator setImageWithURL:[NSURL URLWithString:[info.portrain checkUrl]] placeholderImage:[UIImage imageNamed:@"defaultHeadImage.png"]];
     
     
     if (info.userName.length==0) {
@@ -45,7 +45,7 @@
     if (info.picOriginal.length>0) {
         UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(self.mContent.left, self.mContent.bottom+5, 120, 80)];
         imageView.userInteractionEnabled = YES;
-        [imageView setImageWithURL:[NSURL URLWithString:[IMAGE_URL stringByAppendingString:info.picLittle]] placeholderImage:[UIImage imageNamed:@"DefaultCover.png"]];
+        [imageView setImageWithURL:[NSURL URLWithString:[info.picLittle checkUrl]] placeholderImage:[UIImage imageNamed:@"DefaultCover.png"]];
         [self.contentView addSubview:imageView];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTapImageView:)];
         

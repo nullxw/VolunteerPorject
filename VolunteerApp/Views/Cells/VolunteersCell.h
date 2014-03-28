@@ -32,7 +32,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *mBgImage;
 @property (weak, nonatomic) IBOutlet UILabel *mPhone;
 @property (weak, nonatomic) IBOutlet UIImageView *mGenderImage;
-@property (nonatomic,weak)  NSIndexPath  *indexPath;
+
+@property (nonatomic,assign) int    index;
 @property (nonatomic,assign) id<VolunteersCellDelegate> delegate;
 - (IBAction)actionRescruit:(UIButton *)sender;
 - (IBAction)actionDelete:(UIButton *)sender;

@@ -4,18 +4,36 @@
       "size" : "29x29",
       "idiom" : "iphone",
       "filename" : "57logo.png",
-      "scale" : "2x"
+      "scale" : "1x"
     },
     {
-      "size" : "40x40",
+      "size" : "29x29",
       "idiom" : "iphone",
       "filename" : "114logo.png",
       "scale" : "2x"
     },
     {
-      "size" : "60x60",
+      "size" : "40x40",
       "idiom" : "iphone",
       "filename" : "114logo-1.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "57x57",
+      "idiom" : "iphone",
+      "filename" : "114logo-2.png",
+      "scale" : "1x"
+    },
+    {
+      "size" : "57x57",
+      "idiom" : "iphone",
+      "filename" : "114logo-3.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "60x60",
+      "idiom" : "iphone",
+      "filename" : "114logo-4.png",
       "scale" : "2x"
     }
   ],
