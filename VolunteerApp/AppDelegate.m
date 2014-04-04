@@ -93,7 +93,7 @@
     NSString *check = [MobClick getConfigParams:@"CheckUpdate"];
     
     if (![check isEqualToString:@"YES"]) {
-        
+        [self startUM];
     }
     
 }
