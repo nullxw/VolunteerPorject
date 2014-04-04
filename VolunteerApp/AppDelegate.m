@@ -27,6 +27,7 @@
 
 + (void)initialize{
     
+    [MobClick updateOnlineConfig];
     UserInfo *user = [UserInfo share];
     [user setup];
 }
@@ -88,11 +89,11 @@
 //    + (void)checkUpdateWithDelegate:(id)delegate selector:(SEL)callBackSelectorWithDictionary;
     [MobClick checkUpdate:@"有新版本" cancelButtonTitle:@"取消" otherButtonTitles:@"去下载"];
     
-    [MobClick updateOnlineConfig];
+    
     
     NSString *check = [MobClick getConfigParams:@"CheckUpdate"];
     
-    if (![check isEqualToString:@"YES"]) {
+    if (![check isEqualToString:@"YES"] && check.length>0) {
         [self startUM];
     }
     

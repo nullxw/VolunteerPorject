@@ -16,7 +16,8 @@
 #import "ModifyPwdViewController.h"
 #import "ProTrendViewController.h"
 #import "UIAlertView+Blocks.h"
-@interface MoreViewController ()<LoginViewDelegate>
+#import "MobClick.h"
+@interface MoreViewController ()<LoginViewDelegate,MobClickDelegate>
 {
     NSArray *itemList;
     BOOL    isLogin;
@@ -170,18 +171,40 @@
 
 #pragma mark -  actions
 
+- (void)updateDic:(NSDictionary *)dic
+{
+    NSLog(@"update:--->%@",dic);
+    if ([[dic objectForKey:@"update"]boolValue]) {
+        double delayInSeconds = 1.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [UIAlertView showAlertViewWithTitle:@"检查更新" message:@"有新版本可供下载" cancelButtonTitle:@"取消" otherButtonTitles:@[@"去下载"] onDismiss:^(int buttonIndex) {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[dic objectForKey:@"path"]]];
+                
+            } onCancel:^{
+                
+            }];
+        });
+    }else{
+        double delayInSeconds = 1.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [UIAlertView showAlertViewWithTitle:@"检查更新" message:@"当前已是最新版本" cancelButtonTitle:@"确定" otherButtonTitles:nil onDismiss:^(int buttonIndex) {
+                
+            } onCancel:^{
+                
+            }];
+        });
 
+    }
+}
 - (void)checkUpdate
 {
-    double delayInSeconds = 1.0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [UIAlertView showAlertViewWithTitle:@"检查更新" message:@"当前已是最新版本" cancelButtonTitle:@"确定" otherButtonTitles:nil onDismiss:^(int buttonIndex) {
-            
-        } onCancel:^{
-            
-        }];
-    });
+//
+    
+    [MobClick checkUpdateWithDelegate:self selector:@selector(updateDic:)];
+
+    
 }
 
 - (void)didLoginSuccess:(LoginViewController *)vc

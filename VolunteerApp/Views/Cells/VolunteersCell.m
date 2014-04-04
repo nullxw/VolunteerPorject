@@ -34,7 +34,7 @@ static UIImage *newApplyimage = nil;
 
 + (CGFloat)cellHeight
 {
-    return 76;
+    return 82;
 }
 - (void)setupWithRescruitVolunInfo:(RescruitVolunInfo *)info
 {

@@ -23,7 +23,7 @@
                     <scopeButtonTitles>
                         <string>姓名</string>
                         <string>手机号</string>
-                        <string>身分证号</string>
+                        <string>身份证号</string>
                     </scopeButtonTitles>
                     <connections>
                         <outlet property="delegate" destination="-1" id="IqQ-7f-P5Z"/>

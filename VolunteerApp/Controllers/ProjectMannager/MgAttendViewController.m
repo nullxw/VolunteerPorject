@@ -9,6 +9,7 @@
 #import "MgAttendViewController.h"
 #import "TeamInfo.h"
 #import "CheckAttendViewController.h"
+#import "MyInfoCell.h"
 @interface MgAttendViewController ()
 {
     TeamInfo  *teamObject;
@@ -120,6 +121,7 @@
 #pragma mark - tableviewDelegate,tableviewDataSource
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    /*
     static NSString *cellIdentify = @"cellIdentify";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentify];
     if (cell == nil) {
@@ -147,7 +149,7 @@
     if (indexPath.row == 1) {
         cell.textLabel.text = @"考勤队伍:";
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        if (teamObject.missionTeamname) {
+        
             
             if (teamLable == nil) {
                 teamLable = [[UILabel alloc]initWithFrame:CGRectMake(100, 8, 180, 30)];
@@ -158,13 +160,20 @@
             }
             teamLable.text = teamObject.missionTeamname;
             
-        }
+        
         
         
 
         
     }
-    
+    */
+    MyInfoCell *cell = [MyInfoCell cellForTableView:tableView fromNib:[MyInfoCell nib]];
+    if (indexPath.row == 0) {
+        [cell setupWithInfo:@"考勤日期:" detailInfo:searchTime];
+    }else
+    {
+        [cell setupWithInfo:@"考勤队伍:" detailInfo:teamObject.missionTeamname];
+    }
     return cell;
     
 }
