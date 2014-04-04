@@ -5,36 +5,36 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>2142BA4A-D0CE-44C6-BFBB-A7BDF1D20F7B</string>
+	<string>9E8E0A7C-FC57-4F37-B04E-1309753C97CB</string>
 	<key>IDESourceControlProjectName</key>
 	<string>VolunteerApp</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>22669C40-CFE0-4261-811F-92EA7549C47A</key>
-		<string>ssh://github.com/xiaowoniu2012/VolunteerPorject.git</string>
+		<key>4BDFD170-99D5-4F43-A0ED-C89AC8578F50</key>
+		<string>https://github.com/xiaowoniu2012/VolunteerPorject.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>VolunteerApp.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>22669C40-CFE0-4261-811F-92EA7549C47A</key>
+		<key>4BDFD170-99D5-4F43-A0ED-C89AC8578F50</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/xiaowoniu2012/VolunteerPorject.git</string>
+	<string>https://github.com/xiaowoniu2012/VolunteerPorject.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>22669C40-CFE0-4261-811F-92EA7549C47A</string>
+	<string>4BDFD170-99D5-4F43-A0ED-C89AC8578F50</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>22669C40-CFE0-4261-811F-92EA7549C47A</string>
+			<string>4BDFD170-99D5-4F43-A0ED-C89AC8578F50</string>
 			<key>IDESourceControlWCCName</key>
-			<string>vounteer</string>
+			<string>VolunteerPorject</string>
 		</dict>
 	</array>
 </dict>

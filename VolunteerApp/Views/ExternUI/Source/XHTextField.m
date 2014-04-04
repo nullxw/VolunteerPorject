@@ -212,7 +212,7 @@
         default:
             return;
     }
-    self.rectInsetPoint = CGPointMake(50, 5);
+    self.rectInsetPoint = CGPointMake(50, 3);
     
     UIImageView *usernameIconImage = [[UIImageView alloc] initWithFrame:CGRectMake(9, 9, 24, 24)];
     usernameIconImage.image = leftImage;
@@ -344,11 +344,11 @@
     if ([self respondsToSelector:@selector(setTintColor:)]) {
 //        [self setTintColor:[UIColor blackColor]];
     } else {
-        [self setBackgroundColor:[UIColor lightGrayColor]];
+        [self setBackgroundColor:[UIColor colorWithRed:177/255.0 green:178/255.0 blue:177/255.0 alpha:1.0]];
     }
     [self setBorderStyle:UITextBorderStyleNone];
     [self setFont: [UIFont systemFontOfSize:17]];
-    self.rectInsetPoint = CGPointMake(10, 5);
+    self.rectInsetPoint = CGPointMake(10, 3);
     self.inputAccessoryView = [[UIView alloc] init];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldDidBeginEditing:) name:UITextFieldTextDidBeginEditingNotification object:self];

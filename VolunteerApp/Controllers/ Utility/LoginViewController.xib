@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4488.1" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" variant="6xAndEarlier" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" variant="6xAndEarlier" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1296" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3715.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController">
@@ -11,6 +11,7 @@
                 <outlet property="lgoinBtn" destination="yNo-JW-DwY" id="EqX-qS-fIZ"/>
                 <outlet property="mPasswordTextFiled" destination="eO9-Nn-VqQ" id="TVt-jE-VVR"/>
                 <outlet property="mUserNameTextFiled" destination="BoL-pZ-l1Y" id="9NI-i8-LMq"/>
+                <outlet property="m_bottomLogo" destination="DfN-Al-JAr" id="jzC-lP-dJx"/>
                 <outlet property="registerBtn" destination="kdb-4e-vAI" id="aLX-wQ-4pU"/>
                 <outlet property="topView" destination="Gun-JW-pvm" id="VDQ-XL-cSt"/>
                 <outlet property="view" destination="1" id="3"/>
@@ -126,7 +127,7 @@
                     </subviews>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_time.png" id="DfN-Al-JAr">
-                    <rect key="frame" x="119" y="370" width="100" height="46"/>
+                    <rect key="frame" x="119" y="358" width="100" height="46"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </imageView>
             </subviews>
@@ -141,6 +142,6 @@
         <image name="login_bg.jpg" width="720" height="1280"/>
         <image name="login_logo.png" width="552" height="168"/>
         <image name="login_shadow.png" width="639" height="96"/>
-        <image name="logo_time.png" width="48" height="22.079999923706055"/>
+        <image name="logo_time.png" width="200" height="92"/>
     </resources>
 </document>

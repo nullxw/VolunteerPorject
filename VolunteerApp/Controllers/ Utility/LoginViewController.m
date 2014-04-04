@@ -15,6 +15,7 @@
 #import "RegisterViewController.h"
 //#import "VolunInfoViewController.h"
 #import "VerifyUserViewController.h"
+#import "DeviceInfo.h"
 //#import "ProTrendViewController.h"
 //#import "HomePageVC.h"
 #define check1Tage   39430
@@ -24,6 +25,7 @@
   
 
 }
+@property (strong, nonatomic) IBOutlet UIImageView *m_bottomLogo;
 @property (strong, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UIImageView *lgoinBgView;
 @property (weak, nonatomic) IBOutlet UIButton *lgoinBtn;
@@ -134,7 +136,9 @@
     [self.registerBtn setBackgroundImage:bgimage5 forState:UIControlStateHighlighted];
     
     
-    
+    if ([DeviceInfo isIphone5Device]) {
+        self.m_bottomLogo.top -= 44;
+    }
 
 
 }

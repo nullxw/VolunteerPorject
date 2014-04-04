@@ -41,7 +41,7 @@
     self.mstate.text = [NSString stringWithFormat:@"服务时长%d分钟",info.serviceMinute];
     self.msigin.text = info._startDatetime;
     if (info._endDatetime.length>0) {
-        self.mysigout.text = [NSString stringWithFormat:@"签出: %@",info._endDatetime];
+        self.mysigout.text = [NSString stringWithFormat:@"签出:    %@",info._endDatetime];
     }else{
         self.mysigout.text = @"无签出记录";
     }

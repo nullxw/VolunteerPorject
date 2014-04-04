@@ -20,7 +20,8 @@
 #import "MobClick.h"
 @interface AppDelegate ()<LoginViewDelegate>
 {
-
+    BOOL done;
+    NSTimer *connectionTimer;
 }
 @end
 @implementation AppDelegate
@@ -39,8 +40,12 @@
   
 
 
-    
-
+    //等待1秒进入首页
+    connectionTimer=[NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(timerFired:) userInfo:nil repeats:NO];
+    [[NSRunLoop currentRunLoop] addTimer:connectionTimer forMode:NSDefaultRunLoopMode];
+    do{
+        [[NSRunLoop currentRunLoop]runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
+    }while (!done);
 //    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7)
 //    {
 ////        [application setStatusBarStyle:UIStatusBarStyleLightContent];
@@ -64,6 +69,9 @@
     [self autoLogin];
     [self startUM];
     return YES;
+}
+-(void)timerFired:(NSTimer *)timer{
+    done=YES;
 }
 - (void)setupWeiBo
 {
