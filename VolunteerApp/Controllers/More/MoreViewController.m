@@ -48,31 +48,37 @@
     [super viewDidLoad];
     
     
-    [self setTitleWithString:@"更多设置"];
+    [self setTitleWithString:@"更多选项"];
     // Do any additional setup after loading the view from its nib.
     UserInfo *user = [UserInfo share];
     isLogin = user.islogin;
 
-    itemList = [NSArray arrayWithObjects:@"修改密码",@"检查更新",@"关于志愿时",nil];
+    itemList = [NSArray arrayWithObjects:@"修改密码",@"检查更新",@"联系我们",nil];
     
 
     //@"常见问题与反馈"
     
+   
+    self.tableView.tableFooterView = self.bottomView;
+    
+    UIImage *bgimage1 = [[UIImage imageNamed:@"login_nl.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(15, 8, 15, 8)];
+    UIImage *bgimage2 = [[UIImage imageNamed:@"login_hl.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(15, 8, 15, 8)];
+    
+    [self.quitBtn setBackgroundImage:bgimage1 forState:UIControlStateNormal];
+    [self.quitBtn setBackgroundImage:bgimage2 forState:UIControlStateHighlighted];
     if (isLogin) {
-        self.tableView.tableFooterView = self.bottomView;
-        
-        UIImage *bgimage1 = [[UIImage imageNamed:@"login_nl.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(15, 8, 15, 8)];
-        UIImage *bgimage2 = [[UIImage imageNamed:@"login_hl.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(15, 8, 15, 8)];
-        
-        [self.quitBtn setBackgroundImage:bgimage1 forState:UIControlStateNormal];
-        [self.quitBtn setBackgroundImage:bgimage2 forState:UIControlStateHighlighted];
-        
+        [self.quitBtn setTitle:@"退出帐号" forState:UIControlStateNormal];
+    }else{
+        [self.quitBtn setTitle:@"登录" forState:UIControlStateNormal];
+    }
+        /*
         UIImage *bgimage3 = [[UIImage imageNamed:@"more_switch_hl.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
         UIImage *bgimage4 = [[UIImage imageNamed:@"more_switch_nl.png"]resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)];
         
         [self.switchBtn setBackgroundImage:bgimage4 forState:UIControlStateNormal];
         [self.switchBtn setBackgroundImage:bgimage3 forState:UIControlStateHighlighted];
-    }
+         */
+    
 
 }
 

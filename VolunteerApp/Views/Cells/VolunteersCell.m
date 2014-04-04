@@ -59,6 +59,13 @@ static UIImage *newApplyimage = nil;
     {
         self.mStateImage.image = newApplyimage;
         
+        [self.mDeletaBtn setImage:nil forState:UIControlStateNormal];
+        [self.mDeletaBtn setImage:nil forState:UIControlStateHighlighted];
+        [self.mDeletaBtn setBackgroundColor:[UIColor redColor]];
+        [self.mDeletaBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.mDeletaBtn setTitle:@"拒绝" forState:UIControlStateNormal];
+        
+        
     }else if(info.selection == 0)
     {
         self.mStateImage.image = noRescruitimage;

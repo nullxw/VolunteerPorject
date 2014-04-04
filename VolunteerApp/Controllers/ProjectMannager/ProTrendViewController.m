@@ -9,11 +9,12 @@
 #import "ProTrendViewController.h"
 #import "MyTableView.h"
 #import "ZZLHttpRequstEngine.h"
-#import "MyWaitCell.h"
+
+#import "SearchResultCell.h"
 #import "SearchResult.h"
 #import "ProDetailViewController.h"
 
-@interface ProTrendViewController ()<UITableViewDataSource,UITableViewDelegate,MyWaitCellDelegate>
+@interface ProTrendViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     int curPage;
     NSMutableArray *curList;
@@ -101,15 +102,15 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([curList count]>0) {
-        MyWaitCell *cell = [MyWaitCell cellForTableView:mytableView fromNib:[MyWaitCell nib]];
-        cell.cellInPath = indexPath;
-        cell.delegate = self;
+        SearchResultCell *cell = [SearchResultCell cellForTableView:mytableView fromNib:[SearchResultCell nib]];
+        cell.backgroundColor = [UIColor clearColor];
+        cell.index = indexPath.row;
         SearchResult *info = [curList objectAtIndex:indexPath.row];
         [cell setupMyResultCell:info];
         
-        if (!isLogin || [[UserInfo share] isManager]) {
-            cell.mAttenBtn.hidden = YES;
-        }
+//        if (!isLogin || [[UserInfo share] isManager]) {
+//            cell.mAttenBtn.hidden = YES;
+//        }
         return cell;
     }
     
@@ -122,7 +123,12 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [MyWaitCell cellHeight];
+    if ([curList count]>0) {
+        SearchResult *info = [curList objectAtIndex:indexPath.row];
+        [SearchResultCell caclulateHeightWithInfo:info];
+        return [SearchResultCell caclulateHeightWithInfo:info];
+    }
+    return 44;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -157,7 +163,7 @@
         
 
         
-        [[ZZLHttpRequstEngine engine]requestSearchProjectListWithUid:user.userId isAllowJoin:YES title:@"" startDate:@"" endDate:@"" missionType:15 arearId:@"b0dc9771d14211e18718000aebf5352e" distributeDate:0 pageSize:mytableView.pageSize pageIndex:1 onSuccess:^(id responseDict) {
+        [[ZZLHttpRequstEngine engine]requestSearchProjectListWithUid:user.userId isAllowJoin:YES title:@"" startDate:@"" endDate:@"" missionType:-1 arearId:@"b0dc9771d14211e18718000aebf5352e" distributeDate:0 pageSize:mytableView.pageSize pageIndex:1 onSuccess:^(id responseDict) {
             [mytableView.pullToRefreshView stopAnimating];
 
             [self.view hideLoadingView];
@@ -220,7 +226,7 @@
     
     
     
-    [[ZZLHttpRequstEngine engine]requestSearchProjectListWithUid:user.userId isAllowJoin:YES title:@"" startDate:@"" endDate:@"" missionType:15 arearId:@"b0dc9771d14211e18718000aebf5352e" distributeDate:0 pageSize:mytableView.pageSize pageIndex:mytableView.pageIndex+1 onSuccess:^(id responseDict)  {
+    [[ZZLHttpRequstEngine engine]requestSearchProjectListWithUid:user.userId isAllowJoin:YES title:@"" startDate:@"" endDate:@"" missionType:-1 arearId:@"b0dc9771d14211e18718000aebf5352e" distributeDate:0 pageSize:mytableView.pageSize pageIndex:mytableView.pageIndex+1 onSuccess:^(id responseDict)  {
         
         [mytableView.infiniteScrollingView stopAnimating];
         NSLog(@"___YYY__%@",responseDict);
@@ -280,6 +286,7 @@
     [mytableView endUpdates];
 }
 
+/*
 // 点击报名
 - (void)actionAttendBtn:(MyWaitCell *)cell AtIndexPath:(NSIndexPath *)ipath
 {
@@ -297,14 +304,14 @@
             if (info.isJoined) {
                 
                 info.isJoined = 0;
-                cell.mAttenBtn.selected = NO;
+//                cell.mAttenBtn.selected = NO;
                 [self.view showHudMessage:str1];
                 
                 
             }else{
                 
                 info.isJoined = 1;
-                cell.mAttenBtn.selected = YES;
+//                cell.mAttenBtn.selected = YES;
                 [self.view showHudMessage:str];
             }
         });
@@ -316,5 +323,5 @@
         [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
     }];
 }
-
+*/
 @end

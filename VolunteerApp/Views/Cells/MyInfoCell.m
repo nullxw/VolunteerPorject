@@ -21,6 +21,8 @@
 - (void)setupWithInfo:(NSString *)info detailInfo:(NSString *)detail{
     
     self.mTitleLb.text =  info;
+    
+    self.mInfoLb.adjustsFontSizeToFitWidth = YES;
     self.mInfoLb.text = detail;
 }
 /*

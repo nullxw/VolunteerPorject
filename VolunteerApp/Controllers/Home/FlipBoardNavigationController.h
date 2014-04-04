@@ -41,6 +41,10 @@ typedef void (^FlipBoardNavigationControllerCompletionBlock)(void);
 - (void) popViewControllerWithCompletion:(FlipBoardNavigationControllerCompletionBlock)handler;
 - (void)enablePan;
 - (void)disEnablePan;
+
+
+- (void)popViewControllerAfterDelay:(NSTimeInterval)delay;
+- (void)pushViewController:(UIViewController *)viewController afterDelay:(NSTimeInterval)delay;
 @end
 
 @interface UIViewController (FlipBoardNavigationController)

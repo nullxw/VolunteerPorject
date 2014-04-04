@@ -49,10 +49,13 @@
     mytableView.separatorStyle                 = UITableViewCellSeparatorStyleNone;
     
     
-    
+
     [self.view addSubview:mytableView];
 
-
+    __weak CheckClassViewController *weakself = self;
+    [mytableView addPullToRefreshWithActionHandler:^{
+        [weakself refreshData];
+    }];
     
 }
 - (void)awakeFromNib
@@ -133,15 +136,15 @@
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         
-        UserInfo *user = [UserInfo share];
+//        UserInfo *user = [UserInfo share];
         
         
-        NSLog(@"************%d",mytableView.pageSize);
+
         
         
         
 
-        [[ZZLHttpRequstEngine engine]requestClassPlanPlaneListWithUid:user.userId missionID:self.missionId pageSize:mytableView.pageSize pageIndex:1 onSuccess:^(id responseDict) {
+        [[ZZLHttpRequstEngine engine]requestClassPlanPlaneListWithUid:@"" missionID:self.missionId pageSize:10 pageIndex:1 onSuccess:^(id responseDict) {
             [mytableView.pullToRefreshView stopAnimating];
             NSLog(@"___YYY__%@",responseDict);
             if ([responseDict isKindOfClass:[NSArray class]]) {
@@ -192,11 +195,11 @@
 }
 - (void)loadMore
 {
-    UserInfo *user = [UserInfo share];
+//    UserInfo *user = [UserInfo share];
     
 
-    
-    [[ZZLHttpRequstEngine engine]requestClassPlanPlaneListWithUid:user.userId missionID:self.missionId pageSize:mytableView.pageSize pageIndex:mytableView.pageIndex+1 onSuccess:^(id responseDict) {
+
+   [[ZZLHttpRequstEngine engine]requestClassPlanPlaneListWithUid:@"" missionID:self.missionId pageSize:mytableView.pageSize pageIndex:mytableView.pageIndex+1 onSuccess:^(id responseDict) {
         
         [mytableView.infiniteScrollingView stopAnimating];
         NSLog(@"___YYY__%@",responseDict);

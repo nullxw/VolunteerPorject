@@ -28,6 +28,9 @@
 {
     BOOL isManager;
     BOOL isLogin;
+    NSArray *btnlist;
+    NSArray *btnHighlist;
+    NSArray *titlelist;
 }
 //properties:
 @property (weak, nonatomic) IBOutlet UIView *mPersonView;
@@ -66,7 +69,6 @@
 @end
 
 @implementation HomePageVC
-
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -75,6 +77,15 @@
     }
     return self;
 }
++(id)ViewContorller
+{
+    if (DEVICE_IS_IPHONE5) {
+        return [[HomePageVC alloc]initWithNibName:@"HomePageVC-5" bundle:nil];
+    }else{
+        return [[HomePageVC alloc]initWithNibName:@"HomePageVC" bundle:nil];
+    }
+}
+
 - (void)updateData:(BOOL)islogin
 {
     isLogin = islogin;
@@ -88,6 +99,7 @@
     [super viewDidLoad];
     
     
+    titlelist = @[@"志愿资讯",@"项目动态",@"项目搜索",@"我的项目",@"我的资料",@"更多选项",@""];
     
     UserInfo *user = [UserInfo share];
     
@@ -96,8 +108,8 @@
         isManager = YES;
         
         self.mProTrendText.text = @"项目管理";
-        [self.mMyProBtn setImage:[UIImage imageNamed:@"home_register_nl"] forState:UIControlStateNormal];
-        [self.mMyProBtn setImage:[UIImage imageNamed:@"home_register_hl"] forState:UIControlStateHighlighted];
+//        [self.mMyProBtn setImage:[UIImage imageNamed:@"home_register_nl"] forState:UIControlStateNormal];
+//        [self.mMyProBtn setImage:[UIImage imageNamed:@"home_register_hl"] forState:UIControlStateHighlighted];
         self.mMyProText.text = @"我的项目";
     }
     self.mScrollView.clipsToBounds =YES;
@@ -132,10 +144,10 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    if (self.mScrollView.contentSize.height != 750) {
-        self.mScrollView.contentSize = CGSizeMake(self.view.width, 750);
-        
-    }
+//    if (self.mScrollView.contentSize.height != 750) {
+//        self.mScrollView.contentSize = CGSizeMake(self.view.width, 750);
+//        
+//    }
 
 }
 

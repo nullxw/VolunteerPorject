@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4488.1" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" variant="6xAndEarlier" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4488.1" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" variant="6xAndEarlier" propertyAccessControl="none">
     <dependencies>
-        <deployment defaultVersion="1552" identifier="iOS"/>
+        <deployment defaultVersion="1296" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3715.3"/>
     </dependencies>
     <objects>
@@ -37,7 +37,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="gyh-ZA-9zj">
-                        <rect key="frame" x="10" y="67" width="300" height="2"/>
+                        <rect key="frame" x="10" y="67" width="300" height="1"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Dvr-dS-CBK">
@@ -66,7 +66,7 @@
                                 <rect key="frame" x="191" y="1" width="79" height="27"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="评论">
+                                <state key="normal">
                                     <color key="titleColor" red="0.17254902420000001" green="0.180392161" blue="0.1960784495" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -93,7 +93,9 @@
                 <outlet property="mCollectBtn" destination="Rb5-26-Eg1" id="x32-vx-ORm"/>
                 <outlet property="mCommentBtn" destination="WZP-vs-NFj" id="iEJ-tl-UTt"/>
                 <outlet property="mContentLb" destination="Dvr-dS-CBK" id="fSE-nt-kHo"/>
+                <outlet property="mLeftIcon" destination="ULX-Vz-Xng" id="1Ea-7Y-A5B"/>
                 <outlet property="mNameLb" destination="bte-Mh-NMj" id="GuY-st-pMe"/>
+                <outlet property="mRightIcon" destination="rHM-SD-lH0" id="3dO-9R-3dz"/>
                 <outlet property="mSepLineView" destination="gyh-ZA-9zj" id="Tfc-uq-OmX"/>
                 <outlet property="mTimeLb" destination="Kah-K2-M9E" id="qtP-zz-sja"/>
                 <outlet property="mbgView" destination="6xp-3c-ubg" id="TMe-MK-UH4"/>

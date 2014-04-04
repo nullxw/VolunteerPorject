@@ -79,9 +79,16 @@
     [[ZZLHttpRequstEngine engine] requestCheckAccountWithIdcardCode:self.mUserNameTextField.text onSuccess:^(id responseObject) {
         
         dispatch_async(dispatch_get_main_queue(), ^{
+            NSDictionary *dic = [responseObject objectAtIndex:0];
+            if (dic) {
+                verifyCode = [dic objectForKey:@"verifyCode"];
+                [self.view showHudMessage:@"验证码已发至您的手机"];
+                
+                self.mUserNameTextField.enabled = NO;
+                NSLog(@"verifycode: %@",verifyCode);
+            }
             
-            [self.view showHudMessage:@"验证码已发至您的手机"];
-            verifyCode = [responseObject objectForKey:@"verifyCode"];
+            
             
             
 
@@ -98,14 +105,15 @@
 {
     
     if (verifyCode.length>0) {
-        return;
+        if ([verifyCode isEqualToString:self.mVerityCodeTextFiled.text]) {
+            ConfirmPwdViewController *vc = [ConfirmPwdViewController ViewContorller];
+            vc.userName = self.mUserNameTextField.text;
+            [self.flipboardNavigationController pushViewController:vc];
+        }else{
+            [self.view showHudMessage:@"验证码输入有误"];
+            return;
+        }
     }
-    if ([verifyCode isEqualToString:self.mVerityCodeTextFiled.text]) {
-        ConfirmPwdViewController *vc = [ConfirmPwdViewController ViewContorller];
-        [self.flipboardNavigationController pushViewController:vc];
-    }else{
-        [self.view showHudMessage:@"验证码输入有误"];
-        return;
-    }
+
 }
 @end

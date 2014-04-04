@@ -34,7 +34,7 @@
     [super viewDidLoad];
     [self setTitleWithString:@"联系我们"];
     
-    list = [NSArray arrayWithObjects:@"版本：     1.7",@"联系电话： 020-83861999",@"工作邮箱：  gd_zyz@126.com",@"邮政编码:    510080",@"工作地址： 广东省广州市越秀区", nil];
+    list = [NSArray arrayWithObjects:@"版本：     1.0",@"联系电话： 020-83861999",@"工作邮箱：  gd_zyz@126.com",@"邮政编码:    510080",@"工作地址： 广东省广州市越秀区寺贝通津1号", nil];
 }
 
 - (void)viewDidUnload {
@@ -68,7 +68,15 @@
         //create cell
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentify];
 //        cell.backgroundColor = [UIColor clearColor];
+
         
+    }
+
+    if (indexPath.row == 4 ) {
+        cell.textLabel.lineBreakMode = NSLineBreakByCharWrapping;
+        cell.textLabel.font = [UIFont boldSystemFontOfSize:17];
+        cell.textLabel.numberOfLines = 0;
+        cell.height = 34;
     }
     cell.textLabel.text = list[indexPath.row];
     return cell;
@@ -80,6 +88,9 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row==4) {
+        return 56;
+    }
     return 44;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

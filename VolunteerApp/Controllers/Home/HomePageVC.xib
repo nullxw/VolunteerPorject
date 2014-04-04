@@ -37,11 +37,11 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" id="h64-k6-TOd">
-                            <rect key="frame" x="0.0" y="20" width="320" height="149"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="149"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="b3d-BM-xKj">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="149"/>
+                                    <rect key="frame" x="0.0" y="-1" width="320" height="149"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="p4d-VA-b08">
@@ -108,60 +108,56 @@
                                 </imageView>
                             </subviews>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="NHf-qH-W3d">
-                            <rect key="frame" x="7" y="189" width="150" height="116"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="NHf-qH-W3d">
+                            <rect key="frame" x="7" y="151" width="140" height="85"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" image="home_info_nl.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                            <state key="highlighted" image="home_info_hl.png"/>
                             <connections>
                                 <action selector="goVolunInfo:" destination="-1" eventType="touchUpInside" id="JCD-Bv-fQd"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="SQf-9M-Uhs">
-                            <rect key="frame" x="165" y="313" width="150" height="116"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="SQf-9M-Uhs">
+                            <rect key="frame" x="170" y="238" width="140" height="85"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" image="home_mypro_nl.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                            <state key="highlighted" image="home_mypro_hl.png"/>
                             <connections>
                                 <action selector="goMyPro:" destination="-1" eventType="touchUpInside" id="PbL-Qe-gKz"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="9ng-eI-Lra">
-                            <rect key="frame" x="8" y="313" width="150" height="116"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="9ng-eI-Lra">
+                            <rect key="frame" x="7" y="238" width="140" height="85"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" image="home_search_nl.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                            <state key="highlighted" image="home_search_hl.png"/>
                             <connections>
                                 <action selector="goProSearch:" destination="-1" eventType="touchUpInside" id="sIN-ae-U7f"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="eqt-KT-67U">
-                            <rect key="frame" x="165" y="435" width="150" height="116"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="eqt-KT-67U">
+                            <rect key="frame" x="170" y="326" width="140" height="85"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" image="home_more_nl.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                            <state key="highlighted" image="home_more_hl.png"/>
                             <connections>
                                 <action selector="goMore:" destination="-1" eventType="touchUpInside" id="yrZ-3z-fv1"/>
                             </connections>
                         </button>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="志愿资讯" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="w3T-sX-Wdu">
-                            <rect key="frame" x="68" y="211" width="81" height="21"/>
+                            <rect key="frame" x="68" y="172" width="81" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -169,21 +165,20 @@
                             <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <size key="shadowOffset" width="0.0" height="0.0"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="HVq-GY-1Cd">
-                            <rect key="frame" x="165" y="189" width="150" height="116"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="HVq-GY-1Cd">
+                            <rect key="frame" x="170" y="150" width="140" height="85"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" image="home_promg_nl.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                            <state key="highlighted" image="home_promg_hl.png"/>
                             <connections>
                                 <action selector="goProManager:" destination="-1" eventType="touchUpInside" id="FLS-Bv-9Dt"/>
                             </connections>
                         </button>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="项目动态" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xFP-me-Xtm">
-                            <rect key="frame" x="226" y="211" width="81" height="21"/>
+                            <rect key="frame" x="226" y="172" width="81" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -192,7 +187,7 @@
                             <size key="shadowOffset" width="0.0" height="0.0"/>
                         </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="项目搜索" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="53H-RO-ffr">
-                            <rect key="frame" x="69" y="335" width="81" height="21"/>
+                            <rect key="frame" x="68" y="265" width="81" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -201,7 +196,7 @@
                             <size key="shadowOffset" width="0.0" height="0.0"/>
                         </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="更多选项" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uWZ-75-nLU">
-                            <rect key="frame" x="226" y="456" width="81" height="21"/>
+                            <rect key="frame" x="226" y="350" width="81" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -210,7 +205,7 @@
                             <size key="shadowOffset" width="0.0" height="0.0"/>
                         </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我的项目" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CWV-1E-dii">
-                            <rect key="frame" x="226" y="334" width="81" height="22"/>
+                            <rect key="frame" x="226" y="265" width="81" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -218,21 +213,20 @@
                             <color key="shadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <size key="shadowOffset" width="0.0" height="0.0"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="RR9-Do-U7O">
-                            <rect key="frame" x="8" y="435" width="150" height="116"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="RR9-Do-U7O">
+                            <rect key="frame" x="7" y="326" width="140" height="85"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" image="home_myinfo_nl.png">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
-                            <state key="highlighted" image="home_myinfo_hl.png"/>
                             <connections>
                                 <action selector="goMyInfo:" destination="-1" eventType="touchUpInside" id="hgV-Ca-0Yd"/>
                             </connections>
                         </button>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我的资料" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="w29-PS-FUn">
-                            <rect key="frame" x="68" y="456" width="81" height="22"/>
+                            <rect key="frame" x="68" y="349" width="81" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -248,18 +242,12 @@
         </view>
     </objects>
     <resources>
-        <image name="home_info_hl.png" width="335" height="234"/>
-        <image name="home_info_nl.png" width="335" height="234"/>
-        <image name="home_more_hl.png" width="335" height="234"/>
-        <image name="home_more_nl.png" width="335" height="234"/>
-        <image name="home_myinfo_hl.png" width="335" height="234"/>
-        <image name="home_myinfo_nl.png" width="335" height="234"/>
-        <image name="home_mypro_hl.png" width="335" height="234"/>
-        <image name="home_mypro_nl.png" width="335" height="234"/>
-        <image name="home_promg_hl.png" width="335" height="234"/>
-        <image name="home_promg_nl.png" width="335" height="234"/>
-        <image name="home_search_hl.png" width="335" height="234"/>
-        <image name="home_search_nl.png" width="335" height="234"/>
+        <image name="home_info_nl.png" width="297" height="203"/>
+        <image name="home_more_nl.png" width="297" height="203"/>
+        <image name="home_myinfo_nl.png" width="297" height="203"/>
+        <image name="home_mypro_nl.png" width="297" height="203"/>
+        <image name="home_promg_nl.png" width="297" height="203"/>
+        <image name="home_search_nl.png" width="297" height="203"/>
         <image name="home_star_icon.png" width="64" height="64"/>
     </resources>
 </document>

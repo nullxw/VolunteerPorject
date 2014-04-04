@@ -88,8 +88,10 @@ static UIFont  *font = nil;
     }
 
 
+    self.mCommentBtn.hidden = YES;
+    self.mRightIcon.hidden = YES;
     
-    [self.mCommentBtn setTitle:[NSString stringWithFormat:@"评论(%d)",info.countReply] forState:UIControlStateNormal];
+   // [self.mCommentBtn setTitle:[NSString stringWithFormat:@"评论(%d)",info.countReply] forState:UIControlStateNormal];
 
     if (info.picLittle.length>0) {
     

@@ -229,6 +229,7 @@
  
     
 
+    [self hideActions];
     if ([self.mUserNameTextFiled.text trimmedWhitespaceString].length == 0) {
         [self.view showHudMessage:@"用户名不能为空"];
         return;
@@ -316,5 +317,11 @@
     
     VerifyUserViewController *vc = [VerifyUserViewController ViewContorller];
     [self.flipboardNavigationController pushViewController:vc];
+}
+
+- (void)hideActions
+{
+    [self.mUserNameTextFiled resignFirstResponder];
+    [self.mPasswordTextFiled resignFirstResponder];
 }
 @end

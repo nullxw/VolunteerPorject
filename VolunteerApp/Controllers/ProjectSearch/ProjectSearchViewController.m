@@ -12,7 +12,8 @@
 #import "ProtypeInfo.h"
 #import "MyInfoCell.h"
 #import "SearchResultViewController.h"
-
+#import "BelongViewController.h"
+#import "UrlDefine.h"
 
 @interface ProjectSearchViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,UIPickerViewDataSource,UIPickerViewDelegate,UIActionSheetDelegate>
 {
@@ -33,6 +34,8 @@
     NSString   *fristDate;
     NSString   *secnodDate;
     NSString   *thridDate;
+    
+    
     
     int        distrubuteIndex;
     UIActionSheet *actionSheet;
@@ -55,6 +58,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
+    global_districtName = @"";
+    global_districtId = @"";
+    [self setTitleWithString:@"项目搜索"];
     // Do any additional setup after loading the view from its nib.
     myTableView = [[MyTableView alloc]initWithFrame:CGRectMake(0, self.mSearchBar.bottom, self.view.width, self.view.height-self.mSearchBar.bottom) style:UITableViewStyleGrouped];
     myTableView.dataSource = self;
@@ -105,7 +113,7 @@
     
 
     
-    list = [[NSMutableArray alloc]initWithObjects:@"项目类型",@"实施日期",@"开始时间",@"结束时间", nil];
+    list = [[NSMutableArray alloc]initWithObjects:@"项目类型",@"归属单位",@"实施日期",@"开始时间",@"结束时间", nil];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(255, self.navView.bottom - 35, 40, 30);
     [btn setTitle:@"搜索" forState:UIControlStateNormal];
@@ -114,10 +122,11 @@
     [self.navView addSubview:btn];
     
 
-    typeStr = @"";
+    typeStr = @"全部";
     fristDate = @"全部";
     secnodDate = @"";
     thridDate = @"";
+    typeIndex = -1;
     [self registerNotification];
 }
 
@@ -147,7 +156,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self setTitleWithString:@"项目查找"];
+    
+    if (global_districtName.length>0) {
+        [myTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -181,11 +193,15 @@
         cell.mInfoLb.text  = typeStr;
     }else if(indexPath.row == 1){
         
-        cell.mInfoLb.text =  fristDate;
+        cell.mInfoLb.text =  global_districtName;
+        
     }else if(indexPath.row == 2){
         
-        cell.mInfoLb.text = secnodDate;
+        cell.mInfoLb.text =  fristDate;
     }else if(indexPath.row == 3){
+        
+        cell.mInfoLb.text = secnodDate;
+    }else if(indexPath.row == 4){
         
        cell.mInfoLb.text = thridDate;
     }
@@ -208,7 +224,12 @@
     if (curRow == 0) {
         OptionViewController *vc = [[OptionViewController alloc]init];
         [self.flipboardNavigationController pushViewController:vc];
-    }else if(curRow == 1)
+    }else if (curRow == 1)
+    {
+        BelongViewController *vc = [BelongViewController ViewContorller];
+        [self.flipboardNavigationController pushViewController:vc];
+    }
+    else if(curRow == 2)
     {
         [self actionDistrbute];
     }else
@@ -230,8 +251,6 @@
 
     typeIndex = index;
     typeStr = str;
-
-
     [myTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
@@ -354,9 +373,9 @@
 - (void)previousButtonIsClicked:(id)sender
 {
     [self hidePicker];
-    if (curRow == 2) {
+    if (curRow == 3) {
         secnodDate = @"";
-    }else if (curRow == 3)
+    }else if (curRow == 4)
     {
         thridDate = @"";
     }
@@ -366,10 +385,10 @@
 {
     [self hidePicker];
     NSString *datestr = [self stringFromDate:FristPick.date];
-    if (curRow == 2)
+    if (curRow == 3)
     {
         secnodDate = datestr;
-    }else if(curRow == 3)
+    }else if(curRow == 4)
     {
         thridDate = datestr;
     }

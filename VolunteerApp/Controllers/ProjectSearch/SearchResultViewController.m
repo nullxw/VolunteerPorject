@@ -11,7 +11,9 @@
 #import "ZZLHttpRequstEngine.h"
 #import "MyWaitCell.h"
 #import "SearchResult.h"
+#import "SearchResultCell.h"
 #import "ProDetailViewController.h"
+#import "UrlDefine.h"
 @interface SearchResultViewController ()<UITableViewDataSource,UITableViewDelegate,MyWaitCellDelegate>
 {
     int curPage;
@@ -97,9 +99,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([curList count]>0) {
-        MyWaitCell *cell = [MyWaitCell cellForTableView:mytableView fromNib:[MyWaitCell nib]];
-        cell.cellInPath = indexPath;
-        cell.delegate = self;
+        SearchResultCell *cell = [SearchResultCell cellForTableView:mytableView fromNib:[SearchResultCell nib]];
+//        cell.cellInPath = indexPath;
+        cell.backgroundColor = [UIColor clearColor];
+        cell.index = indexPath.row;
         SearchResult *info = [curList objectAtIndex:indexPath.row];
         [cell setupMyResultCell:info];
         return cell;
@@ -114,7 +117,14 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [MyWaitCell cellHeight];
+    if (curList.count>0) {
+        SearchResult *info = [curList objectAtIndex:indexPath.row];
+        return [SearchResultCell caclulateHeightWithInfo:info];
+    }else{
+        return 44;
+    }
+    
+
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -140,10 +150,14 @@
     [self.view showLoadingViewWithString:@"正在搜索"];
     double delayInSeconds = 1.0;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+    dispatch_after(popTime, dispatch_get_current_queue(), ^(void){
         
         
-        [[ZZLHttpRequstEngine engine]requestSearchProjectListWithUid:self.userId isAllowJoin:YES title:self.key startDate:self.startDate endDate:self.endDate missionType:self.typeindex arearId:@"b0dc9771d14211e18718000aebf5352e" distributeDate:self.distrubutetype pageSize:mytableView.pageSize pageIndex:1 onSuccess:^(id responseDict) {
+        NSString *arearId = @"b0dc9771d14211e18718000aebf5352e";
+        if (global_districtId.length>0) {
+            arearId = global_districtId;
+        }
+        [[ZZLHttpRequstEngine engine]requestSearchProjectListWithUid:self.userId isAllowJoin:YES title:self.key startDate:self.startDate endDate:self.endDate missionType:self.typeindex arearId:arearId distributeDate:self.distrubutetype pageSize:mytableView.pageSize pageIndex:1 onSuccess:^(id responseDict) {
             [mytableView.pullToRefreshView stopAnimating];
             [self.view hideLoadingView];
             NSLog(@"___YYY__%@",responseDict);
@@ -198,9 +212,12 @@
 - (void)loadMore
 {
 
+    NSString *arearId = @"b0dc9771d14211e18718000aebf5352e";
+    if (global_districtId.length>0) {
+        arearId = global_districtId;
+    }
     
-    
-    [[ZZLHttpRequstEngine engine]requestSearchProjectListWithUid:self.userId isAllowJoin:YES title:self.key startDate:self.startDate endDate:self.endDate missionType:self.typeindex arearId:@"b0dc9771d14211e18718000aebf5352e" distributeDate:self.distrubutetype pageSize:mytableView.pageSize pageIndex:mytableView.pageIndex+1 onSuccess:^(id responseDict)  {
+    [[ZZLHttpRequstEngine engine]requestSearchProjectListWithUid:self.userId isAllowJoin:YES title:self.key startDate:self.startDate endDate:self.endDate missionType:self.typeindex arearId:arearId distributeDate:self.distrubutetype pageSize:mytableView.pageSize pageIndex:mytableView.pageIndex+1 onSuccess:^(id responseDict)  {
         
         [mytableView.infiniteScrollingView stopAnimating];
         NSLog(@"___YYY__%@",responseDict);

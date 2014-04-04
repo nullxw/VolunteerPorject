@@ -459,7 +459,7 @@
     RescruitVolunInfo *info = tempList[cell.index];
     
     [UIAlertView  showAlertViewWithTitle:@"您确认要删除该志愿者吗" message:@"" cancelButtonTitle:@"取消" otherButtonTitles:@[@"确定"] onDismiss:^(int btnIndex) {
-        [[ZZLHttpRequstEngine engine]requestRecruitDelPersonWithUid:user.userId personaIdGroups:info._userId missionId:missionId onSuccess:^(id responseObject) {
+        [[ZZLHttpRequstEngine engine]requestRecruitDelPersonWithUid:user.userId personaIdGroups:[NSString stringWithFormat:@"%d",info.missionPersonlId] missionId:missionId onSuccess:^(id responseObject) {
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [tempList removeObject:info];
@@ -492,15 +492,27 @@
     {
         tempList = thridList;
     }
-    RescruitVolunInfo *info = tempList[cell.index];
-    [[ZZLHttpRequstEngine engine]requestRecruitUserWithUid:user.userId ugroupId:info._userId missionid:missionId onSuccess:^(id responseObject) {
+//    [NSString stringWithFormat:@"%d",info.missionPersonlId]
     
-        [self.view showHudMessage:@"录用成功!"];
-        [rescruit setTitle:@"已录用" forState:UIControlStateNormal];
-        rescruit.enabled = NO;
-    } onFail:^(NSError *erro) {
-        [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
-    }];
+    
+    
+
+    
+    RescruitVolunInfo *info = tempList[cell.index];
+    
+        [[ZZLHttpRequstEngine engine]requestRecruitHirePersonWithUid:user.userId personaIdGroups:[NSString stringWithFormat:@"%d",info.missionPersonlId] missionId:missionId onSuccess:^(id responseObject) {
+            
+            [self.view showHudMessage:@"录用成功!"];
+            [rescruit setTitle:@"已录用" forState:UIControlStateNormal];
+            rescruit.enabled = NO;
+        } onFail:^(NSError *erro) {
+                    [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
+        }];
+//    [[ZZLHttpRequstEngine engine]requestRecruitUserWithUid:user.userId ugroupId:info._userId missionid:missionId onSuccess:^(id responseObject) {
+//
+//    } onFail:^(NSError *erro) {
+//
+//    }];
 }
 
 - (void)actionAdd:(UIButton *)btn

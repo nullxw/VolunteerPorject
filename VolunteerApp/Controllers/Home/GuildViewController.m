@@ -46,11 +46,14 @@
 
     
      NSMutableArray *list = [[NSMutableArray alloc]init];
-    for (int i=0; i<5; i++) {
-        EAIntroPage *page1 = [EAIntroPage page];
+    for (int i=0; i<6; i++) {
+        
 
-        page1.bgImage = [UIImage imageNamed:[NSString stringWithFormat:@"guildImage%d.jpg",i+1]];
-        [list addObject:page1];
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
+        imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"guildImage%d.png",i+1]];
+        EAIntroPage *page = [EAIntroPage pageWithCustomView:imageView];
+        
+        [list addObject:page];
 
     }
     EAIntroView *intro = [[EAIntroView alloc] initWithFrame:self.view.bounds andPages:list];

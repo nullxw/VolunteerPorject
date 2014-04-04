@@ -679,7 +679,7 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:uid forKey:@"currentUserId"];
     [dic setObject:oid forKey:@"userId"];
-    [dic setObject:[NSNumber numberWithBool:isupdated] forKey:@"isUpdated"];
+//    [dic setObject:[NSNumber numberWithBool:isupdated] forKey:@"isUpdated"];
     [dic setObject:[NSNumber numberWithInt:psize] forKey:@"pageSize"];
     [dic setObject:[NSNumber numberWithInt:page] forKey:@"pageIndex"];
     [dic setObject:[NSNumber numberWithInt:mid] forKey:@"missionId"];
@@ -702,8 +702,8 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:uid forKey:@"currentUserId"];
     [dic setObject:[NSNumber numberWithInt:genderIndex] forKey:@"userVo.gender"];
     [dic setObject:uname forKey:@"userVo.userName"];
-    [dic setObject:[email stringByDeCodeingRC4] forKey:@"userVo.userPwdNew"];
-    [dic setObject:[moblie stringByDeCodeingRC4] forKey:@"userVo.userPwdNew"];
+    [dic setObject:[email stringByEncodeingRC4] forKey:@"userVo.email"];
+    [dic setObject:[moblie stringByEncodeingRC4] forKey:@"userVo.mobile"];
     [dic setObject:areaid forKey:@"userVo.areaId"];
 //    userVo. userName
 //    userVo. gender
@@ -949,7 +949,7 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
 
 - (ZZLRequestOperation *)requestGetMissionlistWithUid:(NSString *)uid
                                             selection:(int)sel
-                                         missionState:(int)mState
+                                         missionState:(NSString *)mState
                                              pageSize:(int)psize
                                             pageIndex:(int)page
                                             onSuccess:(dictionaryBlock)successBlock
@@ -958,7 +958,7 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:[NSNumber numberWithInt:sel] forKey:@"selection"];
     [dic setObject:uid forKey:@"currentUserId"];
-    [dic setObject:[NSNumber numberWithInt:mState] forKey:@"missionState"];
+    [dic setObject:mState forKey:@"missionState"];
     [dic setObject:[NSNumber numberWithInt:psize] forKey:@"pageSize"];
     [dic setObject:[NSNumber numberWithInt:page] forKey:@"pageIndex"];
     
@@ -1027,7 +1027,10 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
     [dic setObject:uid forKey:@"currentUserId"];
     [dic setObject:[NSNumber numberWithInt:mid] forKey:@"missionId"];
     [dic setObject:stime forKey:@"serviceTime"];
-    [dic setObject:[NSNumber numberWithInt:mstate] forKey:@"status"];
+    if (mstate>0) {
+        [dic setObject:[NSNumber numberWithInt:mstate] forKey:@"status"];
+    }
+    
     [dic setObject:[NSNumber numberWithInt:psize] forKey:@"pageSize"];
     [dic setObject:[NSNumber numberWithInt:page] forKey:@"pageIndex"];
     return  [self postRequestWithServicePath:URL26_GETFLIGHTLIST_URL params:dic onSuccess:successBlock onFail:errorBlock];
@@ -1149,12 +1152,18 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
 //    findDate
 //    pageIndex
 //    pageSize
+    
+
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    
+    [dic setObject:title forKey:@"missionView.subject"];
     [dic setObject:uid forKey:@"currentUserId"];
     [dic setObject:[NSNumber numberWithBool:canJoin] forKey:@"missionView.isAllowJoin"];
     [dic setObject:sdate forKey:@"missionView.startDate"];
     [dic setObject:endDate forKey:@"missionView.endDate"];
-    [dic setObject:[NSNumber numberWithInt:mtype] forKey:@"missionType"];
+    if (mtype >0) {
+        [dic setObject:[NSNumber numberWithInt:mtype] forKey:@"missionType"];
+    }
     [dic setObject:[NSNumber numberWithInt:dDate] forKey:@"findDate"];
     [dic setObject:areaId forKey:@"districtId"];
     [dic setObject:[NSNumber numberWithInt:page] forKey:@"pageIndex"];
@@ -1503,7 +1512,7 @@ static ZZLHttpRequstEngine *httpRequestEngine = nil;
 //    pageSize
 //    pageIndex
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:uid forKey:@"currentUserId"];
+//    [dic setObject:uid forKey:@"currentUserId"];
     [dic setObject:[NSNumber numberWithInt:mid] forKey:@"missionId"];
     [dic setObject:[NSNumber numberWithInt:page] forKey:@"pageIndex"];
     [dic setObject:[NSNumber numberWithInt:psize] forKey:@"pageSize"];

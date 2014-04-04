@@ -26,7 +26,9 @@ typedef enum WeiboCellType
 {
     
 }
+@property (weak, nonatomic) IBOutlet UIImageView *mLeftIcon;
 
+@property (weak, nonatomic) IBOutlet UIImageView *mRightIcon;
 @property (nonatomic) WeiboCellType  cellType;
 @property (strong, nonatomic)    NSIndexPath        *cellInPath;
 @property (weak, nonatomic) IBOutlet UILabel *mNameLb;

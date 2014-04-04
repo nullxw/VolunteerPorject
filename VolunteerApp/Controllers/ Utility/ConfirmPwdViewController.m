@@ -32,7 +32,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    [self setTitleWithString:@"更改密码"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -71,8 +71,8 @@
     }
     
     isRequest = YES;
-    UserInfo *user = [UserInfo share];
-    [[ZZLHttpRequstEngine engine]requestUpdatePwdbyUserId:user.userId password:self.mPasswordTextFiled.text surePassword:self.mConfirmPasswordFiled.text onSuccess:^(id responseObject) {
+
+    [[ZZLHttpRequstEngine engine]requestUpdatePwdbyUserId:self.userName password:self.mPasswordTextFiled.text surePassword:self.mConfirmPasswordFiled.text onSuccess:^(id responseObject) {
         
         isRequest = NO;
         if ([responseObject isKindOfClass:[NSString class]]) {

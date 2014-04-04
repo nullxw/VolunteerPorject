@@ -13,6 +13,8 @@
 #import "ZZLHttpRequstEngine.h"
 #import "DistrictModel.h"
 #import "AppDelegate.h"
+#import "BelongViewController.h"
+#import "UrlDefine.h"
 @interface RegisterViewController ()<UITableViewDataSource,UITableViewDelegate,RETableViewManagerDelegate,LoginViewDelegate>
 {
     NSMutableArray *cityList;
@@ -24,7 +26,7 @@
     RETableViewManager *manager;
     
     RERadioItem* cardTypeItem;
-    RENumberItem* idcardNoItem;
+    RETextItem* idcardNoItem;
     RETextItem* userNameItem;
     RETextItem* userPwdItem;
     RETextItem* userPwdConfirmItem;
@@ -55,6 +57,9 @@
     cityList = [[NSMutableArray alloc]init];
     cityList1 = [[NSMutableArray alloc]init];
     cityList2 = [[NSMutableArray alloc]init];
+    
+    global_districtId = @"";
+    global_districtName = @"";
     
     __typeof (&*self) __weak weakSelf = self;
     self.title                  = @"test";
@@ -103,7 +108,7 @@
                    @"GAJ-公安现役警官证件或士兵证（警卫系统）",
                    @"GAX-公安现役警官证件或士兵证（消防系统）", nil];
     //1证件类型
-    cardTypeItem =[RERadioItem itemWithTitle:@"证件类型" value:@"身份证" selectionHandler:^(RERadioItem *item) {
+    cardTypeItem =[RERadioItem itemWithTitle:@"证件类型" value:@"CID-中国身份证" selectionHandler:^(RERadioItem *item) {
         [weakSelf hideAction];
         [item deselectRowAnimated:YES];
 
@@ -126,7 +131,9 @@
     
     
     //2证件号
-    idcardNoItem =[RENumberItem itemWithTitle:@"证件号" value:@"" placeholder:@"您的证件号码" format:@"XXXXXXXXXXXXXXXXXX"];
+//    idcardNoItem =[RETextItem itemWithTitle:@"证件号" value:@"" placeholder:@"" format:@"XXXXXXXXXXXXXXXXXX"];
+    
+    idcardNoItem = [[RETextItem alloc]initWithTitle:@"证件号" value:@"" placeholder:@"注册后即为登录账号"];
     //3
     userNameItem = [[RETextItem alloc]initWithTitle:@"姓名" value:@"" placeholder:@"您的姓名"];
     //4
@@ -203,14 +210,17 @@
     
     
     //9城市
-    cityItem =[RERadioItem itemWithTitle:@"所在城市" value:@"广州" selectionHandler:^(RERadioItem *item) {
+    cityItem =[RERadioItem itemWithTitle:@"归属单位" value:@"" selectionHandler:^(RERadioItem *item) {
         [weakSelf hideAction];
         [item deselectRowAnimated:YES];
-        if ([cityList count]==0) {
-            [self requestCity];
-        }else{
-            [self pushToOptionWithOptions:cityList WithItems:cityItem];
-        }
+//        if ([cityList count]==0) {
+//            [self requestCity];
+//        }else{
+//            [self pushToOptionWithOptions:cityList WithItems:cityItem];
+//        }
+        BelongViewController *vc = [BelongViewController ViewContorller];
+        [self.flipboardNavigationController pushViewController:vc];
+        
     }];
     [cityItem selectRowAnimated:YES scrollPosition:UITableViewScrollPositionMiddle];
     
@@ -282,10 +292,13 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if ([cityList count]==0) {
-        [self requestCity];
+//    if ([cityList count]==0) {
+//        [self requestCity];
+//    }
+    if (global_districtName.length>0) {
+        cityItem.value = global_districtName;
+        [cityItem reloadRowWithAnimation:UITableViewRowAnimationNone];
     }
-
     
 }
 
@@ -399,22 +412,27 @@
 - (void)requestForRegister
 {
     
-    if (![self validateForm]) {
+    if ([self validateForm] == NO) {
         return;
     }
     NSString *area = cityItem.value;
-    if ([cityList count]>0) {
-        for (DistrictModel *temp in cityList) {
-            if ([temp.districtName isEqualToString:area]) {
-                area = temp.districtId;
-                break;
-            }
-        }
+//    if ([cityList count]>0) {
+//        for (DistrictModel *temp in cityList) {
+//            if ([temp.districtName isEqualToString:area]) {
+//                area = temp.districtId;
+//                break;
+//            }
+//        }
+//    }else{
+//        
+//    }
+    
+    if (area.length>0) {
+        area = global_districtId;
     }else{
-        [self.view showHudMessage:@"城市不能为空哦!"];
+        [self.view showHudMessage:@"请选择归属单位"];
         return;
     }
-    
 
     [[ZZLHttpRequstEngine engine]requestUserRegsiterWithIDCardType:[cardOptions indexOfObject:cardTypeItem.value] rc4IDCardCode:idcardNoItem.value userName:userNameItem.value rc4Pwd:userPwdItem.value gender:[genderOptions indexOfObject:genderItem.value] rc4email:emailItem.value rc4mobile:phoneItem.value areaid:area onSuccess:^(id responseObject) {
         
@@ -434,10 +452,36 @@
 }
 - (BOOL)validateForm
 {
+    
+    if (idcardNoItem.value.length == 0) {
+        [self.view showHudMessage:@"证件号不能为空"];
+        return NO;
+    }
+    if (userNameItem.value.length == 0) {
+        [self.view showHudMessage:@"姓名不能为空"];
+        return NO;
+    }
+    if (userPwdConfirmItem.value.length == 0) {
+        [self.view showHudMessage:@"确认密码不能为空"];
+        return NO;
+    }
+    if (userPwdItem.value.length == 0) {
+        [self.view showHudMessage:@"密码不能为空"];
+        return NO;
+    }
+    
+    if (emailItem.value.length == 0) {
+        [self.view showHudMessage:@"邮箱不能为空"];
+        return NO;
+    }
+    if (phoneItem.value.length == 0) {
+        [self.view showHudMessage:@"电话不能为空"];
+        return NO;
+    }
     if (![userPwdItem.value isEqualToString:userPwdConfirmItem.value]) {
         [self.view showHudMessage:@"两次输入的密码不一致"];
         return NO;
-    
+        
     }
     return YES;
 

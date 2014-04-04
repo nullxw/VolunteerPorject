@@ -334,7 +334,16 @@ void rc4_crypt(unsigned char *s, unsigned char *Data, unsigned long Len) //åŠ è§
 
 - (NSString *)checkUrl
 {
-    if ([self hasPrefix:@"/upload/"]) {
+    
+
+    if ([self containString:@"http"]) {
+        NSRange range = [self rangeOfString:@"http:"];
+        int index = range.location;
+        
+        return [self substringFromIndex:index];
+    }
+  
+    if ([self hasPrefix:@"/upload/psn_spac_file/touxiang/"]) {
         return [@"http://125cn.net" stringByAppendingString:self];
     }else{
         return [@"http://125cn.net/upload/psn_spac_file/weiboimg/" stringByAppendingString:self];

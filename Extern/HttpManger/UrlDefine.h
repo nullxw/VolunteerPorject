@@ -13,6 +13,9 @@
 //http://59.41.39.98:443/VolunteerService/mobile/mission/getMissionList.action
 //Url define
 
+NSString *global_districtId;
+NSString *global_districtName;
+
 #define SystemKey_Parameter_Value    @"B5647DB7C490AF68E0F59682335275D4"
 #define SystemValue_Parameter_Value  @"F828469B4A4150B3E9236694F42B5552"
 
@@ -97,6 +100,6 @@
 
 //66 - 70
 #define URL66_GETVOLUNINFO_URL       @"visitor/getVolInformation.action"
-#define URL67_GETVOLUNINFO_URL       @"visitor/checkAccount.acton"
-#define URL68_GETVOLUNINFO_URL       @"visitor/updatePwdByUserId.acton"
+#define URL67_GETVOLUNINFO_URL       @"visitor/checkAccount.action"
+#define URL68_GETVOLUNINFO_URL       @"visitor/updatePwdByUserId.action"
 #endif

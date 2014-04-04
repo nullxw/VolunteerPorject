@@ -8,11 +8,16 @@
 
 #import "AreaViewController.h"
 #import "DistrictModel.h"
+#import "UrlDefine.h"
 @interface AreaViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     UITableView *myTableView;
     
     NSMutableArray *list;
+    
+    UITableViewCell *curCell;
+    
+    NSString  *tempDistrctId;
 }
 @end
 
@@ -68,6 +73,7 @@
 }
 
 
+
 #pragma mark -
 #pragma mark - tableviewDelegate,tableviewDataSource
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -79,7 +85,7 @@
         if (cell == nil) {
             //create cell
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentify];
-            cell.backgroundColor = [UIColor clearColor];
+
             
         }
         DistrictModel *info = list[indexPath.row];
@@ -101,10 +107,31 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    if (list.count == 0) {
+        return;
+    }
+    if (curCell) {
+        curCell.accessoryType = UITableViewCellAccessoryNone;
+    }
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
-
+    curCell = cell;
     
+    DistrictModel *info = list[indexPath.row];
+    
+    global_districtId = [NSString stringWithString:info.districtId];
+    global_districtName = [NSString stringWithString:info.districtName];
+    
+    
+    BaseViewController *vc = [self.flipboardNavigationController.viewControllers objectAtIndex:self.flipboardNavigationController.viewControllers.count-2];
+    
+    [self.flipboardNavigationController popViewControllerWithCompletion:^{
+        [vc.flipboardNavigationController popViewController];
+    }];
+    
+
+//    [self.flipboardNavigationController popViewControllerAfterDelay:1.0f];
 }
 
 - (void)requestData

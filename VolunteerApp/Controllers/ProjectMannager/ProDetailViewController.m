@@ -12,10 +12,12 @@
 #import "MissionDetailInfo.h"
 #import "SVPullToRefresh.h"
 #import  "UIAlertView+Blocks.h"
+#import "AppDelegate.h"
 @interface ProDetailViewController ()
 {
     int missionId;
     MissionDetailInfo *modelInfo;
+    BOOL  hasPlan;
 }
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIImageView *topImageView;
@@ -78,6 +80,7 @@
         }
         
     }];
+//    [self checkPlanAvaiable];
 }
 
 - (void)didReceiveMemoryWarning
@@ -119,16 +122,33 @@
 #pragma mark -  actions
 - (IBAction)joinBtnAction:(UIButton *)sender {
     
+    
+    UserInfo *user = [UserInfo share];
+    if (!user.islogin) {
+        AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        [delegate handleNotLoginWithBaseViewController:self];
+        return;
+    }
     if (modelInfo.isJoined) {
-        [self applyMissionWithFlag:0];
-    }else{
         [self applyMissionWithFlag:1];
+    }else{
+        [self applyMissionWithFlag:0];
     }
     
 }
 
 - (IBAction)viewClassAction:(UIButton *)sender {
 
+    /*
+    UserInfo *user = [UserInfo share];
+    if (!user.islogin) {
+        AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        [delegate handleNotLoginWithBaseViewController:self];
+        return;
+    }else{
+        [self goCheckClassPlanView];
+    }
+     */
     [self goCheckClassPlanView];
 
 }
@@ -271,16 +291,22 @@
     
     NSString *str1 = [modelInfo.startDateString substringToIndex:10];
     NSString *str2 = [modelInfo.endDateString substringToIndex:10];
-    self.startTimeLb.text = [NSString stringWithFormat:@"%@ - %@",str1,str2];
-    self.endTimeLb.text = modelInfo.applyDeadlineString;
+    self.startTimeLb.text = [NSString stringWithFormat:@"%@ 到 %@",str1,str2];
+    
+    if (modelInfo.applyDeadlineString.length==0) {
+        self.endTimeLb.text = @"无限制";
+
+    }else{
+        self.endTimeLb.text = modelInfo.applyDeadlineString;
+
+    }
+    
     self.placeLb.text = modelInfo.venueAddress;
     self.partyLb.text = modelInfo.districtName;
 
     
     if (modelInfo.isAllowJoin == 0) {
-        self.activStatuesLb.text = @"停止报名";
-    }else{
-        self.activStatuesLb.text = @"正在报名";
+        self.mJoinBtn.enabled = NO;
     }
     
     self.proIdLb.text = modelInfo.venue;
@@ -306,13 +332,46 @@
     
     
     if (modelInfo.isJoined) {
-        [self.mJoinBtn setTitle:@"已报名" forState:UIControlStateNormal];
+        [self.mJoinBtn setTitle:@"取消报名" forState:UIControlStateNormal];
     }
     
 
-    
+    /*
+     if (mission.getState().equalsIgnoreCase("35"))
+     textView_isAllowJoin.setText("审批通过");
+     else if (mission.getState().equalsIgnoreCase("50"))
+     textView_isAllowJoin.setText("正在进行");
+     else if (mission.getState().equalsIgnoreCase("100"))
+     textView_isAllowJoin.setText("已完成");
+     else if (mission.getState().equalsIgnoreCase("1000"))
+     textView_isAllowJoin.setText("已结束");
+     else if (mission.getState().equalsIgnoreCase("20"))
+     textView_isAllowJoin.setText("待审批");
+     */
     if ([modelInfo.state isEqualToString:@"100"] ||[modelInfo.state isEqualToString:@"1000"] || [modelInfo.state isEqualToString:@"1003"]) {
         self.mJoinBtn.enabled = NO;
+    }
+    
+    if ([modelInfo.state isEqualToString:@"35"]) {
+        
+        self.activStatuesLb.text = @"审批通过";
+        
+    }else if ([modelInfo.state isEqualToString:@"50"]) {
+        
+        self.activStatuesLb.text = @"正在进行";
+        
+    }else if ([modelInfo.state isEqualToString:@"100"]) {
+        
+        self.activStatuesLb.text = @"已完成";
+        
+    }else if ([modelInfo.state isEqualToString:@"1000"]) {
+        
+        self.activStatuesLb.text = @"已结束";
+        
+    }else if ([modelInfo.state isEqualToString:@"20"]) {
+        
+        self.activStatuesLb.text = @"待审批";
+        
     }
     self.mBottomBar.top = self.view.height - self.mBottomBar.height;
     [self.view addSubview:self.mBottomBar];
@@ -327,8 +386,7 @@
 
 - (void)applyMissionWithFlag:(int)flag
 {
-    NSString *str = @"报名成功";
-    NSString *str1 = @"取消报名成功";
+
     
     UserInfo *user = [UserInfo share];
     [[ZZLHttpRequstEngine engine]requestProjectApplyWithUid:user.userId missionID:missionId applyOrNOT:flag onSuccess:^(id responseObject) {
@@ -336,15 +394,19 @@
         if (flag) {
             
             modelInfo.isJoined = 0;
-            [self.view showHudMessage:str];
+            [self.mJoinBtn setTitle:@"报名" forState:UIControlStateNormal];
             
         }else{
             
             modelInfo.isJoined = 1;
-            [self.view showHudMessage:str1];
+            [self.mJoinBtn setTitle:@"取消报名" forState:UIControlStateNormal];
+    
+        }
+        if ([responseObject isKindOfClass:[NSString class]]) {
+            [self.view showHudMessage:responseObject];
         }
         
-        NSLog(@"报名>>>>:%@",responseObject);
+//        NSLog(@"报名>>>>:%@",responseObject);
         
     } onFail:^(NSError *erro) {
         [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
@@ -377,5 +439,25 @@
     
 
     
+}
+
+
+- (void)checkPlanAvaiable
+{
+    UserInfo *user = [UserInfo share];
+    
+    [[ZZLHttpRequstEngine engine]requestProjectGetClassListWithUid:user.userId missionID:missionId missionStatues:-1 serviceTime:@"" pageSize:10 pageIndex:1 onSuccess:^(id responseObject) {
+        if ([responseObject isKindOfClass:[NSArray class]]) {
+            int itemCount = [responseObject count];
+            if (itemCount>0) {
+                hasPlan = YES;
+            }
+        }
+
+    } onFail:^(NSError *erro) {
+        hasPlan = NO;
+    }];
+
+
 }
 @end

@@ -265,7 +265,7 @@ typedef void (^objectBlock)(id obj);
 
 - (ZZLRequestOperation *)requestGetMissionlistWithUid:(NSString *)uid
                                             selection:(int)sel
-                                         missionState:(int)mState
+                                         missionState:(NSString *)mState
                                              pageSize:(int)psize
                                             pageIndex:(int)page
                                             onSuccess:(dictionaryBlock)successBlock

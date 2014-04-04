@@ -10,6 +10,7 @@
 #import "EditCell.h"
 #import "MyInfoCell.h"
 #import "BelongViewController.h"
+#import "UrlDefine.h"
 @interface EditInfoViewController ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,UITextFieldDelegate>
 {
     UITableView *myTableView;
@@ -36,6 +37,14 @@
     [super viewDidLoad];
     [self setTitleWithString:@"编辑资料"];
     
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(265, self.navView.bottom - 44, 46, 46);
+    [btn setImage:[UIImage imageNamed:@"nav_complete.png"] forState:UIControlStateNormal];
+    
+    [btn addTarget:self action:@selector(actionModify:) forControlEvents:UIControlEventTouchUpInside];
+    [self.navView addSubview:btn];
+    
     myTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, self.navView.bottom, 320, self.view.height-self.navView.bottom) style:UITableViewStyleGrouped];
     myTableView.backgroundColor = [UIColor clearColor];
     myTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -59,18 +68,68 @@
     
     
     
-    
+    global_districtName= @"";
+    global_districtId = @"";
 
     self.infoList = [NSMutableArray arrayWithObjects:user.userName,user.email,user.mobile,gender,user.areaName,nil];
 
 }
-
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (global_districtName.length>0) {
+        [self.infoList replaceObjectAtIndex:4 withObject:global_districtName];
+        [myTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:4 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+    }
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+- (void)actionModify:(UIButton *)sender
+{
+    [self hideKeyBorad];
+    for (int i=0; i<3; i++) {
+        if ([self.infoList[i] isEqualToString:@""]) {
+            [self.view showHudMessage:[NSString stringWithFormat:@"%@不能为空",self.list[i]]];
+             return;
+        }
+    }
+
+    
+    UserInfo *user = [UserInfo share];
+    
+    int gender  = 0;
+    if ([self.infoList[3] isEqualToString:@"男"]) {
+        gender = 1;
+    }else if([self.infoList[3] isEqualToString:@"女"]){
+        gender = 2;
+    }
+    
+    
+    [[ZZLHttpRequstEngine engine]requestUpdateUserInfoWithUid:user.userId userName:self.infoList[0] gender:gender Rc4email:self.infoList[1] Rc4mobile:self.infoList[2] areadId:(global_districtId.length>0)?global_districtId:user.areaId onSuccess:^(id responseObject) {
+        
+        NSLog(@"modify info : %@",responseObject);
+        
+        [self.view showHudMessage:responseObject];
+        
+        user.userName = self.infoList[0];
+        user.gender = gender;
+        user.email = self.infoList[1];
+        user.mobile = self.infoList[2];
+        if (global_districtId.length>0) {
+            user.areaId = global_districtId;
+        }
+        if (global_districtName.length>0) {
+            user.areaName = global_districtName;
+        }
+        
+    } onFail:^(NSError *erro) {
+        [self.view showHudMessage:[erro.userInfo objectForKey:@"description"]];
+    }];
+}
 
 #pragma mark -
 #pragma mark - tableviewDelegate,tableviewDataSource
@@ -129,14 +188,15 @@
         [self showAction];
     }
     if (row == 4) {
-        BelongViewController *vc =[BelongViewController ViewContorller] ;
-        [self.flipboardNavigationController pushViewController:vc];
+        
+        [self chooseArea];
     }
     
 }
 - (void)chooseArea
 {
-    
+    BelongViewController *vc =[BelongViewController ViewContorller] ;
+    [self.flipboardNavigationController pushViewController:vc];
 }
 
 

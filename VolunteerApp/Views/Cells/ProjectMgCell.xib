@@ -75,7 +75,7 @@
     <resources>
         <image name="proattend_hl.png" width="181" height="76"/>
         <image name="proattend_nl.png" width="181" height="76"/>
-        <image name="prorescruit_hl.png" width="181" height="76"/>
-        <image name="prorescruit_nl.png" width="181" height="76"/>
+        <image name="prorescruit_hl.png" width="154" height="50"/>
+        <image name="prorescruit_nl.png" width="154" height="50"/>
     </resources>
 </document>

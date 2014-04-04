@@ -74,7 +74,9 @@ static NSDictionary *imageDict = nil;
     }else if (type == kMyprojectCellType_Complete)
     {
         self.mStateImage.image = [UIImage imageNamed:@"mypro_complete.png"];
-        self.mAttenBtn.hidden = YES;
+//        self.mAttenBtn.hidden = YES;
+        [self.mAttenBtn setImage:[UIImage imageNamed:@"mypro_atten_nl.png"] forState:UIControlStateNormal];
+        [self.mAttenBtn setImage:[UIImage imageNamed:@"mypro_atten_hl.png"] forState:UIControlStateHighlighted];
     }
 
 

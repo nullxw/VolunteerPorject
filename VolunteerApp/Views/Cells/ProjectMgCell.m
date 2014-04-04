@@ -56,11 +56,12 @@ static UIImage *bgimage = nil;
     {
 
 
+//        self.mRescruitBtn.hidden = YES;
         self.mStateImage.image = [UIImage imageNamed:@"_12.png"];
     }else if (info.stateId == 1000)
     {
 
-
+//        self.mRescruitBtn.hidden= YES;
         self.mStateImage.image = [UIImage imageNamed:@"_15.png"];
     }
 

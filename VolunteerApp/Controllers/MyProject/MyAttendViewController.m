@@ -57,7 +57,7 @@
     
     self.mBottomView.top = self.view.height - self.mBottomView.height;
     [self.view addSubview:self.mBottomView];
-    self.mBottomView.hidden = YES;
+//    self.mBottomView.hidden = YES;
 }
 
 - (void)viewDidUnload {
@@ -66,10 +66,16 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    if (self.type == 2) {
+        self.mBottomView.hidden = YES;
+    }
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+
+
     if ([curList count]==0) {
         [mytableView triggerPullToRefresh];
     }
@@ -184,7 +190,10 @@
                         
                     }else{
                         [mytableView removeCenterMsgView];
-                        self.mBottomView.hidden = NO;
+                        if (self.type != 2) {
+                            self.mBottomView.hidden = NO;
+                        }
+                        
                         if ([curList count] > 0) {
                             [curList removeAllObjects];
                             [mytableView reloadData];
@@ -281,13 +290,13 @@
 }
 #pragma mark - actions
 - (IBAction)actionSignIn:(UIButton *)sender {
-    if ([curList count]==0) {
-        [self.view showHudMessage:@"无记录，不能签到"];
-    }
+//    if ([curList count]==0) {
+//        [self.view showHudMessage:@"无记录，不能签到"];
+//    }
     UserInfo *user = [UserInfo share];
-    SignInfo *info = curList[0];
+//    SignInfo *info = curList[0];
     
-    [[ZZLHttpRequstEngine engine]requestProjectMissionSiginWithUid:user.userId curId:user.userId missionID:info._missionId onSuccess:^(id responseObject) {
+    [[ZZLHttpRequstEngine engine]requestProjectMissionSiginWithUid:user.userId curId:user.userId missionID:self.missionId onSuccess:^(id responseObject) {
         [self.view showHudMessage:responseObject];
         [mytableView triggerPullToRefresh];
     } onFail:^(NSError *erro) {
@@ -296,12 +305,12 @@
 }
 
 - (IBAction)actionSignOut:(UIButton *)sender {
-    if ([curList count]==0) {
-        [self.view showHudMessage:@"无记录，不能签出"];
-    }
+//    if ([curList count]==0) {
+//        [self.view showHudMessage:@"无记录，不能签出"];
+//    }
     UserInfo *user = [UserInfo share];
-    SignInfo *info = curList[0];
-    [[ZZLHttpRequstEngine engine]requestProjectMissionSiginOutWithUid:user.userId curId:user.userId missionID:info._missionId onSuccess:^(id responseObject) {
+
+    [[ZZLHttpRequstEngine engine]requestProjectMissionSiginOutWithUid:user.userId curId:user.userId missionID:self.missionId onSuccess:^(id responseObject) {
         [self.view showHudMessage:responseObject];
         [mytableView triggerPullToRefresh];
     } onFail:^(NSError *erro) {

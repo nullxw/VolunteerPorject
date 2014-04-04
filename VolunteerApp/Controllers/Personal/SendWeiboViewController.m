@@ -299,8 +299,13 @@
 }
 - (void)actionSend:(UIButton *)btn
 {
-    UserInfo *user = [UserInfo share];
     [self.mTextView resignFirstResponder];
+    if (self.mTextView.text.length == 0) {
+        [self.view showHudMessage:@"微博内容不能为空"];
+        return;
+    }
+    UserInfo *user = [UserInfo share];
+    
     
     if (self.mSharePic.image) {
         [[ZZLHttpRequstEngine engine]requestWeiboUploadImageWithUid:user.userId image:imageData onSuccess:^(id responseObject) {

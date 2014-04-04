@@ -207,7 +207,7 @@
         UserInfo *user = [UserInfo share];
 
         if (curPage == 0) {
-            [[ZZLHttpRequstEngine engine]requestGetFriendWeiboWithUid:user.userId curid:@"bba9a7e23897b4cc0138a21fdbd9034b" pageSize:firstTable.pageSize pageIndex:1 createTime:@"" onSuccess:^(id responseObject) {
+            [[ZZLHttpRequstEngine engine]requestGetFriendWeiboWithUid:user.userId curid:user.userId pageSize:firstTable.pageSize pageIndex:1 createTime:@"" onSuccess:^(id responseObject) {
                 [firstTable.pullToRefreshView stopAnimating];
                 NSLog(@"___YYY__%@",responseObject);
                 if ([responseObject isKindOfClass:[NSArray class]]) {
@@ -462,6 +462,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     MyTableView *tempTableView = (MyTableView *)tableView;
     WeiboInfo *info = tempTableView.list[indexPath.row];
     if (info) {
@@ -482,6 +483,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    return;
 //    WeiboInfo *temp = curTable.list[indexPath.row];
 //    ProDetailViewController *vc = [ProDetailViewController ViewContorller];
 //    [vc setMissId:temp.mission_id];

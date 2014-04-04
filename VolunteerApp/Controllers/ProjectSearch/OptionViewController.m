@@ -39,6 +39,11 @@
     [self.view addSubview:myTableView];
     
     list = [[NSMutableArray alloc]init];
+    
+    ProtypeInfo *all = [[ProtypeInfo alloc]init];
+    all.typeName = @"全部";
+    all.missionTypeId = -1;
+    [list addObject:all];
 }
 
 - (void)viewDidUnload {
@@ -101,6 +106,7 @@
 - (void)backAction:(UIButton *)btn
 {
     if ([list count]>0) {
+        
         ProtypeInfo *temp= list[selectedRow];
 
         [[NSNotificationCenter defaultCenter]postNotificationName:Notification_Send_ProTYPE object:temp];

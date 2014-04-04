@@ -36,23 +36,7 @@
     [super viewDidLoad];
     [self setTitleWithString:@"我的资料"];
     list = [NSArray arrayWithObjects:@"姓名",@"性别",@"邮箱",@"手机号码",@"归属单位",/*@"个人排名",*/@"志愿时长", nil];
-    UserInfo *user = [UserInfo share];
-    NSString *gender;
-    if (user.gender == 0) {
-        gender = @"未知";
-    }
-    if (user.gender == 1) {
-        gender = @"男";
-    }
-    if (user.gender == 2) {
-        gender = @"女";
-    }
-    
-    
 
-    
-    NSString *serverTime = [NSString stringWithFormat:@"%d 小时",user.serviceTime/3600];
-    infoList = [NSMutableArray arrayWithObjects:user.userName,gender,user.email,user.mobile,user.areaName,@"",serverTime,nil];
     
     
     
@@ -89,6 +73,23 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    UserInfo *user = [UserInfo share];
+    NSString *gender;
+    if (user.gender == 0) {
+        gender = @"未知";
+    }
+    if (user.gender == 1) {
+        gender = @"男";
+    }
+    if (user.gender == 2) {
+        gender = @"女";
+    }
+    
+    
+    
+    NSString *serverTime = [NSString stringWithFormat:@"%d 小时",user.serviceTime/60];
+    infoList = [NSMutableArray arrayWithObjects:user.userName,gender,user.email,user.mobile,user.areaName,serverTime,nil];
+    [myTableView reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

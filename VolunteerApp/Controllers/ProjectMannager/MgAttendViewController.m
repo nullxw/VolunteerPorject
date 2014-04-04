@@ -68,7 +68,7 @@
     [FristPick setDatePickerMode:UIDatePickerModeDate];
     // 当值发生改变的时候调用的方法
 //    [FristPick addTarget:self action:@selector(datePickerValueChanged:) forControlEvents:UIControlEventValueChanged];
-    FristPick.backgroundColor = [UIColor grayColor];
+//    FristPick.backgroundColor = [UIColor grayColor];
 
     FristPick.hidden = YES;
     
@@ -246,9 +246,7 @@
         FristPick.top = self.view.height - FristPick.height;
         inputToolBar.top = FristPick.top-44;
     }];
-    NSString *datestr = [self stringFromDate:FristPick.date];
-    searchTime = datestr;
-    [self.mTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+
 }
 - (void)hidePicker
 {

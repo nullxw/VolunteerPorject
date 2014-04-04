@@ -133,6 +133,10 @@ typedef enum {
 - (void) pushViewController:(UIViewController *)viewController {
     [self pushViewController:viewController completion:^{}];
 }
+- (void)pushViewController:(UIViewController *)viewController afterDelay:(NSTimeInterval)delay
+{
+    [self performSelector:@selector(pushViewController:) withObject:nil afterDelay:delay];
+}
 
 #pragma mark - PopViewController With Completion Block
 - (void) popViewControllerWithCompletion:(FlipBoardNavigationControllerCompletionBlock)handler {
@@ -169,7 +173,10 @@ typedef enum {
 - (void) popViewController {
     [self popViewControllerWithCompletion:^{}];
 }
-
+- (void)popViewControllerAfterDelay:(NSTimeInterval)delay
+{
+    [self performSelector:@selector(popViewController) withObject:nil afterDelay:delay];
+}
 - (void) rollBackViewController {
     _animationInProgress = YES;
     

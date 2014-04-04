@@ -50,7 +50,7 @@ static UIImage *bgimage = nil;
     self.mStartTimeLb.text = [NSString stringWithFormat:@"%@ %@",info.startdate,info.starttime];
     self.m_endTimeLb.text = [NSString stringWithFormat:@"%@ %@",info.enddate,info.starttime];
     //[[info.startdate substringToIndex:10] stringByAppendingString:info.starttime];
-    self.mCaptorLb.text = [NSString stringWithFormat:@"班长(%@)",info.caption];
+    self.mCaptorLb.text = [NSString stringWithFormat:@"组长(%@)",info.caption];
     
 }
 - (void)awakeFromNib

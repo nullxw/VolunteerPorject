@@ -69,6 +69,7 @@
     
     [self setTitleWithString:@"我的项目"];
     [self setupView];
+    [self.flipboardNavigationController disEnablePan];
     
 }
 - (void)setupView
@@ -318,7 +319,13 @@
             curBtn.selected = YES;
             curpage = 0;
 
+            
+//            if (!CGPointEqualToPoint(scrollView.contentOffset, CGPointMake(0, 0))) {
+//                [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+//            }
+            
             [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+            
             if ([firstTable.list count]==0 && !firstTable.hasRequest) {
                 
                 [firstTable triggerPullToRefresh];
@@ -344,8 +351,13 @@
             curBtn.selected = YES;
             curpage = 1;
  
+            
 
-            [scrollView setContentOffset:CGPointMake(self.view.width, 0) animated:YES];
+//            if (!CGPointEqualToPoint(scrollView.contentOffset, CGPointMake(self.view.width, 0))) {
+//               
+//            }
+             [scrollView setContentOffset:CGPointMake(self.view.width, 0) animated:YES];
+            
             if ([secondTable.list count] == 0 && !secondTable.hasRequest ) {
                 [secondTable triggerPullToRefresh];
             }
@@ -370,6 +382,11 @@
 
             curpage = 2;
 
+            
+//            if (!CGPointEqualToPoint(scrollView.contentOffset, CGPointMake(self.view.width*2, 0))) {
+//                [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+//            }
+            
             [scrollView setContentOffset:CGPointMake(self.view.width*2, 0) animated:YES];
             if ([thridTable.list count]==0 && !thridTable.hasRequest) {
                 [thridTable triggerPullToRefresh];
@@ -393,21 +410,21 @@
         
         UserInfo *user = [UserInfo share];
         
-        int state = 0;
+        NSString *state = @"0";
         int sel = 0;
         NSString *str =@"";
         if (curTableView == firstTable) {
-            state = 50;
+            state = @"35,50";
             sel = 1;
             str = @"无参与中的项目";
         }else if(curTableView == secondTable)
         {
             sel = 4;
-            state = 35;
+            state = @"35,50";
             str = @"无待审批的项目";
         }else{
             sel = 1;
-            state = 100;
+            state = @"100,1000";
             str = @"暂无完成的项目";
         }
         
@@ -474,18 +491,22 @@
 {
     UserInfo *user = [UserInfo share];
     
-    int state = 0;
+    NSString *state = @"0";
     int sel = 0;
+
     if (curTableView == firstTable) {
-        state = 35;
+        state = @"35,50";
         sel = 1;
+
     }else if(curTableView == secondTable)
     {
         sel = 4;
-        state = 50;
+        state = @"35,50";
+
     }else{
         sel = 1;
-        state = 100;
+        state = @"100,1000";
+
     }
     
 
@@ -532,13 +553,46 @@
 
 
 #pragma mark - scrollview delegate
+
 /*
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)ascrollView
+{
+    CGFloat offsetx = ascrollView.contentOffset.x;
+    int page = floor((offsetx - 320 / 2) / 320) ;
+    if (curpage == page) {
+        return;
+    }else{
+        curpage = page;
+        if (curpage == 0) {
+            [self moveToFrist];
+        }else if (curpage == 1)
+        {
+            [self moveToSecond];
+            
+        }else if(curpage == 2)
+        {
+            [self moveToThrid];
+        }
+
+    }
+}
+ */
+/*
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.flipboardNavigationController disEnablePan];
+}
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    [self.flipboardNavigationController enablePan];
+}
 - (void)scrollViewDidScroll:(UIScrollView *)ascrollView
 {
 
+    
     CGFloat offsetx = ascrollView.contentOffset.x;
     int page = floor((offsetx - 320 / 2) / 320) ;
-    self.moveLineView.left = (offsetx/3)+13;
+    
     if (curpage == page) {
         return;
     }else{
@@ -555,7 +609,7 @@
         }
     }
 }
- */
+*/
 #pragma mark - cell delegate
 - (void)actionAttendBtn:(MyWaitCell *)cell AtIndexPath:(NSIndexPath *)ipath
 {
@@ -572,6 +626,11 @@
     MyAttendViewController *vc = [MyAttendViewController ViewContorller];
     MissionInfo *info = curTableView.list[row];
     vc.missionId = info.mission_id;
+    
+    if (curTableView == thridTable) {
+        vc.type = 2;
+    }
+    
     [self.flipboardNavigationController pushViewController:vc];
 }
 

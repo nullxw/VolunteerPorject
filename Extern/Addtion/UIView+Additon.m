@@ -349,7 +349,7 @@ static char kActionHandlerTapGestureKey;
 {
 	[self.layer removeAllAnimations];
 	
-	//フェードアウトアニメーション
+
 	[UIView animateWithDuration:duration
 					 animations:^{
 						 self.alpha = 0.0;
@@ -362,7 +362,7 @@ static char kActionHandlerTapGestureKey;
 							 self.hidden = YES;
 						 }
 						 
-						 //コールバック
+
 						 if( completion ){
 							 completion( finished );
 						 }
@@ -467,7 +467,7 @@ static char kActionHandlerTapGestureKey;
     
     // Configure for text only and offset down
     hud.mode = MBProgressHUDModeText;
-    hud.labelText = message;
+    hud.detailsLabelText = message;
     hud.margin = 10.f;
     hud.yOffset = 40.f;
     hud.removeFromSuperViewOnHide = YES;
@@ -526,7 +526,7 @@ static char kActionHandlerTapGestureKey;
 //---------------------------------------------------------------------------------
 - (BOOL)isExclusiveTouch
 {
-	// マルチタッチを排他するため、すべてのViewでYESを返す
+
 	return YES;
 }
 

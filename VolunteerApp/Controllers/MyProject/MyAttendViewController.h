@@ -10,4 +10,5 @@
 
 @interface MyAttendViewController : BaseViewController
 @property (nonatomic,assign) int missionId;
+@property (nonatomic) int type;
 @end

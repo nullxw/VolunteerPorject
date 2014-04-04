@@ -95,7 +95,7 @@
                             <rect key="frame" x="160" y="165" width="90" height="28"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <state key="normal" title="游客浏览>>" backgroundImage="browser_nl.png">
+                            <state key="normal" title="游客浏览>>">
                                 <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -107,7 +107,7 @@
                             <rect key="frame" x="35" y="165" width="90" height="28"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <state key="normal" title="忘记密码" backgroundImage="browser_nl.png">
+                            <state key="normal" title="忘记密码">
                                 <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -115,10 +115,18 @@
                                 <action selector="actionGetPwd:" destination="-1" eventType="touchUpInside" id="6JQ-rP-Qh6"/>
                             </connections>
                         </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico_forgetpwd.png" id="Jdk-sO-prf">
+                            <rect key="frame" x="35" y="171" width="15" height="15"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico_visitorleft.png" id="aVl-Sn-iJG">
+                            <rect key="frame" x="153" y="171" width="15" height="15"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
                     </subviews>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="DfN-Al-JAr">
-                    <rect key="frame" x="78" y="345" width="132" height="83"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo_time.png" id="DfN-Al-JAr">
+                    <rect key="frame" x="119" y="370" width="100" height="46"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </imageView>
             </subviews>
@@ -128,9 +136,11 @@
         </view>
     </objects>
     <resources>
-        <image name="browser_nl.png" width="431" height="57"/>
+        <image name="ico_forgetpwd.png" width="30" height="30"/>
+        <image name="ico_visitorleft.png" width="30" height="30"/>
         <image name="login_bg.jpg" width="720" height="1280"/>
         <image name="login_logo.png" width="552" height="168"/>
         <image name="login_shadow.png" width="639" height="96"/>
+        <image name="logo_time.png" width="48" height="22.079999923706055"/>
     </resources>
 </document>

@@ -10,9 +10,10 @@
 #import "MyTableView.h"
 #import "MyTabView.h"
 #import "HandAttendCell.h"
+#import "AttendMgCell.h"
 #import "UserAttend.h"
 #import "HandAttendViewController.h"
-@interface CheckAttendViewController () <MyTabViewDelegate,UITableViewDataSource,UITableViewDelegate,HandAttendCellDelegate>
+@interface CheckAttendViewController () <MyTabViewDelegate,UITableViewDataSource,UITableViewDelegate,AttendMgCellDelegate>
 {
     UIScrollView *scrollView;
     MyTableView  *firstTable;
@@ -568,6 +569,8 @@
 {
     MyTableView *curTableView = (MyTableView *)tableView;
     if ( [curTableView.list count]>0) {
+        
+        /*
         HandAttendCell *cell = [HandAttendCell cellForTableView:curTableView fromNib:[HandAttendCell nib]];
         
 
@@ -587,6 +590,12 @@
             cell.delegate = self;
             [cell setupWithUserAttendInfo:array index:indexPath.row*2];
         }
+         */
+        AttendMgCell *cell = [AttendMgCell cellForTableView:tableView fromNib:[AttendMgCell nib]];
+        cell.backgroundColor = [UIColor clearColor];
+        cell.index = indexPath.row;
+        cell.delegate = self;
+        [cell setupWithUserAttend:curTableView.list[indexPath.row]];
 
         return cell;
     }else{
@@ -598,11 +607,12 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     MyTableView *curTableView = (MyTableView *)tableView;
-    if (curTableView.list.count%2 == 0) {
-        return curTableView.list.count/2;
-    }else{
-        return curTableView.list.count/2+1;
-    }
+//    if (curTableView.list.count%2 == 0) {
+//        return curTableView.list.count/2;
+//    }else{
+//        return curTableView.list.count/2+1;
+//    }
+    return curTableView.list.count;
 
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -648,6 +658,33 @@
 }
 
 
+
+- (void)AttendMgCellDelegate:(AttendMgCell *)cell actionWithIndex:(NSInteger)index
+{
+    NSLog(@"inndex is :<%d>  ",index);
+    
+    MyTableView *temp ;
+    if (curpage == 0) {
+        temp =firstTable;
+    }else if (curpage == 1)
+    {
+        temp =secondTable;
+    }else if (curpage == 2)
+    {
+        temp =thridTable;
+    }else if (curpage == 3)
+    {
+        temp =fourthTable;
+    }
+    
+    UserAttend *tempInfo = [temp.list objectAtIndex:index];
+    HandAttendViewController *vc = [HandAttendViewController ViewContorller];
+    vc.attendInfo = tempInfo;
+    vc.mid = missionId;
+    vc.teamId = teamId;
+    [self.flipboardNavigationController pushViewController:vc];
+}
+/*
 - (void)HandAttendCellDelegate:(HandAttendCell *)cell actionWithIndex:(NSInteger)index
 {
     NSLog(@"inndex is :<%d>  ",index);
@@ -673,4 +710,5 @@
     vc.teamId = teamId;
     [self.flipboardNavigationController pushViewController:vc];
 }
+ */
 @end

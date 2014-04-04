@@ -32,12 +32,13 @@
     UIImage *bgimage = [[UIImage imageNamed:@"mypro_cellbg.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(10, 10, 10, 10)] ;
     self.mbgview.image = bgimage;
     
-    if (info.isUpdated) {
-        self.mstate.text = @"已确认";
-    }else{
-        self.mstate.text = @"未确认";
-    }
+//    if (info.isUpdated) {
+//        self.mstate.text = @"已确认";
+//    }else{
+//        self.mstate.text = @"未确认";
+//    }
     
+    self.mstate.text = [NSString stringWithFormat:@"服务时长%d分钟",info.serviceMinute];
     self.msigin.text = info._startDatetime;
     if (info._endDatetime.length>0) {
         self.mysigout.text = [NSString stringWithFormat:@"签出: %@",info._endDatetime];

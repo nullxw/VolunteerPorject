@@ -9,5 +9,5 @@
 #import "BaseViewController.h"
 
 @interface ConfirmPwdViewController : BaseViewController
-
+@property (nonatomic,strong) NSString *userName;
 @end

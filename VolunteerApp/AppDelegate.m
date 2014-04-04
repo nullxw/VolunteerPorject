@@ -17,6 +17,7 @@
 #import "UIAlertView+Blocks.h"
 #import "NSString+WiFi.h"
 #import "GuildViewController.h"
+#import "MobClick.h"
 @interface AppDelegate ()<LoginViewDelegate>
 {
 
@@ -60,7 +61,7 @@
     }
 //    [self setupWeiBo];
     [self autoLogin];
-    
+    [self startUM];
     return YES;
 }
 - (void)setupWeiBo
@@ -81,6 +82,22 @@
 
     
 }
+- (void)startUM
+{
+    [MobClick startWithAppkey:@"533dfed656240bbcf908f38b"];
+//    + (void)checkUpdateWithDelegate:(id)delegate selector:(SEL)callBackSelectorWithDictionary;
+    [MobClick checkUpdate:@"有新版本" cancelButtonTitle:@"取消" otherButtonTitles:@"去下载"];
+    
+    [MobClick updateOnlineConfig];
+    
+    NSString *check = [MobClick getConfigParams:@"CheckUpdate"];
+    
+    if (![check isEqualToString:@"YES"]) {
+        
+    }
+    
+}
+
 - (void)showGuildView
 {
     GuildViewController *vc = [[GuildViewController alloc]init];
